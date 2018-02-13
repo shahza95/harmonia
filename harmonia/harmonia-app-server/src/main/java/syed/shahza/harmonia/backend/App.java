@@ -1,4 +1,4 @@
-package syed.shahza;
+package syed.shahza.harmonia.backend;
 
 /**
  * Hello world!

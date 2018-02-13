@@ -1,4 +1,4 @@
-package syed.shahza;
+package syed.shahza.harmonia.frontend;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

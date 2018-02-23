@@ -4,8 +4,10 @@ import syed.shahza.harmonia.backend.core.domain.Lecturer;
 
 public class LecturerService {
 
-    public Boolean login(Lecturer lecturer) {
-    	//Check in lecturers array
-        return true;
-    }
+	public Boolean login(Lecturer lecturer) {
+		if (lecturer.getUsername().equals("username") && lecturer.getPassword().equals("password")) {
+			return true;
+		}
+		return false;
+	}
 }

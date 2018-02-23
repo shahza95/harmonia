@@ -33,12 +33,4 @@ public class RestClientTest {
 
         verify(this.mockRestOperations).postForObject(FULL_URL, null, LecturerDto.class);
     }
-
-    @Test
-    public void postRequestInvokesMockRestOperationsPostForObjectMethodWithCorrectParameters() {
-    	LecturerDto lecturerDto = new LecturerDto();
-        this.restClient.post(ENDPOINT_URL, lecturerDto, LecturerDto.class);
-
-        verify(this.mockRestOperations).postForObject(FULL_URL, lecturerDto, LecturerDto.class);
-    }
 }

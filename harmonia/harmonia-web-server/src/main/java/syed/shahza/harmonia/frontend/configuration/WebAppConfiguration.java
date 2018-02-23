@@ -1,15 +1,24 @@
 package syed.shahza.harmonia.frontend.configuration;
 
+import javax.annotation.Resource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import syed.shahza.harmonia.frontend.controller.LoginController;
+import syed.shahza.harmonia.restapi.action.LoginAction;
+import syed.shahza.harmonia.restapi.configuration.RestApiConfiguration;
 
 @Configuration
+@Import(RestApiConfiguration.class)
 public class WebAppConfiguration {
+	
+    @Resource(name = "loginAction")
+    private LoginAction loginAction;
 
     @Bean
     public LoginController loginController() {
-        return new LoginController();
+        return new LoginController(loginAction);
     }
 }

@@ -11,6 +11,17 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>syed.shahza</groupId>
+			<artifactId>harmonia-rest-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>syed.shahza</groupId>
+			<artifactId>harmonia-app-server-dto</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>

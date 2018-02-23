@@ -55,6 +55,11 @@
 		<dependencies>
 			<dependency>
 				<groupId>syed.shahza</groupId>
+				<artifactId>harmonia-rest-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>syed.shahza</groupId>
 				<artifactId>harmonia-app-server</artifactId>
 				<version>${project.version}</version>
 			</dependency>

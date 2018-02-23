@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.backend.endpoint;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ public class LoginController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Boolean login(LecturerDto lecturerDto) {
+    public Boolean login(@RequestBody LecturerDto lecturerDto) {
         return this.lecturerService.login(this.lecturerAdapter.toDomain(lecturerDto));
     }
 }

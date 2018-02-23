@@ -17,4 +17,20 @@ public class LecturerServiceTest {
 
         assertThat(lecturerService.login(lecturer), is(instanceOf(Boolean.class)));
     }
+    
+    @Test
+    public void lecturerServiceLoginReturnsTrueIfCredentialsCorrect() {
+        LecturerService lecturerService = new LecturerService();
+        Lecturer lecturer = aValidLecturer().username("username").password("password").build();
+
+        assertThat(lecturerService.login(lecturer), is(true));
+    }
+    
+    @Test
+    public void lecturerServiceLoginReturnsFalseIfCredentialsInorrect() {
+        LecturerService lecturerService = new LecturerService();
+        Lecturer lecturer = aValidLecturer().username("test").password("123").build();
+
+        assertThat(lecturerService.login(lecturer), is(false));
+    }
 }

@@ -1,6 +1,7 @@
 package syed.shahza.harmonia.backend.integration;
 
 import static com.jayway.restassured.RestAssured.given;
+import static syed.shahza.harmonia.backend.dto.TestLecturerDtos.aValidLecturerDto;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,11 +11,9 @@ import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import syed.shahza.harmonia.backend.configuration.BackendConfiguration;
-
 import com.jayway.restassured.RestAssured;
 
+import syed.shahza.harmonia.backend.configuration.BackendConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = BackendConfiguration.class)
@@ -29,7 +28,12 @@ public class EndpointIntegrationTest {
     }
 
     @Test
-    public void postRequestToLoginReturns200Ok() {
-        given().accept("application/json").when().param("username", "password").post("/login").then().statusCode(200);
+    public void postRequestToLoginWithEmptyFieldsReturns200Ok() {
+        given().contentType("application/json").body(aValidLecturerDto().username("").password("").build()).when().post("/login").then().statusCode(200);
+    }
+    
+    @Test
+    public void postRequestToLoginWithFieldsReturns200Ok() {
+        given().contentType("application/json").body(aValidLecturerDto().build()).when().post("/login").then().statusCode(200);
     }
 }

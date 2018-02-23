@@ -11,7 +11,7 @@ public class LoginAction {
         this.restClient = restClient;
     }
 
-    public void login(LecturerDto lecturerDto) {
-        this.restClient.post(URL_ENDPOINT, lecturerDto, Boolean.class);
+    public Boolean login(LecturerDto lecturerDto) {
+        return this.restClient.post(URL_ENDPOINT, lecturerDto, Boolean.class);
     }
 }

@@ -29,8 +29,16 @@ public class RestClientTest {
     
     @Test
     public void postRequestInvokesMockRestOperationsPostForObjectMethodWithCorrectParametersForNullObjectPost() {
-        this.restClient.post(ENDPOINT_URL, null, LecturerDto.class);
+        this.restClient.post(ENDPOINT_URL, null, Boolean.class);
 
-        verify(this.mockRestOperations).postForObject(FULL_URL, null, LecturerDto.class);
+        verify(this.mockRestOperations).postForObject(FULL_URL, null, Boolean.class);
+    }
+    
+    @Test
+    public void postRequestInvokesMockRestOperationsPostForObjectMethodWithCorrectParameters() {
+    	LecturerDto lecturerDto = new LecturerDto();
+        this.restClient.post(ENDPOINT_URL, lecturerDto, Boolean.class);
+
+        verify(this.mockRestOperations).postForObject(FULL_URL, lecturerDto, Boolean.class);
     }
 }

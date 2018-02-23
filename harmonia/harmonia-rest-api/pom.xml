@@ -5,5 +5,5 @@
     <artifactId>harmonia</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <artifactId>harmonia-app-server-rest-api</artifactId>
+  <artifactId>harmonia-rest-api</artifactId>
 </project>

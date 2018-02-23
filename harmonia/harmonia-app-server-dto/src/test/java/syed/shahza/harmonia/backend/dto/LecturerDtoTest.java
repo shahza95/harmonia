@@ -12,18 +12,18 @@ public class LecturerDtoTest {
     @Test
     public void canRetrieveCorrectUsernameOnceSet() {
     	LecturerDto lecturerDto = aValidLecturerDto().build();
-        String randomDataString = "anotherUsername";
-        lecturerDto.setUsername(randomDataString);
+        String randomUsernameString = "anotherUsername";
+        lecturerDto.setUsername(randomUsernameString);
 
-        assertThat(lecturerDto.getUsername(), is(randomDataString));
+        assertThat(lecturerDto.getUsername(), is(randomUsernameString));
     }
 
     @Test
     public void canRetrievePasswordOnceSet() {
     	LecturerDto lecturerDto = aValidLecturerDto().build();
-        String randomDataString = "anotherPassword";
-        lecturerDto.setPassword(randomDataString);
+        String randomPasswordString = "anotherPassword";
+        lecturerDto.setPassword(randomPasswordString);
 
-        assertThat(lecturerDto.getPassword(), is(randomDataString));
+        assertThat(lecturerDto.getPassword(), is(randomPasswordString));
     }
 }

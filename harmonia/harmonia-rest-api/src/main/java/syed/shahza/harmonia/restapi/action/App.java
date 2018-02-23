@@ -1,4 +1,4 @@
-package syed.shahza.harmonia.restapi;
+package syed.shahza.harmonia.restapi.action;
 
 /**
  * Hello world!

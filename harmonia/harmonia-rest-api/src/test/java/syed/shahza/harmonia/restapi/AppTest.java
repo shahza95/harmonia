@@ -1,4 +1,4 @@
-package syed.shahza.harmonia.backend.restapi;
+package syed.shahza.harmonia.restapi;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -8,28 +8,24 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>harmonia-app-server-core</artifactId>
+	<artifactId>harmonia-rest-api</artifactId>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
+			<groupId>syed.shahza</groupId>
+			<artifactId>harmonia-app-server-dto</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>syed.shahza</groupId>
+			<artifactId>harmonia-app-server-dto</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-webmvc</artifactId>
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>test-jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 </project>

@@ -24,6 +24,7 @@
 		<module>harmonia-rest-api</module>
 		<module>harmonia-app-server-dto</module>
 		<module>harmonia-app-server-endpoint</module>
+		<module>harmonia-end-to-end-test</module>
 	</modules>
 
 	<dependencies>

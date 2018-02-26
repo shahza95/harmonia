@@ -1,20 +1,20 @@
-package syed.shahza.harmonia.backend.dto;
+package syed.shahza.harmonia.backend.core.domain;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
-public class LectureDto {
+public class Lecture {
     private String title;
     private String password;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
 
-    public LectureDto() {
+    public Lecture() {
         super();
     }
 
-    private LectureDto(Builder builder) {
+    private Lecture(Builder builder) {
         this();
         this.title = builder.title;
         this.password = builder.password;
@@ -26,48 +26,28 @@ public class LectureDto {
     public String getTitle() {
         return this.title;
     }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
     
     public String getPassword() {
         return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
     
     public LocalDate getDate() {
         return this.date;
     }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
     
     public LocalTime getStartTime() {
         return this.startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
     }
     
     public LocalTime getEndTime() {
         return this.endTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
-    }
-    
     public Boolean isEmpty() {
     	return this.title == null && this.password == null && this.date == null && this.startTime == null && this.endTime == null;
     }
 
-    public static Builder aLectureDto() {
+    public static Builder aLecture() {
         return new Builder();
     }
 
@@ -103,8 +83,8 @@ public class LectureDto {
         	return this;
         }
 
-        public LectureDto build() {
-            return new LectureDto(this);
+        public Lecture build() {
+            return new Lecture(this);
         }
     }
 }

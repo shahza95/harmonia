@@ -1,4 +1,4 @@
-package syed.shahza.harmonia.backend.endpoint;
+package syed.shahza.harmonia.backend.endpoint.controller;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -15,6 +15,7 @@ import syed.shahza.harmonia.backend.core.service.LecturerService;
 import syed.shahza.harmonia.backend.dto.LecturerDto;
 import syed.shahza.harmonia.backend.dto.TestLecturerDtos;
 import syed.shahza.harmonia.backend.endpoint.adapter.LecturerAdapter;
+import syed.shahza.harmonia.backend.endpoint.controller.LoginController;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoginControllerTest {

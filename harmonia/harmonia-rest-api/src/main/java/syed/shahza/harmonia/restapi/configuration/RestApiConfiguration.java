@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 import syed.shahza.harmonia.restapi.action.LoginAction;
 import syed.shahza.harmonia.restapi.client.RestClient;
 
@@ -23,5 +24,10 @@ public class RestApiConfiguration {
 	@Bean
 	public LoginAction loginAction() {
 		return new LoginAction(restClient());
+	}
+	
+	@Bean
+	public LectureCreationAction lectureCreationAction() {
+		return new LectureCreationAction(restClient());
 	}
 }

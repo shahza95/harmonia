@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Login</title>
+<title>LectureCreation</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" media="all"
       href="../../resources/css/styles.css" th:href="@{/resources/css/styles.css}"/>
@@ -9,11 +9,11 @@
 <body>
   <form method="post">
     <div class="field">
-    	<h1>Lecturer Log In</h1>
+    	<h1>Create a Lecture</h1>
     </div>
     <div class="field">
-    	<label for="Username">Username</label>
-        <input id="Username" name="username" />
+    	<label for="Title">Title</label>
+        <input id="Title" name="title" />
     </div>
     <br />
     <div class="field">
@@ -21,8 +21,23 @@
         <input id="Password" name="password" />
     </div>
     <br />
+    <div class="field">
+    	<label for="Date">Date</label>
+        <input id="Date" name="date" />
+    </div>
+    <br />
+    <div class="field">
+    	<label for="StartTime">Start Time</label>
+        <input id="StartTime" name="startTime" />
+    </div>
+    <br />
+    <div class="field">
+    	<label for="EndTime">End Time</label>
+        <input id="EndTime" name="endTime" />
+    </div>
+    <br />
     <div class="button">
-    <input type="submit" value="Login" />
+    <input type="submit" value="Create" />
     </div>
   </form>
 </body>

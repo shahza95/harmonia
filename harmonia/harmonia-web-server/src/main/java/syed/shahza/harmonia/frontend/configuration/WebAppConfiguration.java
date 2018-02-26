@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import syed.shahza.harmonia.frontend.controller.LectureController;
 import syed.shahza.harmonia.frontend.controller.LoginController;
+import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 import syed.shahza.harmonia.restapi.action.LoginAction;
 import syed.shahza.harmonia.restapi.configuration.RestApiConfiguration;
 
@@ -16,9 +18,17 @@ public class WebAppConfiguration {
 	
     @Resource(name = "loginAction")
     private LoginAction loginAction;
+    
+    @Resource(name = "lectureCreationAction")
+    private LectureCreationAction lectureCreationAction;
 
     @Bean
     public LoginController loginController() {
         return new LoginController(loginAction);
+    }
+    
+    @Bean
+    public LectureController lectureController() {
+    	return new LectureController(lectureCreationAction);
     }
 }

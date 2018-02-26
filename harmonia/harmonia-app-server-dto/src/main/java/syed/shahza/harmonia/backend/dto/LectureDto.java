@@ -1,5 +1,8 @@
 package syed.shahza.harmonia.backend.dto;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -61,6 +64,10 @@ public class LectureDto {
 
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
+    }
+    
+    public Boolean isEmpty() {
+    	return this.title == null && this.password == null && this.date == null && this.startTime == null && this.endTime == null;
     }
 
     public static Builder aLectureDto() {

@@ -11,4 +11,8 @@ public class TestLectureDtos {
     public static Builder aValidLectureDto() {
         return aLectureDto().title("title").password("password").date(new LocalDate()).startTime(new LocalTime()).endTime(new LocalTime().plusHours(1));
     }
+    
+    public static Builder anEmptyLectureDto() {
+        return aLectureDto();
+    }
 }

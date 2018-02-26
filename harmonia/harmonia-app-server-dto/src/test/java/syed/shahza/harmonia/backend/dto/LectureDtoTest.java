@@ -3,6 +3,7 @@ package syed.shahza.harmonia.backend.dto;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static syed.shahza.harmonia.backend.dto.TestLectureDtos.aValidLectureDto;
+import static syed.shahza.harmonia.backend.dto.TestLectureDtos.anEmptyLectureDto;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -54,5 +55,23 @@ public class LectureDtoTest {
         lectureDto.setEndTime(randomEndTime);
 
         assertThat(lectureDto.getEndTime(), is(randomEndTime));
+    }
+    
+    @Test
+    public void isEmptyShouldReturnFalseIfNoFieldIsNull() {
+    	LectureDto lectureDto = aValidLectureDto().build();
+    	assertThat(lectureDto.isEmpty(), is(false));
+    }
+    
+    @Test
+    public void isEmptyShouldReturnFalseIfAtleastOneFieldIsNotNull() {
+    	LectureDto lectureDto = anEmptyLectureDto().title("title").build();
+    	assertThat(lectureDto.isEmpty(), is(false));
+    }
+    
+    @Test
+    public void isEmptyShouldReturnTrueIfAllFieldsAreNull() {
+    	LectureDto lectureDto = anEmptyLectureDto().build();
+    	assertThat(lectureDto.isEmpty(), is(true));
     }
 }

@@ -6,6 +6,9 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
+import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.backend.dto.TestLectureDtos;
+
 
 public class ActiveLectureControllerTest {
 	private ActiveLectureController activeLectureController;
@@ -17,6 +20,7 @@ public class ActiveLectureControllerTest {
     
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLecture() {
-    	assertThat(this.activeLectureController.displayActiveLecture().getViewName(), is("activeLecture"));
+    	LectureDto lectureDto = TestLectureDtos.aValidLectureDto().build();
+    	assertThat(this.activeLectureController.displayActiveLecture(lectureDto).getViewName(), is("activeLecture"));
     }
 }

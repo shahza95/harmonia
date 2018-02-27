@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>View Lecture</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all"
+      href="../../resources/css/styles.css" th:href="@{/resources/css/styles.css}"/>
+</head>
+<body>
+    <div class="field">
+        <input readonly="readonly" value="Title" th:value="${lectureDto.title}" name="title"/>
+    </div>
+    <br />
+    <div class="field">
+        <input readonly="readonly" value="Password" th:value="${lectureDto.password}" name="password"/>
+    </div>
+    <br />
+    <div class="field">
+        <input readonly="readonly" value="Date" th:value="${lectureDto.date}" name="date"/>
+    </div>
+    <br />
+    <div class="field">
+        <input readonly="readonly" value="StartTime" th:value="${lectureDto.startTime}" name="startTime"/>
+    </div>
+    <br />    
+    <div class="field">
+        <input readonly="readonly" value="EndTime" th:value="${lectureDto.endTime}" name="endTime"/>
+    </div>
+    <br />    
+</body>
+</html>

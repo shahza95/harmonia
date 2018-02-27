@@ -17,18 +17,16 @@ public class WebDriverLoginPage extends WebDriverPage implements LoginPage {
     public void navigateTo() {
         this.navigateTo(LOGIN_URL);
     }
+    
+    @Override
+    public void enterCredentials(LecturerDto currentUser) {
+    	this.findInputByName("username").ifPresent(input -> input.fill(currentUser.getUsername()));
+    	this.findInputByName("password").ifPresent(input -> input.fill(currentUser.getPassword()));
+    }
 
     @Override
     public Result clickLoginButton() {
         this.findButtonByClass("button").ifPresent(button -> button.submit());
-        return this.findTextByString("Successfully").map(text -> {
-            return text.isPresent() ? Result.SUCCESS : Result.FAILURE;
-        }).get();
+        return findTextByString("Successfully").isPresent() ? Result.SUCCESS : Result.FAILURE;
     }
-
-	@Override
-	public void enterCredentials(LecturerDto currentUser) {
-        this.findInputByName("username").ifPresent(input -> input.fill(currentUser.getUsername()));
-        this.findInputByName("password").ifPresent(input -> input.fill(currentUser.getPassword()));
-	}
 }

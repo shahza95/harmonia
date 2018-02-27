@@ -38,7 +38,9 @@ public class LectureController {
 		if(returnedLectureDto.isEmpty()) {
 			return new ModelAndView("lectureCreation");
 		}
-		
+		if(lectureIsActive(returnedLectureDto.getDate(), returnedLectureDto.getStartTime(), returnedLectureDto.getEndTime())){
+			return new ModelAndView("redirect:/lecture/active");
+		}
 		redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
 		return new ModelAndView("redirect:/lecture/view");
 	}
@@ -49,5 +51,12 @@ public class LectureController {
 		lectureDto.setEndTime(LocalTime.parse(endTime));
 		
 		return lectureDto;
+	}
+	
+	private Boolean lectureIsActive(LocalDate date, LocalTime startTime, LocalTime endTime) {
+		if(LocalDate.now().equals(date) && LocalTime.now().isAfter(startTime) && LocalTime.now().isBefore(endTime)) {
+			return true;
+		}
+		return false;
 	}
 }

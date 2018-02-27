@@ -5,3 +5,12 @@ body {
 .field input {
   width: 250px;
 }
+
+#leftMenu {
+	float: left;
+	padding-left: 100px;
+}
+
+#rightPanel {
+	float: left;
+}

@@ -11,15 +11,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 
 @Controller
 @RequestMapping("/lecture")
 public class LectureController {
 	private final LectureCreationAction lectureCreationAction;
+	private final JoinLectureAction joinLectureAction;
 
-	public LectureController(LectureCreationAction lectureCreationAction) {
+	public LectureController(LectureCreationAction lectureCreationAction, JoinLectureAction joinLectureAction) {
 		this.lectureCreationAction = lectureCreationAction;
+		this.joinLectureAction = joinLectureAction;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -30,6 +33,11 @@ public class LectureController {
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public ModelAndView getViewLecturePage(@ModelAttribute("lectureDto") LectureDto lectureDto) {
 		return new ModelAndView("viewLecture", "lectureDto", lectureDto); 
+	}
+	
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public ModelAndView getJoinLecturePage() {
+		return new ModelAndView("joinLecture"); 
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -43,6 +51,16 @@ public class LectureController {
 		}
 		redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
 		return new ModelAndView("redirect:/lecture/view");
+	}
+	
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public ModelAndView join(@RequestParam("password") String password, RedirectAttributes redirectAttributes) {
+		LectureDto returnedLectureDto = this.joinLectureAction.join(password);
+		if(returnedLectureDto.isEmpty()) {
+			return new ModelAndView("joinLecture");
+		}
+		redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
+		return new ModelAndView("redirect:/lecture/active"); 			
 	}
 	
 	private LectureDto getCompleteLectureDto(LectureDto lectureDto, String date, String startTime, String endTime) {

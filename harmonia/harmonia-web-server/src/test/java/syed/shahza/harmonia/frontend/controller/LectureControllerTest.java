@@ -19,18 +19,23 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LectureControllerTest {
     private LectureController lectureController;
     private LectureDto lectureDto;
+    private String password = "somePassword";
     private String dateTomorrow = LocalDate.now().plusDays(1).toString();
     private String startTime = LocalTime.now().toString();
     private String endTime = LocalTime.now().plusHours(1).toString();
     
     @Mock
     private LectureCreationAction mockLectureCreationAction;
+    
+    @Mock
+    private JoinLectureAction mockJoinLectureAction;
     
     @Mock
     private RedirectAttributes mockRedirectAttributes;
@@ -41,7 +46,7 @@ public class LectureControllerTest {
     @Before
     public void before() {
     	lectureDto = aValidLectureDto().date(null).startTime(null).endTime(null).build();
-        this.lectureController = new LectureController(mockLectureCreationAction);
+        this.lectureController = new LectureController(mockLectureCreationAction, mockJoinLectureAction);
     }
     
     @Test
@@ -52,6 +57,11 @@ public class LectureControllerTest {
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForView() {
     	assertThat(this.lectureController.getViewLecturePage(lectureDto).getViewName(), is("viewLecture"));
+    }
+    
+    @Test
+    public void controllerServesUpCorrectThymeleafPageOnGetForJoin() {
+    	assertThat(this.lectureController.getJoinLecturePage().getViewName(), is("joinLecture"));
     }
     
     @Test
@@ -91,5 +101,28 @@ public class LectureControllerTest {
     	when(this.mockLectureCreationAction.create(lectureDto)).thenReturn(lectureDto);
     	
     	assertThat(this.lectureController.create(lectureDto, LocalDate.now().toString(), startTime, endTime, mockRedirectAttributes).getViewName(), is("redirect:/lecture/active"));
+    }
+    
+    @Test
+    public void joinReturnsJoinLecturePageIfPasswordInvalidThereforeReturnedDtoIsEmpty() {
+    	when(this.mockJoinLectureAction.join(password)).thenReturn(anEmptyLectureDto().build());
+    	
+    	assertThat(this.lectureController.join(password, mockRedirectAttributes).getViewName(), is("joinLecture"));
+    }
+    
+    @Test
+    public void successfulJoinPassesDtoAsRedirectModelValueToActiveLecturePage() {
+    	LectureDto lectureDto = aValidLectureDto().build();
+       	when(this.mockJoinLectureAction.join(password)).thenReturn(lectureDto);
+    	this.lectureController.join(password, mockRedirectAttributes);
+    	
+    	verify(this.mockRedirectAttributes).addFlashAttribute("lectureDto", lectureDto);
+    }
+    
+    @Test
+    public void joinRedirectsToActiveLecturePageIfPasswordValidThereforeReturnedDtoNotEmpty() {
+    	when(this.mockJoinLectureAction.join(password)).thenReturn(aValidLectureDto().build());
+    	
+    	assertThat(this.lectureController.join(password, mockRedirectAttributes).getViewName(), is("redirect:/lecture/active"));
     }
 }

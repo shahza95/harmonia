@@ -14,7 +14,7 @@ public class LectureRepository {
 		return lecture;
 	}
 	
-	public Lecture join(String password) {
+	public Lecture retrieveLectureFromPassword(String password) {
 		for(Lecture lecture: lectures) {
 			if(lecture.getPassword().equals(password)) {
 				return lecture;

@@ -29,13 +29,13 @@ public class LectureRepositoryTest {
     	this.lectureRepository = new LectureRepository();
     	this.lectureRepository.create(lecture);
     	
-    	assertThat(lectureRepository.join(lecture.getPassword()), is(lecture));
+    	assertThat(lectureRepository.retrieveLectureFromPassword(lecture.getPassword()), is(lecture));
     }
     
     @Test
     public void joinReturnsEmptyLectureObjectIfPasswordInvalid() {
     	this.lectureRepository = new LectureRepository();
-    	Lecture lecture = lectureRepository.join("passwordForNonExistentLecture");
+    	Lecture lecture = lectureRepository.retrieveLectureFromPassword("passwordForNonExistentLecture");
     	assertTrue(lecture.isEmpty());
     }
 }

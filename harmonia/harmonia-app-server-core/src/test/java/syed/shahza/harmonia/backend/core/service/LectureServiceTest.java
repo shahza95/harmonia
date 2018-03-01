@@ -48,13 +48,13 @@ public class LectureServiceTest {
     	String password = "password";
 		lectureService.join(password);
 		
-    	verify(this.mockLectureRepository).join(password);
+    	verify(this.mockLectureRepository).retrieveLectureFromPassword(password);
     }
     
     @Test
     public void joinReturnsLectureObject() {
     	String password = "password";
-    	when(this.mockLectureRepository.join(password)).thenReturn(lecture);
+    	when(this.mockLectureRepository.retrieveLectureFromPassword(password)).thenReturn(lecture);
     	
     	assertThat(lectureService.join(password), instanceOf(Lecture.class));
     }

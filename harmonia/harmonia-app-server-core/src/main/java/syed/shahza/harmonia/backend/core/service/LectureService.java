@@ -15,6 +15,6 @@ public class LectureService {
 	}
 	
 	public Lecture join(String password) {
-		return lectureRepository.join(password);
+		return lectureRepository.retrieveLectureFromPassword(password);
 	}
 }

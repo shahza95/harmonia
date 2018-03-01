@@ -35,6 +35,11 @@
 			<constructor-arg name="webDriver" ref="webDriver" />
 		</bean>
 
+		<bean id="joinLecturePage"
+			class="syed.shahza.harmonia.endtoend.test.page.webdriver.WebDriverJoinLecturePage">
+			<constructor-arg name="webDriver" ref="webDriver" />
+		</bean>
+
 		<bean id="loginService"
 			class="syed.shahza.harmonia.endtoend.test.service.page.PageBasedLoginService">
 			<constructor-arg name="loginPage" ref="loginPage" />
@@ -43,6 +48,7 @@
 		<bean id="lectureService"
 			class="syed.shahza.harmonia.endtoend.test.service.page.PageBasedLectureService">
 			<constructor-arg name="lectureCreationPage" ref="lectureCreationPage" />
+			<constructor-arg name="joinLecturePage" ref="joinLecturePage" />
 		</bean>
 
 	</beans>

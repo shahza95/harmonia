@@ -5,10 +5,9 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static syed.shahza.harmonia.backend.dto.TestLectureDtos.aValidLectureDto;
+import static syed.shahza.harmonia.backend.dto.TestLectureDtos.anActiveLectureDto;
 import static syed.shahza.harmonia.backend.dto.TestLectureDtos.anEmptyLectureDto;
 
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,9 +25,6 @@ public class LectureControllerStudentTest {
     private LectureDto lectureDto;
     private LectureDto activeLectureDto;
     private String password = "somePassword";
-    private LocalDate dateToday = LocalDate.now();
-    private String startTime = LocalTime.now().toString();
-    private String endTime = LocalTime.now().plusHours(1).toString();
     
     @Mock
     private JoinLectureAction mockJoinLectureAction;
@@ -39,7 +35,7 @@ public class LectureControllerStudentTest {
     @Before
     public void before() {
     	lectureDto = aValidLectureDto().date(null).startTime(null).endTime(null).build();
-    	activeLectureDto = aValidLectureDto().date(dateToday).startTime(LocalTime.parse(startTime)).endTime(LocalTime.parse(endTime)).build();
+    	activeLectureDto = anActiveLectureDto().build();
         this.lectureController = new LectureControllerStudent(mockJoinLectureAction);
     }
     

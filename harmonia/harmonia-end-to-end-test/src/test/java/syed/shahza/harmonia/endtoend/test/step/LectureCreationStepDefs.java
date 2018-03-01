@@ -2,11 +2,11 @@ package syed.shahza.harmonia.endtoend.test.step;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static syed.shahza.harmonia.backend.dto.TestLectureDtos.anActiveLectureDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
-import syed.shahza.harmonia.backend.dto.TestLectureDtos;
 import syed.shahza.harmonia.endtoend.test.api.Action;
 import syed.shahza.harmonia.endtoend.test.api.Result;
 import syed.shahza.harmonia.endtoend.test.context.ExecutionContext;
@@ -30,12 +30,12 @@ public class LectureCreationStepDefs {
     
     @When("^I create a lecture starting now")
     public void whenIEnterMyCredentialsAndPressTheLoginButton() {
-        Result result = this.lectureService.create(TestLectureDtos.aValidLectureDto().build());
+        Result result = this.lectureService.create(anActiveLectureDto().build());
         this.executionContext.addResult(Action.CREATE, result);
     }
 
     @Then("^I get redirected to the active lecture page")
-    public void thenIGetRedirectedToTheSuccessPage() {
+    public void thenIGetRedirectedToTheActiveLecturePage() {
         assertThat(this.executionContext.getLastResultFor(Action.CREATE), is(Result.SUCCESS));
     }
 }

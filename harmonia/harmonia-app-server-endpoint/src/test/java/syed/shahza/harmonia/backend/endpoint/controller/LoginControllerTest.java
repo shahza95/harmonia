@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.core.domain.Lecturer;
-import syed.shahza.harmonia.backend.core.service.LecturerService;
+import syed.shahza.harmonia.backend.core.service.LoginService;
 import syed.shahza.harmonia.backend.dto.LecturerDto;
 import syed.shahza.harmonia.backend.dto.TestLecturerDtos;
 import syed.shahza.harmonia.backend.endpoint.adapter.LecturerAdapter;
@@ -26,7 +26,7 @@ public class LoginControllerTest {
     private LecturerAdapter mockLecturerAdapter;
 
     @Mock
-    private LecturerService mockLecturerService;
+    private LoginService mockLecturerService;
 
     @Before
     public void before() {

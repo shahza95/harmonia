@@ -16,8 +16,8 @@ import syed.shahza.harmonia.backend.core.domain.Lecturer;
 import syed.shahza.harmonia.backend.core.repository.LecturerRepository;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LecturerServiceTest {
-	private LecturerService lecturerService;
+public class LoginServiceTest {
+	private LoginService loginService;
 	private Lecturer lecturer;
 	
 	@Mock
@@ -26,26 +26,26 @@ public class LecturerServiceTest {
 	@Before
 	public void before() {
 		lecturer = aValidLecturer().build();
-		this.lecturerService = new LecturerService(this.mockLecturerRepository);
+		this.loginService = new LoginService(this.mockLecturerRepository);
 	}
 	
     @Test
     public void loginInvokesLecturerRepository() {
-    	lecturerService.login(lecturer);
+    	loginService.login(lecturer);
     	verify(this.mockLecturerRepository).authorised(lecturer);
     }
 	
     @Test
-    public void lecturerServiceLoginReturnsTrueIfRepositoryReturnsTrue() {
+    public void loginReturnsTrueIfRepositoryReturnsTrue() {
         when(this.mockLecturerRepository.authorised(lecturer)).thenReturn(true);
 
-        assertThat(lecturerService.login(lecturer), is(true));
+        assertThat(loginService.login(lecturer), is(true));
     }
     
     @Test
-    public void lecturerServiceLoginReturnsFalseIfRepositoryReturnsFalse() {
+    public void loginReturnsFalseIfRepositoryReturnsFalse() {
     	when(this.mockLecturerRepository.authorised(lecturer)).thenReturn(false);
 
-        assertThat(lecturerService.login(lecturer), is(false));
+        assertThat(loginService.login(lecturer), is(false));
     }
 }

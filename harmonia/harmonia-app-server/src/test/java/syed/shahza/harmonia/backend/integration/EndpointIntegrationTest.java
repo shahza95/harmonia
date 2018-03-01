@@ -2,6 +2,7 @@ package syed.shahza.harmonia.backend.integration;
 
 import static com.jayway.restassured.RestAssured.given;
 import static syed.shahza.harmonia.backend.dto.TestLecturerDtos.aValidLecturerDto;
+import static syed.shahza.harmonia.backend.dto.TestLectureDtos.aValidLectureDto;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,11 +30,21 @@ public class EndpointIntegrationTest {
 
     @Test
     public void postRequestToLoginWithEmptyFieldsReturns200Ok() {
-        given().contentType("application/json").body(aValidLecturerDto().username("").password("").build()).when().post("/login").then().statusCode(200);
+        given().contentType("application/json").body(aValidLecturerDto().username("").password("").build()).when().post("/lecturer/login").then().statusCode(200);
     }
     
     @Test
     public void postRequestToLoginWithFieldsReturns200Ok() {
-        given().contentType("application/json").body(aValidLecturerDto().build()).when().post("/login").then().statusCode(200);
+        given().contentType("application/json").body(aValidLecturerDto().build()).when().post("/lecturer/login").then().statusCode(200);
+    }
+    
+    @Test
+    public void postRequestToCreateLectureWithFieldsReturns200Ok() {
+    	given().contentType("application/json").body(aValidLectureDto().build()).when().post("/lecturer/lecture/create").then().statusCode(200);
+    }
+    
+    @Test
+    public void postRequestToJoinLectureWithFieldsReturns200Ok() {
+    	given().contentType("application/json").body("aPassword").when().post("/student/lecture/join").then().statusCode(200);
     }
 }

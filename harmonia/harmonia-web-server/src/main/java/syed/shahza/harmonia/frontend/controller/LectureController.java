@@ -46,10 +46,10 @@ public class LectureController {
 		if(returnedLectureDto.isEmpty()) {
 			return new ModelAndView("lectureCreation");
 		}
+		redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
 		if(lectureIsActive(returnedLectureDto.getDate(), returnedLectureDto.getStartTime(), returnedLectureDto.getEndTime())){
 			return new ModelAndView("redirect:/lecture/active");
 		}
-		redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
 		return new ModelAndView("redirect:/lecture/view");
 	}
 	

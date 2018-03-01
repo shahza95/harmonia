@@ -71,7 +71,7 @@ public class LectureControllerTest {
     }
     
     @Test
-    public void successfulCreatePassesDtoAsRedirectModelValueToViewLecturePage() {
+    public void successfulCreatePassesDtoAsRedirectModelValueToViewOrActiveLecturePage() {
     	when(mockLectureCreationAction.create(lectureDto)).thenReturn(lectureDto);
     	this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime, mockRedirectAttributes);
     	verify(this.mockRedirectAttributes).addFlashAttribute("lectureDto", lectureDto);

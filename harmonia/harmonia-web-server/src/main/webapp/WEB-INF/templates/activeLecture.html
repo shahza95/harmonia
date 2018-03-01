@@ -7,7 +7,7 @@
       href="../../resources/css/styles.css" th:href="@{/resources/css/styles.css}"/>
 </head>
 <body>
-	<h1>Active Lecture (add title)</h1>
+	<h1 th:text="${lectureDto.title}">title</h1>
 	<div id="leftMenu">
 	    <form method="get">
 	      <div class="button">

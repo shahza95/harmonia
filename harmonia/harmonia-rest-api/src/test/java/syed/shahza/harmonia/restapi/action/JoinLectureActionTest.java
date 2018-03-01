@@ -28,6 +28,6 @@ public class JoinLectureActionTest {
     	String password = "somePassword";
         this.joinLectureAction.join(password);
 
-        verify(this.mockRestClient).post("/lecture/join", password, LectureDto.class);
+        verify(this.mockRestClient).post("/student/lecture/join", password, LectureDto.class);
     }
 }

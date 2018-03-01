@@ -5,7 +5,7 @@ import syed.shahza.harmonia.backend.dto.LectureDto;
 
 public class LectureCreationAction {
     private final RestClient restClient;
-    private final static String URL_ENDPOINT = "/lecture/create";
+    private final static String URL_ENDPOINT = "/lecturer/lecture/create";
 
     public LectureCreationAction(RestClient restClient) {
         this.restClient = restClient;

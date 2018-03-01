@@ -13,4 +13,8 @@ public class LectureService {
 	public Lecture create(Lecture lecture) {
 		return lectureRepository.create(lecture);
 	}
+	
+	public Lecture join(String password) {
+		return lectureRepository.join(password);
+	}
 }

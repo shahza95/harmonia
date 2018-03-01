@@ -26,7 +26,9 @@ import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 public class LectureControllerTest {
     private LectureController lectureController;
     private LectureDto lectureDto;
+    private LectureDto activeLectureDto;
     private String password = "somePassword";
+    private LocalDate dateToday = LocalDate.now();
     private String dateTomorrow = LocalDate.now().plusDays(1).toString();
     private String startTime = LocalTime.now().toString();
     private String endTime = LocalTime.now().plusHours(1).toString();
@@ -46,6 +48,7 @@ public class LectureControllerTest {
     @Before
     public void before() {
     	lectureDto = aValidLectureDto().date(null).startTime(null).endTime(null).build();
+    	activeLectureDto = aValidLectureDto().date(dateToday).startTime(LocalTime.parse(startTime)).endTime(LocalTime.parse(endTime)).build();
         this.lectureController = new LectureController(mockLectureCreationAction, mockJoinLectureAction);
     }
     
@@ -111,17 +114,23 @@ public class LectureControllerTest {
     }
     
     @Test
-    public void successfulJoinPassesDtoAsRedirectModelValueToActiveLecturePage() {
-    	LectureDto lectureDto = aValidLectureDto().build();
-       	when(this.mockJoinLectureAction.join(password)).thenReturn(lectureDto);
+    public void successfulJoinToNowLecturePassesDtoAsRedirectModelValueToActiveLecturePage() {
+       	when(this.mockJoinLectureAction.join(password)).thenReturn(activeLectureDto);
     	this.lectureController.join(password, mockRedirectAttributes);
     	
-    	verify(this.mockRedirectAttributes).addFlashAttribute("lectureDto", lectureDto);
+    	verify(this.mockRedirectAttributes).addFlashAttribute("lectureDto", activeLectureDto);
     }
     
     @Test
-    public void joinRedirectsToActiveLecturePageIfPasswordValidThereforeReturnedDtoNotEmpty() {
-    	when(this.mockJoinLectureAction.join(password)).thenReturn(aValidLectureDto().build());
+    public void joinRedirectsToJoinLecturePageIfPasswordValidThereforeReturnedDtoNotEmptyButLectureIsNotNow() {
+    	when(this.mockJoinLectureAction.join(password)).thenReturn(lectureDto);
+    	
+    	assertThat(this.lectureController.join(password, mockRedirectAttributes).getViewName(), is("joinLecture"));
+    }
+    
+    @Test
+    public void joinRedirectsToActiveLecturePageIfPasswordValidThereforeReturnedDtoNotEmptyAndLectureIsNow() {
+    	when(this.mockJoinLectureAction.join(password)).thenReturn(activeLectureDto);
     	
     	assertThat(this.lectureController.join(password, mockRedirectAttributes).getViewName(), is("redirect:/lecture/active"));
     }

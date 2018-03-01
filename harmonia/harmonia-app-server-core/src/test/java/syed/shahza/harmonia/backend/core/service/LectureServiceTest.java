@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static syed.shahza.harmonia.backend.core.domain.TestLectures.aValidLecture;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +31,7 @@ public class LectureServiceTest {
 	}
 	
     @Test
-    public void createInvokesLecturerRepository() {
+    public void createInvokesLectureRepository() {
     	lectureService.create(lecture);
     	verify(this.mockLectureRepository).create(lecture);
     }
@@ -40,5 +41,21 @@ public class LectureServiceTest {
         when(this.mockLectureRepository.create(lecture)).thenReturn(lecture);
 
         assertThat(lectureService.create(lecture), is(lecture));
+    }
+    
+    @Test
+    public void joinInvokesLectureRepository() {
+    	String password = "password";
+		lectureService.join(password);
+		
+    	verify(this.mockLectureRepository).join(password);
+    }
+    
+    @Test
+    public void joinReturnsLectureObject() {
+    	String password = "password";
+    	when(this.mockLectureRepository.join(password)).thenReturn(lecture);
+    	
+    	assertThat(lectureService.join(password), instanceOf(Lecture.class));
     }
 }

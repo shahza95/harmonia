@@ -10,7 +10,7 @@ import syed.shahza.harmonia.backend.dto.LecturerDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.LecturerAdapter;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/lecturer/login")
 public class LoginController {
     private final LoginService loginService;
     private final LecturerAdapter lecturerAdapter;

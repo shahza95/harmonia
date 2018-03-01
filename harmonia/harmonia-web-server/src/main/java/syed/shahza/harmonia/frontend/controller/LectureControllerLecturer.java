@@ -11,18 +11,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.LectureDto;
-import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 
 @Controller
-@RequestMapping("/lecture")
-public class LectureController {
+@RequestMapping("/lecturer/lecture")
+public class LectureControllerLecturer {
 	private final LectureCreationAction lectureCreationAction;
-	private final JoinLectureAction joinLectureAction;
 
-	public LectureController(LectureCreationAction lectureCreationAction, JoinLectureAction joinLectureAction) {
+	public LectureControllerLecturer(LectureCreationAction lectureCreationAction) {
 		this.lectureCreationAction = lectureCreationAction;
-		this.joinLectureAction = joinLectureAction;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -35,11 +32,11 @@ public class LectureController {
 		return new ModelAndView("viewLecture", "lectureDto", lectureDto); 
 	}
 	
-	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public ModelAndView getJoinLecturePage() {
-		return new ModelAndView("joinLecture"); 
+	@RequestMapping(value = "/active", method = RequestMethod.GET)
+	public ModelAndView getActiveLecturePage(@ModelAttribute("lectureDto") LectureDto lectureDto) {
+		return new ModelAndView("activeLecture", "lectureDto", lectureDto); 
 	}
-
+	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ModelAndView create(@ModelAttribute LectureDto lectureDto, @RequestParam("lectureDate") String date, @RequestParam("lectureStartTime") String startTime, @RequestParam("lectureEndTime") String endTime, RedirectAttributes redirectAttributes) {
 		LectureDto returnedLectureDto = lectureCreationAction.create(getCompleteLectureDto(lectureDto, date, startTime, endTime));
@@ -48,19 +45,9 @@ public class LectureController {
 		}
 		redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
 		if(lectureIsActive(returnedLectureDto)){
-			return new ModelAndView("redirect:/lecture/active");
+			return new ModelAndView("redirect:/lecturer/lecture/active");
 		}
-		return new ModelAndView("redirect:/lecture/view");
-	}
-	
-	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public ModelAndView join(@RequestParam("password") String password, RedirectAttributes redirectAttributes) {
-		LectureDto returnedLectureDto = this.joinLectureAction.join(password);
-		if(!returnedLectureDto.isEmpty() && lectureIsActive(returnedLectureDto)) {
-			redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
-			return new ModelAndView("redirect:/lecture/active"); 			
-		}
-		return new ModelAndView("joinLecture");
+		return new ModelAndView("redirect:/lecturer/lecture/view");
 	}
 	
 	private LectureDto getCompleteLectureDto(LectureDto lectureDto, String date, String startTime, String endTime) {

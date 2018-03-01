@@ -9,7 +9,7 @@ import syed.shahza.harmonia.backend.dto.LecturerDto;
 import syed.shahza.harmonia.restapi.action.LoginAction;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/lecturer/login")
 public class LoginController {
 	private final LoginAction loginAction;
 

@@ -2,6 +2,7 @@ package syed.shahza.harmonia.backend.core.repository;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static syed.shahza.harmonia.backend.core.domain.TestLectures.aValidLecture;
 
 import org.junit.Test;
@@ -20,5 +21,21 @@ public class LectureRepositoryTest {
         Lecture lecture = aValidLecture().build();
 
         assertThat(lectureRepository.create(lecture), is(lecture));
+    }
+    
+    @Test
+    public void joinReturnsLectureObjectIfPasswordValid() {
+    	Lecture lecture = aValidLecture().build();
+    	this.lectureRepository = new LectureRepository();
+    	this.lectureRepository.create(lecture);
+    	
+    	assertThat(lectureRepository.join(lecture.getPassword()), is(lecture));
+    }
+    
+    @Test
+    public void joinReturnsEmptyLectureObjectIfPasswordInvalid() {
+    	this.lectureRepository = new LectureRepository();
+    	Lecture lecture = lectureRepository.join("passwordForNonExistentLecture");
+    	assertTrue(lecture.isEmpty());
     }
 }

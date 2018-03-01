@@ -24,4 +24,9 @@ public class LectureController {
     public LectureDto create(@RequestBody LectureDto lectureDto) {
         return this.lectureAdapter.toDto(this.lectureService.create(this.lectureAdapter.toDomain(lectureDto)));
     }
+    
+    @RequestMapping(value = "/join", method = RequestMethod.POST)
+    public LectureDto join(@RequestBody String password) {
+    	return this.lectureAdapter.toDto(this.lectureService.join(password));
+    }
 }

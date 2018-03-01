@@ -68,4 +68,21 @@ public class LectureControllerTest {
         
         assertThat(this.lectureController.create(lectureDto), is(lectureDto));
     }
+    
+    @Test
+    public void joinInvokesServiceWithPasswordString() {
+    	String password = "somePassword";
+        this.lectureController.join(password);
+
+        verify(this.mockLectureService).join(password);
+    }
+    
+    @Test
+    public void joinInvokesAdapterToDtoForReturn() {
+    	String password = "somePassword";
+    	when(mockLectureService.join(password)).thenReturn(lecture);
+    	this.lectureController.join(password);
+    	
+    	verify(this.mockLectureAdapter).toDto(lecture);
+    }
 }

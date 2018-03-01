@@ -47,7 +47,7 @@ public class LectureController {
 			return new ModelAndView("lectureCreation");
 		}
 		redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
-		if(lectureIsActive(returnedLectureDto.getDate(), returnedLectureDto.getStartTime(), returnedLectureDto.getEndTime())){
+		if(lectureIsActive(returnedLectureDto)){
 			return new ModelAndView("redirect:/lecture/active");
 		}
 		return new ModelAndView("redirect:/lecture/view");
@@ -56,11 +56,11 @@ public class LectureController {
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public ModelAndView join(@RequestParam("password") String password, RedirectAttributes redirectAttributes) {
 		LectureDto returnedLectureDto = this.joinLectureAction.join(password);
-		if(returnedLectureDto.isEmpty()) {
-			return new ModelAndView("joinLecture");
+		if(!returnedLectureDto.isEmpty() && lectureIsActive(returnedLectureDto)) {
+			redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
+			return new ModelAndView("redirect:/lecture/active"); 			
 		}
-		redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
-		return new ModelAndView("redirect:/lecture/active"); 			
+		return new ModelAndView("joinLecture");
 	}
 	
 	private LectureDto getCompleteLectureDto(LectureDto lectureDto, String date, String startTime, String endTime) {
@@ -71,8 +71,8 @@ public class LectureController {
 		return lectureDto;
 	}
 	
-	private Boolean lectureIsActive(LocalDate date, LocalTime startTime, LocalTime endTime) {
-		if(LocalDate.now().equals(date) && LocalTime.now().isAfter(startTime) && LocalTime.now().isBefore(endTime)) {
+	private Boolean lectureIsActive(LectureDto lectureDto) {
+		if(LocalDate.now().equals(lectureDto.getDate()) && (LocalTime.now().isAfter(lectureDto.getStartTime()) || LocalTime.now().isEqual(lectureDto.getStartTime())) && LocalTime.now().isBefore(lectureDto.getEndTime())) {
 			return true;
 		}
 		return false;

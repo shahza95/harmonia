@@ -11,4 +11,8 @@ public class TestLectures {
     public static Builder aValidLecture() {
         return aLecture().title("title").password("password").date(new LocalDate()).startTime(new LocalTime()).endTime(new LocalTime());
     }
+    
+    public static Builder anEmptyLecture() {
+    	return aLecture();
+    }
 }

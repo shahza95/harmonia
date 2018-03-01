@@ -28,6 +28,6 @@ public class LectureCreationActionTest {
     	LectureDto lectureDto = new LectureDto();
         this.lectureCreationAction.create(lectureDto);
 
-        verify(this.mockRestClient).post("/lecture/create", lectureDto, LectureDto.class);
+        verify(this.mockRestClient).post("/lecturer/lecture/create", lectureDto, LectureDto.class);
     }
 }

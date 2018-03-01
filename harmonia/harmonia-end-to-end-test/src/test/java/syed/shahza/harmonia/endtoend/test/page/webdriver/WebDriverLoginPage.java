@@ -7,7 +7,7 @@ import syed.shahza.harmonia.endtoend.test.api.Result;
 import syed.shahza.harmonia.endtoend.test.page.LoginPage;
 
 public class WebDriverLoginPage extends WebDriverPage implements LoginPage {
-    private final static String LOGIN_URL = "login";
+    private final static String LOGIN_URL = "lecturer/login";
 
     public WebDriverLoginPage(WebDriver webDriver, String baseUrl) {
         super(webDriver, baseUrl);

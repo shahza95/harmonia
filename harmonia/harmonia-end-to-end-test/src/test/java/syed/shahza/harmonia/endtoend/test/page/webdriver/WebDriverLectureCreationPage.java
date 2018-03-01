@@ -7,7 +7,7 @@ import syed.shahza.harmonia.endtoend.test.api.Result;
 import syed.shahza.harmonia.endtoend.test.page.LectureCreationPage;
 
 public class WebDriverLectureCreationPage extends WebDriverPage implements LectureCreationPage {
-    private final static String LOGIN_URL = "lecture/create";
+    private final static String LECTURE_CREATION_URL = "lecturer/lecture/create";
 
     public WebDriverLectureCreationPage(WebDriver webDriver, String baseUrl) {
         super(webDriver, baseUrl);
@@ -15,7 +15,7 @@ public class WebDriverLectureCreationPage extends WebDriverPage implements Lectu
 
     @Override
     public void navigateTo() {
-        this.navigateTo(LOGIN_URL);
+        this.navigateTo(LECTURE_CREATION_URL);
     }
     
     @Override

@@ -5,7 +5,7 @@ import syed.shahza.harmonia.backend.dto.LecturerDto;
 
 public class LoginAction {
     private final RestClient restClient;
-    private final static String URL_ENDPOINT = "/login";
+    private final static String URL_ENDPOINT = "/lecturer/login";
 
     public LoginAction(RestClient restClient) {
         this.restClient = restClient;

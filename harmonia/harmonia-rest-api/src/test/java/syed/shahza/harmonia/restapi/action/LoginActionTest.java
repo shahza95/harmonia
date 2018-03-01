@@ -28,6 +28,6 @@ public class LoginActionTest {
     	LecturerDto lecturerDto = new LecturerDto();
         this.loginAction.login(lecturerDto);
 
-        verify(this.mockRestClient).post("/login", lecturerDto, Boolean.class);
+        verify(this.mockRestClient).post("/lecturer/login", lecturerDto, Boolean.class);
     }
 }

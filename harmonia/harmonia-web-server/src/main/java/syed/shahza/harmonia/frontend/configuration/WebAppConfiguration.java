@@ -6,7 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import syed.shahza.harmonia.frontend.controller.LectureController;
+import syed.shahza.harmonia.frontend.controller.LectureControllerLecturer;
+import syed.shahza.harmonia.frontend.controller.LectureControllerStudent;
 import syed.shahza.harmonia.frontend.controller.LoginController;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
@@ -32,7 +33,12 @@ public class WebAppConfiguration {
     }
     
     @Bean
-    public LectureController lectureController() {
-    	return new LectureController(lectureCreationAction, joinLectureAction);
+    public LectureControllerLecturer lectureControllerLecturer() {
+    	return new LectureControllerLecturer(lectureCreationAction);
+    }
+    
+    @Bean
+    public LectureControllerStudent lectureControllerStudent() {
+    	return new LectureControllerStudent(joinLectureAction);
     }
 }

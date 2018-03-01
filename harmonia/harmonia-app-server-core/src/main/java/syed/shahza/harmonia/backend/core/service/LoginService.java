@@ -3,10 +3,10 @@ package syed.shahza.harmonia.backend.core.service;
 import syed.shahza.harmonia.backend.core.domain.Lecturer;
 import syed.shahza.harmonia.backend.core.repository.LecturerRepository;
 
-public class LecturerService {
+public class LoginService {
 	private final LecturerRepository lecturerRepository;
 	
-	public LecturerService(LecturerRepository lecturerRepository) {
+	public LoginService(LecturerRepository lecturerRepository) {
 		this.lecturerRepository = lecturerRepository;
 	}
 

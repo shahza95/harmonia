@@ -10,12 +10,12 @@ import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 
 @RestController
-@RequestMapping("/lecture")
-public class LectureController {
+@RequestMapping("/lecturer/lecture")
+public class LectureControllerLecturer {
     private final LectureService lectureService;
     private final LectureAdapter lectureAdapter;
 
-    public LectureController(LectureService lectureService, LectureAdapter lectureAdapter) {
+    public LectureControllerLecturer(LectureService lectureService, LectureAdapter lectureAdapter) {
         this.lectureService = lectureService;
         this.lectureAdapter = lectureAdapter;
     }
@@ -23,10 +23,5 @@ public class LectureController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public LectureDto create(@RequestBody LectureDto lectureDto) {
         return this.lectureAdapter.toDto(this.lectureService.create(this.lectureAdapter.toDomain(lectureDto)));
-    }
-    
-    @RequestMapping(value = "/join", method = RequestMethod.POST)
-    public LectureDto join(@RequestBody String password) {
-    	return this.lectureAdapter.toDto(this.lectureService.join(password));
     }
 }

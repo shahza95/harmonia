@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.LecturerRepository;
 import syed.shahza.harmonia.backend.core.service.LectureService;
-import syed.shahza.harmonia.backend.core.service.LecturerService;
+import syed.shahza.harmonia.backend.core.service.LoginService;
 
 @Configuration
 public class CoreConfiguration {
@@ -22,8 +22,8 @@ public class CoreConfiguration {
 	}
 
 	@Bean
-    public LecturerService lecturerService() {
-        return new LecturerService(lecturerRepository());
+    public LoginService loginService() {
+        return new LoginService(lecturerRepository());
     }
 	
 	@Bean

@@ -5,23 +5,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import syed.shahza.harmonia.backend.core.service.LecturerService;
+import syed.shahza.harmonia.backend.core.service.LoginService;
 import syed.shahza.harmonia.backend.dto.LecturerDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.LecturerAdapter;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/lecturer/login")
 public class LoginController {
-    private final LecturerService lecturerService;
+    private final LoginService loginService;
     private final LecturerAdapter lecturerAdapter;
 
-    public LoginController(LecturerService lecturerService, LecturerAdapter lecturerAdapter) {
-        this.lecturerService = lecturerService;
+    public LoginController(LoginService lecturerService, LecturerAdapter lecturerAdapter) {
+        this.loginService = lecturerService;
         this.lecturerAdapter = lecturerAdapter;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public Boolean login(@RequestBody LecturerDto lecturerDto) {
-        return this.lecturerService.login(this.lecturerAdapter.toDomain(lecturerDto));
+        return this.loginService.login(this.lecturerAdapter.toDomain(lecturerDto));
     }
 }

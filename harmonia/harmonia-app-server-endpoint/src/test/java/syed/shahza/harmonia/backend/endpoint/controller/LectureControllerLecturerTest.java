@@ -19,8 +19,8 @@ import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LectureControllerTest {
-    private LectureController lectureController;
+public class LectureControllerLecturerTest {
+    private LectureControllerLecturer lectureController;
     private LectureDto lectureDto;
     private Lecture lecture;
     
@@ -32,7 +32,7 @@ public class LectureControllerTest {
 
     @Before
     public void before() {
-        this.lectureController = new LectureController(this.mockLectureService, this.mockLectureAdapter);
+        this.lectureController = new LectureControllerLecturer(this.mockLectureService, this.mockLectureAdapter);
         lectureDto = aValidLectureDto().build();
         lecture = aValidLecture().build();
     }
@@ -67,22 +67,5 @@ public class LectureControllerTest {
     	when(mockLectureAdapter.toDto(lecture)).thenReturn(lectureDto);
         
         assertThat(this.lectureController.create(lectureDto), is(lectureDto));
-    }
-    
-    @Test
-    public void joinInvokesServiceWithPasswordString() {
-    	String password = "somePassword";
-        this.lectureController.join(password);
-
-        verify(this.mockLectureService).join(password);
-    }
-    
-    @Test
-    public void joinInvokesAdapterToDtoForReturn() {
-    	String password = "somePassword";
-    	when(mockLectureService.join(password)).thenReturn(lecture);
-    	this.lectureController.join(password);
-    	
-    	verify(this.mockLectureAdapter).toDto(lecture);
     }
 }

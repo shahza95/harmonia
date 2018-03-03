@@ -33,7 +33,6 @@ public class RestApiConfiguration {
 		return new LectureCreationAction(restClient());
 	}
 	
-	
 	@Bean
 	public JoinLectureAction joinLectureAction() {
 		return new JoinLectureAction(restClient());

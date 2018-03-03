@@ -29,7 +29,7 @@ public class LectureControllerStudent {
     	return this.lectureAdapter.toDto(this.lectureService.join(password));
     }
     
-    @RequestMapping(value = "/comments/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/active/comments/add", method = RequestMethod.POST)
     public CommentDto addComment(@RequestBody CommentDto commentDto) {
     	return this.commentAdapter.toDto(this.lectureService.addComment(this.commentAdapter.toDomain(commentDto)));
     }

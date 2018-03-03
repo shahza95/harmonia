@@ -11,15 +11,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.restapi.action.AddCommentAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 
 @Controller
 @RequestMapping("/student/lecture")
 public class LectureControllerStudent {
 	private final JoinLectureAction joinLectureAction;
+	private final AddCommentAction addCommentAction;
 
-	public LectureControllerStudent(JoinLectureAction joinLectureAction) {
+	public LectureControllerStudent(JoinLectureAction joinLectureAction, AddCommentAction addCommentAction) {
 		this.joinLectureAction = joinLectureAction;
+		this.addCommentAction = addCommentAction;
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
@@ -27,7 +30,7 @@ public class LectureControllerStudent {
 		return new ModelAndView("joinLecture"); 
 	}
 	
-	@RequestMapping(value = "/active", method = RequestMethod.GET)
+	@RequestMapping(value = "/active/comments", method = RequestMethod.GET)
 	public ModelAndView getActiveLecturePage(@ModelAttribute("lectureDto") LectureDto lectureDto) {
 		//return student version-TO DO
 		return new ModelAndView("activeLecture", "lectureDto", lectureDto); 
@@ -38,10 +41,15 @@ public class LectureControllerStudent {
 		LectureDto returnedLectureDto = this.joinLectureAction.join(password);
 		if(!returnedLectureDto.isEmpty() && lectureIsActive(returnedLectureDto)) {
 			redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
-			return new ModelAndView("redirect:/student/lecture/active"); 			
+			return new ModelAndView("redirect:/student/lecture/active/comments"); 			
 		}
 		return new ModelAndView("joinLecture");
 	}
+	
+//	@RequestMapping(value = "/active/comments", method = RequestMethod.POST)
+//	public ModelAndView addComment(@ModelAttribute CommentDto commentDto) {
+//		return new ModelAndView("activeLecture", "lectureDto", commentDto); 
+//	}
 	
 	private Boolean lectureIsActive(LectureDto lectureDto) {
 		if(LocalDate.now().equals(lectureDto.getDate()) && (LocalTime.now().isAfter(lectureDto.getStartTime()) || LocalTime.now().isEqual(lectureDto.getStartTime())) && LocalTime.now().isBefore(lectureDto.getEndTime())) {

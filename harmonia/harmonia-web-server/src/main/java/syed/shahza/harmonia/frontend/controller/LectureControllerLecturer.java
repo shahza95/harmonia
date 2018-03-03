@@ -32,7 +32,7 @@ public class LectureControllerLecturer {
 		return new ModelAndView("viewLecture", "lectureDto", lectureDto); 
 	}
 	
-	@RequestMapping(value = "/active", method = RequestMethod.GET)
+	@RequestMapping(value = "/active/comments", method = RequestMethod.GET)
 	public ModelAndView getActiveLecturePage(@ModelAttribute("lectureDto") LectureDto lectureDto) {
 		return new ModelAndView("activeLecture", "lectureDto", lectureDto); 
 	}
@@ -45,7 +45,7 @@ public class LectureControllerLecturer {
 		}
 		redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
 		if(lectureIsActive(returnedLectureDto)){
-			return new ModelAndView("redirect:/lecturer/lecture/active");
+			return new ModelAndView("redirect:/lecturer/lecture/active/comments");
 		}
 		return new ModelAndView("redirect:/lecturer/lecture/view");
 	}

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.core.service.LoginService;
+import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LecturerAdapter;
 import syed.shahza.harmonia.backend.endpoint.controller.LectureControllerLecturer;
@@ -34,6 +35,6 @@ public class EndpointConfiguration {
     
     @Bean
     public LectureControllerStudent lectureControllerStudent() {
-    	return new LectureControllerStudent(this.lectureService, new LectureAdapter());
+    	return new LectureControllerStudent(this.lectureService, new LectureAdapter(), new CommentAdapter(new LectureAdapter()));
     }
 }

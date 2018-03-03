@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Import;
 import syed.shahza.harmonia.frontend.controller.LectureControllerLecturer;
 import syed.shahza.harmonia.frontend.controller.LectureControllerStudent;
 import syed.shahza.harmonia.frontend.controller.LoginController;
+import syed.shahza.harmonia.restapi.action.AddCommentAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 import syed.shahza.harmonia.restapi.action.LoginAction;
@@ -26,6 +27,9 @@ public class WebAppConfiguration {
     
     @Resource(name = "joinLectureAction")
     private JoinLectureAction joinLectureAction;
+    
+    @Resource(name = "addCommentAction")
+    private AddCommentAction addCommentAction;
 
     @Bean
     public LoginController loginController() {
@@ -39,6 +43,6 @@ public class WebAppConfiguration {
     
     @Bean
     public LectureControllerStudent lectureControllerStudent() {
-    	return new LectureControllerStudent(joinLectureAction);
+    	return new LectureControllerStudent(joinLectureAction, addCommentAction);
     }
 }

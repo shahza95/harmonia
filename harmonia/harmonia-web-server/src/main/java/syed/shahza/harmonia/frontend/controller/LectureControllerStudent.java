@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
@@ -33,7 +34,11 @@ public class LectureControllerStudent {
 	@RequestMapping(value = "/active/comments", method = RequestMethod.GET)
 	public ModelAndView getActiveLecturePage(@ModelAttribute("lectureDto") LectureDto lectureDto) {
 		//return student version-TO DO
-		return new ModelAndView("activeLecture", "lectureDto", lectureDto); 
+		ModelAndView modelAndView = new ModelAndView("activeLecture");
+		modelAndView.addObject("lectureDto", lectureDto);
+//		CommentDtoList commentDtoList = getCommentsAction.getAllCommentsForLecture(
+//		modelAndView.addObject("commentDtoList", commentDtoList);
+		return modelAndView; 
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
@@ -46,10 +51,20 @@ public class LectureControllerStudent {
 		return new ModelAndView("joinLecture");
 	}
 	
-//	@RequestMapping(value = "/active/comments", method = RequestMethod.POST)
-//	public ModelAndView addComment(@ModelAttribute CommentDto commentDto) {
-//		return new ModelAndView("activeLecture", "lectureDto", commentDto); 
-//	}
+	@RequestMapping(value = "/active/comments", method = RequestMethod.POST)
+	public ModelAndView addComment(@ModelAttribute CommentDto commentDto, RedirectAttributes redirectAttributes) {
+		//does this work? did we need to set/was it already set?
+		//@RequestParam("lectureDto") LectureDto lectureDto
+//		commentDto.setLectureDto(lectureDto);
+//		CommentDto returnedCommentDto = 
+				this.addCommentAction.addComment(commentDto);
+//		redirectAttributes.addFlashAttribute("lectureDto", returnedCommentDto.getLectureDto());
+//		if(returnedCommentDto != null) {
+			return new ModelAndView("redirect:/student/lecture/active/comments"); 
+//		}
+		//?????????
+//		return new ModelAndView();
+	}
 	
 	private Boolean lectureIsActive(LectureDto lectureDto) {
 		if(LocalDate.now().equals(lectureDto.getDate()) && (LocalTime.now().isAfter(lectureDto.getStartTime()) || LocalTime.now().isEqual(lectureDto.getStartTime())) && LocalTime.now().isBefore(lectureDto.getEndTime())) {

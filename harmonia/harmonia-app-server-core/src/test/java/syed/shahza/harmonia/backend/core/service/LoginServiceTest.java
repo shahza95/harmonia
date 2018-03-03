@@ -4,7 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static syed.shahza.harmonia.backend.core.domain.TestLecturers.aValidLecturer;
+import static syed.shahza.harmonia.backend.core.domain.TestLecturer.aValidLecturer;
 
 import org.junit.Before;
 import org.junit.Test;

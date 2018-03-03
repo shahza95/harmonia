@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import static syed.shahza.harmonia.backend.core.domain.TestLecturers.aValidLecturer;
+import static syed.shahza.harmonia.backend.core.domain.TestLecturer.aValidLecturer;
 import static syed.shahza.harmonia.backend.dto.TestLecturerDtos.aValidLecturerDto;
 
 public class LecturerAdapterTest {

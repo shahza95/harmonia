@@ -2,7 +2,7 @@ package syed.shahza.harmonia.backend.endpoint.controller;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static syed.shahza.harmonia.backend.core.domain.TestLectures.aValidLecture;
+import static syed.shahza.harmonia.backend.core.domain.TestLecture.aValidLecture;
 
 import org.junit.Before;
 import org.junit.Test;

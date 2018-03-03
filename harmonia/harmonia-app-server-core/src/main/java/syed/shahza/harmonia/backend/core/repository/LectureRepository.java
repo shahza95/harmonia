@@ -22,4 +22,10 @@ public class LectureRepository {
 		}
 		return aLecture().build();
 	}
+	
+//	public CommentList
+//	
+//	public void addComment(String lectureTitle, CommentDto commentDto) {
+//		
+//	}
 }

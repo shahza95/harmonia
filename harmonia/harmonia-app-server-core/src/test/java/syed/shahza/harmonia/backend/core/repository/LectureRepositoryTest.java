@@ -3,7 +3,7 @@ package syed.shahza.harmonia.backend.core.repository;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static syed.shahza.harmonia.backend.core.domain.TestLectures.aValidLecture;
+import static syed.shahza.harmonia.backend.core.domain.TestLecture.aValidLecture;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

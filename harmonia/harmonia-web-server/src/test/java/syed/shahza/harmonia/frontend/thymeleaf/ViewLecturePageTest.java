@@ -3,7 +3,7 @@ package syed.shahza.harmonia.frontend.thymeleaf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static syed.shahza.harmonia.backend.dto.TestLectureDtos.aValidLectureDto;
+import static syed.shahza.harmonia.backend.dto.TestLectureDto.aValidLectureDto;
 
 import java.util.HashMap;
 import java.util.Map;

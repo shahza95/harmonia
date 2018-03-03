@@ -2,8 +2,8 @@ package syed.shahza.harmonia.backend.dto;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static syed.shahza.harmonia.backend.dto.TestLectureDtos.aValidLectureDto;
-import static syed.shahza.harmonia.backend.dto.TestLectureDtos.anEmptyLectureDto;
+import static syed.shahza.harmonia.backend.dto.TestLectureDto.aValidLectureDto;
+import static syed.shahza.harmonia.backend.dto.TestLectureDto.anEmptyLectureDto;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;

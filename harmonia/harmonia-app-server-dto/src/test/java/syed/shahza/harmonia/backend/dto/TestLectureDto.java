@@ -7,7 +7,7 @@ import org.joda.time.LocalTime;
 
 import syed.shahza.harmonia.backend.dto.LectureDto.Builder;
 
-public class TestLectureDtos {
+public class TestLectureDto {
     public static Builder aValidLectureDto() {
         return aLectureDto().title("title").password("password").date(new LocalDate()).startTime(new LocalTime()).endTime(new LocalTime());
     }

@@ -2,7 +2,7 @@ package syed.shahza.harmonia.endtoend.test.step;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static syed.shahza.harmonia.backend.dto.TestLecturerDtos.aValidLecturerDto;
+import static syed.shahza.harmonia.backend.dto.TestLecturerDto.aValidLecturerDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

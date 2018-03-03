@@ -24,7 +24,7 @@ public class JoinLectureActionTest {
     }
 
     @Test
-    public void lectureCreateWillInvokeMockRestClientGetMethodWithCorrectParameters() {
+    public void lectureCreateWillInvokeMockRestClientPostMethodWithCorrectParameters() {
     	String password = "somePassword";
         this.joinLectureAction.join(password);
 

@@ -24,7 +24,7 @@ public class LoginActionTest {
     }
 
     @Test
-    public void loginWillInvokeMockRestClientGetMethodWithCorrectParameters() {
+    public void loginWillInvokeMockRestClientPostMethodWithCorrectParameters() {
     	LecturerDto lecturerDto = new LecturerDto();
         this.loginAction.login(lecturerDto);
 

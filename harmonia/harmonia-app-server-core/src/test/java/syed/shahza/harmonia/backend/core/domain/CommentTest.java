@@ -12,4 +12,10 @@ public class CommentTest {
         String randomMessageString = "another comment message";
         assertThat(aValidComment().message(randomMessageString).build().getMessage(), is(randomMessageString));
     }
+    
+    @Test
+    public void canGetAndSetLecture() {
+    	Lecture lecture = TestLecture.aValidLecture().build();
+    	assertThat(aValidComment().lecture(lecture).build().getLecture(), is(lecture));
+    }
 }

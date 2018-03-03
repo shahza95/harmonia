@@ -3,7 +3,7 @@ package syed.shahza.harmonia.frontend.controller;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
-import static syed.shahza.harmonia.backend.dto.TestLecturerDtos.aValidLecturerDto;
+import static syed.shahza.harmonia.backend.dto.TestLecturerDto.aValidLecturerDto;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -2,7 +2,7 @@ package syed.shahza.harmonia.backend.dto;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static syed.shahza.harmonia.backend.dto.TestCommentDtos.aValidCommentDto;
+import static syed.shahza.harmonia.backend.dto.TestCommentDto.aValidCommentDto;
 
 import org.junit.Test;
 

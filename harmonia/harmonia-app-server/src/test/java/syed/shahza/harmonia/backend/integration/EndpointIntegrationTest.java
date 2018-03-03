@@ -1,8 +1,8 @@
 package syed.shahza.harmonia.backend.integration;
 
 import static com.jayway.restassured.RestAssured.given;
-import static syed.shahza.harmonia.backend.dto.TestLecturerDtos.aValidLecturerDto;
-import static syed.shahza.harmonia.backend.dto.TestLectureDtos.aValidLectureDto;
+import static syed.shahza.harmonia.backend.dto.TestLecturerDto.aValidLecturerDto;
+import static syed.shahza.harmonia.backend.dto.TestLectureDto.aValidLectureDto;
 
 import org.junit.Before;
 import org.junit.Test;

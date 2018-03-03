@@ -14,8 +14,8 @@ public class CommentDtoListTest {
 	
 	@Before
 	public void before() {
-		commentDto = TestCommentDtos.aValidCommentDto().build();
-        commentDtoList = TestCommentDtoLists.aFilledCommentDtoList(5);
+		commentDto = TestCommentDto.aValidCommentDto().build();
+        commentDtoList = TestCommentDtoList.aFilledCommentDtoList(5);
 	}
 	
     @Test
@@ -27,7 +27,7 @@ public class CommentDtoListTest {
     
     @Test
     public void shouldBeAbleToAddACommentDtoToEmptyList() {
-    	CommentDtoList commentDtoList = TestCommentDtoLists.anEmptyCommentDtoList();
+    	CommentDtoList commentDtoList = TestCommentDtoList.anEmptyCommentDtoList();
     	commentDtoList.addCommentDtoToList(commentDto);
     	
     	assertThat(commentDtoList.getCommentDtoList().get(0), is(commentDto));

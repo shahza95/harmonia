@@ -4,8 +4,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static syed.shahza.harmonia.backend.dto.TestLectureDtos.aValidLectureDto;
-import static syed.shahza.harmonia.backend.dto.TestLectureDtos.anEmptyLectureDto;
+import static syed.shahza.harmonia.backend.dto.TestLectureDto.aValidLectureDto;
+import static syed.shahza.harmonia.backend.dto.TestLectureDto.anEmptyLectureDto;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -19,7 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.LectureDto;
-import syed.shahza.harmonia.backend.dto.TestLectureDtos;
+import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -57,7 +57,7 @@ public class LectureControllerLecturerTest {
     
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLecture() {
-    	LectureDto lectureDto = TestLectureDtos.aValidLectureDto().build();
+    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
     	assertThat(this.lectureController.getActiveLecturePage(lectureDto).getViewName(), is("activeLecture"));
     }
     

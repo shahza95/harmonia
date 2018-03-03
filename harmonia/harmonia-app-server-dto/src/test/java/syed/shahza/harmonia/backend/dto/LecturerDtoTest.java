@@ -2,7 +2,7 @@ package syed.shahza.harmonia.backend.dto;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static syed.shahza.harmonia.backend.dto.TestLecturerDtos.aValidLecturerDto;
+import static syed.shahza.harmonia.backend.dto.TestLecturerDto.aValidLecturerDto;
 
 import org.junit.Test;
 

@@ -13,7 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import syed.shahza.harmonia.backend.core.domain.Lecturer;
 import syed.shahza.harmonia.backend.core.service.LoginService;
 import syed.shahza.harmonia.backend.dto.LecturerDto;
-import syed.shahza.harmonia.backend.dto.TestLecturerDtos;
+import syed.shahza.harmonia.backend.dto.TestLecturerDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.LecturerAdapter;
 import syed.shahza.harmonia.backend.endpoint.controller.LoginController;
 
@@ -31,7 +31,7 @@ public class LoginControllerTest {
     @Before
     public void before() {
         this.loginController = new LoginController(this.mockLecturerService, this.mockLecturerAdapter);
-        lecturerDto = TestLecturerDtos.aValidLecturerDto().build();
+        lecturerDto = TestLecturerDto.aValidLecturerDto().build();
     }
 
     @Test

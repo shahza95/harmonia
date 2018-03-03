@@ -3,16 +3,14 @@ package syed.shahza.harmonia.backend.core.repository;
 import static syed.shahza.harmonia.backend.core.domain.Lecture.aLecture;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 
 public class LectureRepository {
 	private List<Lecture> lectures = new ArrayList<>();
-	private Map<String, ArrayList<Comment>> comments = new HashMap<String, ArrayList<Comment>>();
+	private List<Comment> comments = new ArrayList<>();
 
 	public Lecture create(Lecture lecture) {
 		lectures.add(lecture);
@@ -28,16 +26,8 @@ public class LectureRepository {
 		return aLecture().build();
 	}
 
-	public Comment addComment(String lectureTitle, Comment comment) {
-		ArrayList<Comment> commentList;
-		if(comments.containsKey(comment)) {
-			commentList = comments.get(lectureTitle);
-		} else {
-			commentList = new ArrayList<Comment>();
-		}
-		
-		commentList.add(comment);
-		comments.put(lectureTitle, commentList);
+	public Comment addComment(Comment comment) {
+		comments.add(comment);
 		return comment;
 	}
 }

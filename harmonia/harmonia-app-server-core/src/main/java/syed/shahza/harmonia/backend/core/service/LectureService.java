@@ -24,8 +24,8 @@ public class LectureService {
 		return this.lectureRepository.retrieveLectureFromPassword(password);
 	}
 	
-	public Comment addComment(String lectureTitle, Comment comment) {
-		Comment returnedComment = this.lectureRepository.addComment(lectureTitle, comment);
+	public Comment addComment(Comment comment) {
+		Comment returnedComment = this.lectureRepository.addComment(comment);
 		//if persisted (i.e. returnedComment not null?)
 		if (returnedComment != null) {
 	        this.jmsTemplate.convertAndSend(JMS_DESTINATION, comment);

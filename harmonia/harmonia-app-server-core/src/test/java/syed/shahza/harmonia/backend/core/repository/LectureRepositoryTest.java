@@ -47,7 +47,7 @@ public class LectureRepositoryTest {
     
     @Test
     public void addCommentShouldReturnTheComment() {
-    	assertThat(this.lectureRepository.addComment("someTitle", comment), is(comment));
+    	assertThat(this.lectureRepository.addComment(comment), is(comment));
     }
     
 //    @Test

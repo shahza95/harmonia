@@ -24,7 +24,6 @@ import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 public class LectureServiceTest {
 	private LectureService lectureService;
 	private Lecture lecture;
-	private String lectureTitle;
 	private Comment comment;
 	
 	@Mock
@@ -36,7 +35,6 @@ public class LectureServiceTest {
 	@Before
 	public void before() {
 		lecture = aValidLecture().build();
-		lectureTitle = lecture.getTitle();
 		comment = TestComment.aValidComment().build();
 		this.lectureService = new LectureService(this.mockLectureRepository, this.mockJmsTemplate);
 	}
@@ -72,30 +70,30 @@ public class LectureServiceTest {
     
     @Test
     public void addCommentInvokesLectureRepository() {
-    	this.lectureService.addComment(lectureTitle, comment);
+    	this.lectureService.addComment(comment);
     	
-    	verify(this.mockLectureRepository).addComment(lectureTitle, comment);
+    	verify(this.mockLectureRepository).addComment(comment);
     }
     
     @Test
     public void addCommentReturnsCommentObject() {
-    	when(this.mockLectureRepository.addComment(lectureTitle, comment)).thenReturn(comment);
+    	when(this.mockLectureRepository.addComment(comment)).thenReturn(comment);
     	
-    	assertThat(this.lectureService.addComment(lectureTitle, comment), instanceOf(Comment.class));
+    	assertThat(this.lectureService.addComment(comment), instanceOf(Comment.class));
     }
     
     @Test
     public void successfulAddCommentInvokesJmsTemplateWithCorrectParameters() {
-    	when(this.mockLectureRepository.addComment(lectureTitle, comment)).thenReturn(comment);
-    	this.lectureService.addComment(lectureTitle, comment);
+    	when(this.mockLectureRepository.addComment(comment)).thenReturn(comment);
+    	this.lectureService.addComment(comment);
     	
     	verify(this.mockJmsTemplate).convertAndSend("lecture", comment);
     }
     
     @Test
     public void unsuccessfulAddCommentDoesNotInvokeJmsTemplate() {
-    	when(this.mockLectureRepository.addComment(lectureTitle, comment)).thenReturn(null);
-    	this.lectureService.addComment(lectureTitle, comment);
+    	when(this.mockLectureRepository.addComment(comment)).thenReturn(null);
+    	this.lectureService.addComment(comment);
     	
     	verify(this.mockJmsTemplate, never()).convertAndSend("lecture", comment);
     }

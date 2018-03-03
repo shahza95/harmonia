@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
-import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 
 public class LectureRepository {
@@ -27,10 +26,6 @@ public class LectureRepository {
 			}
 		}
 		return aLecture().build();
-	}
-
-	public Comments getComments(String lectureTitle) {
-		return Comments.aCommentListBuilder().commentList(comments.get(lectureTitle)).build();
 	}
 
 	public Comment addComment(String lectureTitle, Comment comment) {

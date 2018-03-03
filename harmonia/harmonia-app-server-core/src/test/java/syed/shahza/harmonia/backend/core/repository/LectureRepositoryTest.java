@@ -1,6 +1,5 @@
 package syed.shahza.harmonia.backend.core.repository;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -12,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
-import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
 
@@ -52,18 +50,18 @@ public class LectureRepositoryTest {
     	assertThat(this.lectureRepository.addComment("someTitle", comment), is(comment));
     }
     
-    @Test
-    public void getCommentsShouldReturnAllCommentsForParticularLecture() {
-    	this.lectureRepository.addComment(lecture.getTitle(), comment);
-    	this.lectureRepository.addComment(lecture.getTitle(), TestComment.aValidComment().message("no").build());
-    	
-    	assertThat(this.lectureRepository.getComments(lecture.getTitle()).getCommentList().size(), is(1));
-    }
-    
-    @Test
-    public void getCommentsShouldReturnCommentsObject() {
-    	this.lectureRepository.addComment(lecture.getTitle(), comment);
-    	
-    	assertThat(this.lectureRepository.getComments(lecture.getTitle()), instanceOf(Comments.class));
-    }
+//    @Test
+//    public void getCommentsShouldReturnAllCommentsForParticularLecture() {
+//    	this.lectureRepository.addComment(lecture.getTitle(), comment);
+//    	this.lectureRepository.addComment(lecture.getTitle(), TestComment.aValidComment().message("no").build());
+//    	
+//    	assertThat(this.lectureRepository.getComments(lecture.getTitle()).getCommentList().size(), is(1));
+//    }
+//    
+//    @Test
+//    public void getCommentsShouldReturnCommentsObject() {
+//    	this.lectureRepository.addComment(lecture.getTitle(), comment);
+//    	
+//    	assertThat(this.lectureRepository.getComments(lecture.getTitle()), instanceOf(Comments.class));
+//    }
 }

@@ -10,6 +10,7 @@ import syed.shahza.harmonia.frontend.controller.LectureControllerLecturer;
 import syed.shahza.harmonia.frontend.controller.LectureControllerStudent;
 import syed.shahza.harmonia.frontend.controller.LoginController;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
+import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 import syed.shahza.harmonia.restapi.action.LoginAction;
@@ -31,6 +32,9 @@ public class WebAppConfiguration {
     @Resource(name = "addCommentAction")
     private AddCommentAction addCommentAction;
 
+    @Resource(name = "getAllCommentsAction")
+    private GetAllCommentsAction getAllCommentsAction;
+
     @Bean
     public LoginController loginController() {
         return new LoginController(loginAction);
@@ -38,11 +42,11 @@ public class WebAppConfiguration {
     
     @Bean
     public LectureControllerLecturer lectureControllerLecturer() {
-    	return new LectureControllerLecturer(lectureCreationAction);
+    	return new LectureControllerLecturer(lectureCreationAction, getAllCommentsAction);
     }
     
     @Bean
     public LectureControllerStudent lectureControllerStudent() {
-    	return new LectureControllerStudent(joinLectureAction, addCommentAction);
+    	return new LectureControllerStudent(joinLectureAction, addCommentAction, getAllCommentsAction);
     }
 }

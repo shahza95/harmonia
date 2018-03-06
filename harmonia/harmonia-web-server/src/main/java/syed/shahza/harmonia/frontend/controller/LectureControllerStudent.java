@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
+import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 
 @Controller
@@ -20,10 +21,12 @@ import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 public class LectureControllerStudent {
 	private final JoinLectureAction joinLectureAction;
 	private final AddCommentAction addCommentAction;
+	private final GetAllCommentsAction getAllCommentsAction;
 
-	public LectureControllerStudent(JoinLectureAction joinLectureAction, AddCommentAction addCommentAction) {
+	public LectureControllerStudent(JoinLectureAction joinLectureAction, AddCommentAction addCommentAction, GetAllCommentsAction getAllCommentsAction) {
 		this.joinLectureAction = joinLectureAction;
 		this.addCommentAction = addCommentAction;
+		this.getAllCommentsAction = getAllCommentsAction;
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
@@ -36,9 +39,8 @@ public class LectureControllerStudent {
 		//return student version-TO DO
 		ModelAndView modelAndView = new ModelAndView("activeLecture");
 		modelAndView.addObject("lectureDto", lectureDto);
-//		CommentDtoList commentDtoList = getCommentsAction.getAllCommentsForLecture(
-//		modelAndView.addObject("commentDtoList", commentDtoList);
-		return modelAndView; 
+		modelAndView.addObject("commentDtoList", this.getAllCommentsAction.getAll(lectureDto.getTitle()));
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)

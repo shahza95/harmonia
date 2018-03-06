@@ -28,6 +28,6 @@ public class AddCommentActionTest {
     	CommentDto commentDto = new CommentDto();
         this.addCommentAction.addComment(commentDto);
 
-        verify(this.mockRestClient).post("/student/lecture/comments/add", commentDto, CommentDto.class);
+        verify(this.mockRestClient).post("/student/lecture/active/comments/add", commentDto, CommentDto.class);
     }
 }

@@ -16,10 +16,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.CommentDto;
+import syed.shahza.harmonia.backend.dto.CommentDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.TestCommentDto;
+import syed.shahza.harmonia.backend.dto.TestCommentDtoList;
 import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
+import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -36,13 +39,16 @@ public class LectureControllerStudentTest {
     private AddCommentAction mockAddCommentAction;
     
     @Mock
+    private GetAllCommentsAction mockGetAllCommentsAction;
+    
+    @Mock
     private RedirectAttributes mockRedirectAttributes;
     
     @Before
     public void before() {
     	this.lectureDto = aValidLectureDto().date(null).startTime(null).endTime(null).build();
     	this.activeLectureDto = anActiveLectureDto().build();
-        this.lectureController = new LectureControllerStudent(this.mockJoinLectureAction, this.mockAddCommentAction);
+        this.lectureController = new LectureControllerStudent(this.mockJoinLectureAction, this.mockAddCommentAction, this.mockGetAllCommentsAction);
     }
     
     @Test
@@ -100,5 +106,21 @@ public class LectureControllerStudentTest {
     	when(this.mockAddCommentAction.addComment(commentDto)).thenReturn(commentDto);
     	
     	assertThat(this.lectureController.addComment(commentDto, this.mockRedirectAttributes).getViewName(), is("redirect:/student/lecture/active/comments"));
+    }
+    
+    @Test
+    public void getActiveLectureSendsLectureDtoAsModel() {
+    	CommentDtoList commentDtoList = TestCommentDtoList.aFilledCommentDtoList(3);
+    	when(this.mockGetAllCommentsAction.getAll(lectureDto.getTitle())).thenReturn(commentDtoList);
+    
+    	assertThat(this.lectureController.getActiveLecturePage(lectureDto).getModel().get("lectureDto"), is(lectureDto));
+    }
+    
+    @Test
+    public void getActiveLectureSendsCommentDtoListAsModel() {
+    	CommentDtoList commentDtoList = TestCommentDtoList.aFilledCommentDtoList(3);
+    	when(this.mockGetAllCommentsAction.getAll(lectureDto.getTitle())).thenReturn(commentDtoList);
+    	
+    	assertThat(this.lectureController.getActiveLecturePage(lectureDto).getModel().get("commentDtoList"), is(commentDtoList));
     }
 }

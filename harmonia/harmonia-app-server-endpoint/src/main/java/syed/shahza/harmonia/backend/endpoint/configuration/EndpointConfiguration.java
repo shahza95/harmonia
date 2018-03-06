@@ -10,6 +10,7 @@ import syed.shahza.harmonia.backend.core.service.LoginService;
 import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LecturerAdapter;
+import syed.shahza.harmonia.backend.endpoint.controller.LectureController;
 import syed.shahza.harmonia.backend.endpoint.controller.LectureControllerLecturer;
 import syed.shahza.harmonia.backend.endpoint.controller.LectureControllerStudent;
 import syed.shahza.harmonia.backend.endpoint.controller.LoginController;
@@ -36,5 +37,10 @@ public class EndpointConfiguration {
     @Bean
     public LectureControllerStudent lectureControllerStudent() {
     	return new LectureControllerStudent(this.lectureService, new LectureAdapter(), new CommentAdapter(new LectureAdapter()));
+    }
+    
+    @Bean
+    public LectureController lectureController() {
+    	return new LectureController(this.lectureService, new CommentAdapter(new LectureAdapter()));
     }
 }

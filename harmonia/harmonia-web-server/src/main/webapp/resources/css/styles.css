@@ -12,5 +12,5 @@ body {
 }
 
 #rightPanel {
-	float: left;
+	display: inline-block;
 }

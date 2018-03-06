@@ -6,11 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
+import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 
 public class LectureRepository {
 	private List<Lecture> lectures = new ArrayList<>();
 	private List<Comment> comments = new ArrayList<>();
+	
+	public LectureRepository() {
+		Lecture lecture = Lecture.aLecture().title("myTitle").build();
+		this.comments.add(Comment.aComment().message("comment1").lecture(lecture).build());
+		this.comments.add(Comment.aComment().message("comment2").lecture(lecture).build());
+	}
 
 	public Lecture create(Lecture lecture) {
 		lectures.add(lecture);
@@ -24,6 +31,16 @@ public class LectureRepository {
 			}
 		}
 		return aLecture().build();
+	}
+	
+	public Comments getAllComments(String lectureTitle) {
+		List<Comment> commentList = new ArrayList<Comment>();
+		for(Comment comment: comments) {
+			if(comment.getLecture().getTitle().equals(lectureTitle)) {
+				commentList.add(comment);
+			}
+		}
+		return Comments.aCommentListBuilder().commentList(commentList).build();
 	}
 
 	public Comment addComment(Comment comment) {

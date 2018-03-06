@@ -99,4 +99,11 @@ public class LectureServiceTest {
     	
     	verify(this.mockJmsTemplate, never()).convertAndSend("lecture", comment);
     }
+    
+    @Test
+    public void getAllCommentsInvokesLectureRepository() {
+    	this.lectureService.getAllComments("someTitle");
+    	
+    	verify(this.mockLectureRepository).getAllComments("someTitle");
+    }
 }

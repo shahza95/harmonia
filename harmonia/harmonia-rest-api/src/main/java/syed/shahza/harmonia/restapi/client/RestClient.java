@@ -19,4 +19,8 @@ public class RestClient {
     public <R> R post(String url, Object object, Class<R> responseType) {
         return this.restOperations.postForObject(this.baseUrl + url, object, responseType);
     }
+    
+    public <R> R get(String url, Class<R> responseType, Object object) {
+    	return this.restOperations.getForObject(this.baseUrl + url, responseType, object);
+    }
 }

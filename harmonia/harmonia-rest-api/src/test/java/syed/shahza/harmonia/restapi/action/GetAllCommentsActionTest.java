@@ -9,8 +9,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
-import syed.shahza.harmonia.backend.dto.LectureDto;
-import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.restapi.client.RestClient;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -27,9 +25,9 @@ public class GetAllCommentsActionTest {
 
     @Test
     public void getAllWillInvokeMockRestClientGetMethodWithCorrectParameters() {
-    	LectureDto lectureDto = TestLectureDto.anActiveLectureDto().build();
-        this.getAllCommentsAction.getAll(lectureDto);
+    	String lectureTitle = "title";
+        this.getAllCommentsAction.getAll(lectureTitle);
 
-        verify(this.mockRestClient).get("/student/lecture/active/comments", CommentDtoList.class, lectureDto);
+        verify(this.mockRestClient).get("/lecture/active/comments/{lectureTitle}", CommentDtoList.class, lectureTitle);
     }
 }

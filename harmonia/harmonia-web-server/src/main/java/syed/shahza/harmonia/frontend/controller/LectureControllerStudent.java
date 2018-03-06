@@ -34,7 +34,7 @@ public class LectureControllerStudent {
 	public ModelAndView getActiveLecturePage(@ModelAttribute("lectureDto") LectureDto lectureDto) {
 		ModelAndView modelAndView = new ModelAndView("activeLecture");
 		modelAndView.addObject("lectureDto", lectureDto);
-		modelAndView.addObject("commentDtoList", this.getAllCommentsAction.getAll(lectureDto));
+		modelAndView.addObject("commentDtoList", this.getAllCommentsAction.getAll(lectureDto.getTitle()));
 		return modelAndView;
 	}
 	

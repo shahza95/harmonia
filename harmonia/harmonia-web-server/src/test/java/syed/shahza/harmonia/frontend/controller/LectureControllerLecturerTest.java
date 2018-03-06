@@ -109,7 +109,7 @@ public class LectureControllerLecturerTest {
     @Test
     public void getActiveLectureSendsLectureDtoAsModel() {
     	CommentDtoList commentDtoList = TestCommentDtoList.aFilledCommentDtoList(3);
-    	when(this.mockGetAllCommentsAction.getAll(lectureDto)).thenReturn(commentDtoList);
+    	when(this.mockGetAllCommentsAction.getAll(lectureDto.getTitle())).thenReturn(commentDtoList);
     
     	assertThat(this.lectureController.getActiveLecturePage(lectureDto).getModel().get("lectureDto"), is(lectureDto));
     }
@@ -117,7 +117,7 @@ public class LectureControllerLecturerTest {
     @Test
     public void getActiveLectureSendsCommentDtoListAsModel() {
     	CommentDtoList commentDtoList = TestCommentDtoList.aFilledCommentDtoList(3);
-    	when(this.mockGetAllCommentsAction.getAll(lectureDto)).thenReturn(commentDtoList);
+    	when(this.mockGetAllCommentsAction.getAll(lectureDto.getTitle())).thenReturn(commentDtoList);
     	
     	assertThat(this.lectureController.getActiveLecturePage(lectureDto).getModel().get("commentDtoList"), is(commentDtoList));
     }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import syed.shahza.harmonia.backend.dto.CommentDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
@@ -40,8 +39,7 @@ public class LectureControllerLecturer {
 	public ModelAndView getActiveLecturePage(@ModelAttribute("lectureDto") LectureDto lectureDto) {
 		ModelAndView modelAndView = new ModelAndView("activeLecture");
 		modelAndView.addObject("lectureDto", lectureDto);
-		CommentDtoList list = this.getAllCommentsAction.getAll(lectureDto.getTitle());
-		modelAndView.addObject("commentDtoList", list);
+		modelAndView.addObject("commentDtoList", this.getAllCommentsAction.getAll(lectureDto.getTitle()));
 		return modelAndView;
 	}
 	

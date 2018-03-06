@@ -11,15 +11,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 
 @Controller
 @RequestMapping("/student/lecture")
 public class LectureControllerStudent {
 	private final JoinLectureAction joinLectureAction;
+	private final GetAllCommentsAction getAllCommentsAction;
 
-	public LectureControllerStudent(JoinLectureAction joinLectureAction) {
+	public LectureControllerStudent(JoinLectureAction joinLectureAction, GetAllCommentsAction getAllCommentsAction) {
 		this.joinLectureAction = joinLectureAction;
+		this.getAllCommentsAction = getAllCommentsAction;
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
@@ -29,8 +32,10 @@ public class LectureControllerStudent {
 	
 	@RequestMapping(value = "/active", method = RequestMethod.GET)
 	public ModelAndView getActiveLecturePage(@ModelAttribute("lectureDto") LectureDto lectureDto) {
-		//return student version-TO DO
-		return new ModelAndView("activeLecture", "lectureDto", lectureDto); 
+		ModelAndView modelAndView = new ModelAndView("activeLecture");
+		modelAndView.addObject("lectureDto", lectureDto);
+		modelAndView.addObject("commentDtoList", this.getAllCommentsAction.getAll(lectureDto));
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)

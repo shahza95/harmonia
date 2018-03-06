@@ -20,6 +20,7 @@ import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 public class LectureControllerStudent {
 	private final JoinLectureAction joinLectureAction;
 	private final AddCommentAction addCommentAction;
+	private LectureDto lectureDto;
 
 	public LectureControllerStudent(JoinLectureAction joinLectureAction, AddCommentAction addCommentAction) {
 		this.joinLectureAction = joinLectureAction;
@@ -33,9 +34,9 @@ public class LectureControllerStudent {
 	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public ModelAndView join(@RequestParam("password") String password, RedirectAttributes redirectAttributes) {
-		LectureDto returnedLectureDto = this.joinLectureAction.join(password);
-		if(!returnedLectureDto.isEmpty() && lectureIsActive(returnedLectureDto)) {
-			redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
+		this.lectureDto = this.joinLectureAction.join(password);
+		if(!this.lectureDto.isEmpty() && lectureIsActive(this.lectureDto)) {
+			redirectAttributes.addFlashAttribute("lectureDto", this.lectureDto);
 			return new ModelAndView("redirect:/student/lecture/active/comments"); 			
 		}
 		return new ModelAndView("joinLecture");
@@ -43,14 +44,12 @@ public class LectureControllerStudent {
 	
 	@RequestMapping(value = "/active/comments", method = RequestMethod.POST)
 	public ModelAndView addComment(@ModelAttribute CommentDto commentDto, RedirectAttributes redirectAttributes) {
-		//does this work? did we need to set/was it already set?
-		//@RequestParam("lectureDto") LectureDto lectureDto
-//		commentDto.setLectureDto(lectureDto);
+		commentDto.setLectureDto(this.lectureDto);
 //		CommentDto returnedCommentDto = 
-				this.addCommentAction.addComment(commentDto);
-//		redirectAttributes.addFlashAttribute("lectureDto", returnedCommentDto.getLectureDto());
+		this.addCommentAction.addComment(commentDto);
+		redirectAttributes.addFlashAttribute("lectureDto", commentDto.getLectureDto());
 //		if(returnedCommentDto != null) {
-			return new ModelAndView("redirect:/student/lecture/active/comments"); 
+		return new ModelAndView("redirect:/student/lecture/active/comments"); 
 //		}
 		//?????????
 //		return new ModelAndView();

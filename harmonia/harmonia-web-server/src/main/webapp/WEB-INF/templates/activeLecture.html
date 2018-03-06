@@ -32,12 +32,14 @@
 	    		<td th:text="${commentDto.getMessage()}"></td>
 	    	</tr>      		
     	</table>
-    	<div class="field">
-        	<input id="Comment" name="comment" />
-    	</div>
-    	<div class="button">
-	    	<input type="submit" value="Comment" />
-	    </div>
+    	<form method="post">
+	    	<div class="field">
+	        	<input id="Comment" name="message" />
+	    	</div>
+	    	<div class="button">
+		    	<input type="submit" value="Comment" />
+		    </div>
+	    </form>
     </div>
 </body>
 </html>

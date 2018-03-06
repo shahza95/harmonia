@@ -90,6 +90,6 @@ public class LectureControllerLecturerTest {
     public void createRedirectsToActiveLectureIfLectureIsNow() {
     	when(this.mockLectureCreationAction.create(lectureDto)).thenReturn(lectureDto);
     	
-    	assertThat(this.lectureController.create(lectureDto, LocalDate.now().toString(), startTime, endTime, mockRedirectAttributes).getViewName(), is("redirect:/lecture/active/comments"));
+    	assertThat(this.lectureController.create(lectureDto, LocalDate.now().toString(), startTime, endTime, mockRedirectAttributes).getViewName(), is("redirect:/lecturer/lecture/active/comments"));
     }
 }

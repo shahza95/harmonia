@@ -40,7 +40,7 @@ public class LectureControllerLecturer {
 		}
 		redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
 		if(lectureIsActive(returnedLectureDto)){
-			return new ModelAndView("redirect:/lecture/active/comments");
+			return new ModelAndView("redirect:/lecturer/lecture/active/comments");
 		}
 		return new ModelAndView("redirect:/lecturer/lecture/view");
 	}

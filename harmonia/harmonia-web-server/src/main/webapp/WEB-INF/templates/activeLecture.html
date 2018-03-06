@@ -27,7 +27,11 @@
     </div>
     
     <div id="rightPanel">
-     	<textarea name = "content" rows = "50" cols = "150" > </textarea>
+    	<table>
+	    	<tr th:each="commentDto, stat : ${commentDtoList.commentDtoList}"> 
+	    		<td th:text="${commentDto.getMessage()}"></td>
+	    	</tr>      		
+    	</table>
     </div>
 </body>
 </html>

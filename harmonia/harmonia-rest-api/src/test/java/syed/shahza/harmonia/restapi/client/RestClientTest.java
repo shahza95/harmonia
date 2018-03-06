@@ -41,4 +41,12 @@ public class RestClientTest {
 
         verify(this.mockRestOperations).postForObject(FULL_URL, lecturerDto, Boolean.class);
     }
+    
+    @Test
+    public void getRequestInvokesMockRestOperationsGetForObjectMethodWithCorrectParameters() {
+    	LecturerDto lecturerDto = new LecturerDto();
+    	this.restClient.get(ENDPOINT_URL, Boolean.class, lecturerDto);
+    	
+    	verify(this.mockRestOperations).getForObject(FULL_URL, Boolean.class, lecturerDto);
+    }
 }

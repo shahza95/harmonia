@@ -11,18 +11,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.LectureDto;
-import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 
 @Controller
 @RequestMapping("/lecturer/lecture")
 public class LectureControllerLecturer {
 	private final LectureCreationAction lectureCreationAction;
-	private final GetAllCommentsAction getAllCommentsAction;
 
-	public LectureControllerLecturer(LectureCreationAction lectureCreationAction, GetAllCommentsAction getAllCommentsAction) {
+	public LectureControllerLecturer(LectureCreationAction lectureCreationAction) {
 		this.lectureCreationAction = lectureCreationAction;
-		this.getAllCommentsAction = getAllCommentsAction;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -35,14 +32,6 @@ public class LectureControllerLecturer {
 		return new ModelAndView("viewLecture", "lectureDto", lectureDto); 
 	}
 	
-	@RequestMapping(value = "/active/comments", method = RequestMethod.GET)
-	public ModelAndView getActiveLecturePage(@ModelAttribute("lectureDto") LectureDto lectureDto) {
-		ModelAndView modelAndView = new ModelAndView("activeLecture");
-		modelAndView.addObject("lectureDto", lectureDto);
-		modelAndView.addObject("commentDtoList", this.getAllCommentsAction.getAll(lectureDto.getTitle()));
-		return modelAndView;
-	}
-	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ModelAndView create(@ModelAttribute LectureDto lectureDto, @RequestParam("lectureDate") String date, @RequestParam("lectureStartTime") String startTime, @RequestParam("lectureEndTime") String endTime, RedirectAttributes redirectAttributes) {
 		LectureDto returnedLectureDto = lectureCreationAction.create(getCompleteLectureDto(lectureDto, date, startTime, endTime));
@@ -51,7 +40,7 @@ public class LectureControllerLecturer {
 		}
 		redirectAttributes.addFlashAttribute("lectureDto", returnedLectureDto);
 		if(lectureIsActive(returnedLectureDto)){
-			return new ModelAndView("redirect:/lecturer/lecture/active/comments");
+			return new ModelAndView("redirect:/lecture/active/comments");
 		}
 		return new ModelAndView("redirect:/lecturer/lecture/view");
 	}

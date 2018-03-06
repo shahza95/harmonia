@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
-import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 
 @Controller
@@ -21,26 +20,15 @@ import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 public class LectureControllerStudent {
 	private final JoinLectureAction joinLectureAction;
 	private final AddCommentAction addCommentAction;
-	private final GetAllCommentsAction getAllCommentsAction;
 
-	public LectureControllerStudent(JoinLectureAction joinLectureAction, AddCommentAction addCommentAction, GetAllCommentsAction getAllCommentsAction) {
+	public LectureControllerStudent(JoinLectureAction joinLectureAction, AddCommentAction addCommentAction) {
 		this.joinLectureAction = joinLectureAction;
 		this.addCommentAction = addCommentAction;
-		this.getAllCommentsAction = getAllCommentsAction;
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public ModelAndView getJoinLecturePage() {
 		return new ModelAndView("joinLecture"); 
-	}
-	
-	@RequestMapping(value = "/active/comments", method = RequestMethod.GET)
-	public ModelAndView getActiveLecturePage(@ModelAttribute("lectureDto") LectureDto lectureDto) {
-		//return student version-TO DO
-		ModelAndView modelAndView = new ModelAndView("activeLecture");
-		modelAndView.addObject("lectureDto", lectureDto);
-		modelAndView.addObject("commentDtoList", this.getAllCommentsAction.getAll(lectureDto.getTitle()));
-		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)

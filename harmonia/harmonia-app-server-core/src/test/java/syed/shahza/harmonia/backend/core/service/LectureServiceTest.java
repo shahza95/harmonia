@@ -4,7 +4,6 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.when;
 import static syed.shahza.harmonia.backend.core.domain.TestLecture.aValidLecture;
 
@@ -13,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.jms.core.JmsTemplate;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
@@ -29,14 +27,11 @@ public class LectureServiceTest {
 	@Mock
 	private LectureRepository mockLectureRepository;
 	
-	@Mock
-	private JmsTemplate mockJmsTemplate;
-	
 	@Before
 	public void before() {
 		lecture = aValidLecture().build();
 		comment = TestComment.aValidComment().build();
-		this.lectureService = new LectureService(this.mockLectureRepository, this.mockJmsTemplate);
+		this.lectureService = new LectureService(this.mockLectureRepository);
 	}
 	
     @Test
@@ -97,23 +92,7 @@ public class LectureServiceTest {
     	
     	assertThat(this.lectureService.addComment(comment), instanceOf(Comment.class));
     }
-    
-    @Test
-    public void successfulAddCommentInvokesJmsTemplateWithCorrectParameters() {
-    	when(this.mockLectureRepository.addComment(comment)).thenReturn(comment);
-    	this.lectureService.addComment(comment);
-    	
-    	verify(this.mockJmsTemplate).convertAndSend("lecture", comment);
-    }
-    
-    @Test
-    public void unsuccessfulAddCommentDoesNotInvokeJmsTemplate() {
-    	when(this.mockLectureRepository.addComment(comment)).thenReturn(null);
-    	this.lectureService.addComment(comment);
-    	
-    	verify(this.mockJmsTemplate, never()).convertAndSend("lecture", comment);
-    }
-    
+
     @Test
     public void getAllCommentsInvokesLectureRepository() {
     	this.lectureService.getAllComments("someTitle");

@@ -29,4 +29,5 @@ public class LectureController {
 		modelAndView.addObject("commentDtoList", this.getAllCommentsAction.getAll(lectureDto.getTitle()));
 		return modelAndView;
 	}
+	
 }

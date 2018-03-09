@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
@@ -40,9 +39,6 @@ public class LectureControllerStudentTest {
     @Mock
     private AddCommentAction mockAddCommentAction;
     
-    @Mock
-    private RedirectAttributes mockRedirectAttributes;
-    
     @Before
     public void before() {
     	this.lectureDto = aValidLectureDto().date(null).startTime(null).endTime(null).build();
@@ -61,34 +57,26 @@ public class LectureControllerStudentTest {
     public void joinReturnsJoinLecturePageIfPasswordInvalidThereforeReturnedDtoIsEmpty() {
     	when(this.mockJoinLectureAction.join(password)).thenReturn(anEmptyLectureDto().build());
     	
-    	assertThat(this.lectureController.join(password, mockRedirectAttributes).getViewName(), is("joinLecture"));
-    }
-    
-    @Test
-    public void successfulJoinToNowLecturePassesDtoAsRedirectModelValueToActiveLecturePage() {
-       	when(this.mockJoinLectureAction.join(password)).thenReturn(activeLectureDto);
-    	this.lectureController.join(password, mockRedirectAttributes);
-    	
-    	verify(this.mockRedirectAttributes).addFlashAttribute("lectureDto", activeLectureDto);
+    	assertThat(this.lectureController.join(password).getViewName(), is("joinLecture"));
     }
     
     @Test
     public void joinRedirectsToJoinLecturePageIfPasswordValidThereforeReturnedDtoNotEmptyButLectureIsNotNow() {
     	when(this.mockJoinLectureAction.join(password)).thenReturn(lectureDto);
     	
-    	assertThat(this.lectureController.join(password, mockRedirectAttributes).getViewName(), is("joinLecture"));
+    	assertThat(this.lectureController.join(password).getViewName(), is("joinLecture"));
     }
     
     @Test
     public void joinRedirectsToActiveLecturePageIfPasswordValidThereforeReturnedDtoNotEmptyAndLectureIsNow() {
     	when(this.mockJoinLectureAction.join(password)).thenReturn(activeLectureDto);
     	
-    	assertThat(this.lectureController.join(password, mockRedirectAttributes).getViewName(), is("redirect:/student/lecture/active/" + activeLectureDto.getTitle() +"/comments"));
+    	assertThat(this.lectureController.join(password).getViewName(), is("redirect:/student/lecture/active/" + activeLectureDto.getTitle() +"/comments"));
     }
     
     @Test
     public void addCommentInvokesGetLectureAction() {
-    	this.lectureController.addComment(title, commentDto, this.mockRedirectAttributes);
+    	this.lectureController.addComment(title, commentDto);
     	
     	verify(this.mockGetLectureAction).get(title);
     }
@@ -96,7 +84,7 @@ public class LectureControllerStudentTest {
     @Test
     public void addCommentInvokesAddCommentAction() {
        	when(this.mockGetLectureAction.get(title)).thenReturn(this.lectureDto);
-    	this.lectureController.addComment(title, commentDto, this.mockRedirectAttributes);
+    	this.lectureController.addComment(title, commentDto);
     	  
     	verify(this.mockAddCommentAction).addComment(commentDto);
     }
@@ -106,6 +94,6 @@ public class LectureControllerStudentTest {
        	when(this.mockGetLectureAction.get(title)).thenReturn(this.lectureDto);
     	when(this.mockAddCommentAction.addComment(commentDto)).thenReturn(commentDto);
     	
-    	assertThat(this.lectureController.addComment(title, commentDto, this.mockRedirectAttributes).getViewName(), is("redirect:/student/lecture/active/" + title + "/comments"));
+    	assertThat(this.lectureController.addComment(title, commentDto).getViewName(), is("redirect:/student/lecture/active/" + title + "/comments"));
     }
 }

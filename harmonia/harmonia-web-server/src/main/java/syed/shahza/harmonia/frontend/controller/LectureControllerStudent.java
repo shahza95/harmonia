@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
@@ -36,26 +35,19 @@ public class LectureControllerStudent {
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public ModelAndView join(@RequestParam("password") String password, RedirectAttributes redirectAttributes) {
+	public ModelAndView join(@RequestParam("password") String password) {
 		LectureDto lectureDto = this.joinLectureAction.join(password);
 		if(!lectureDto.isEmpty() && lectureIsActive(lectureDto)) {
-			redirectAttributes.addFlashAttribute("lectureDto", lectureDto);
 			return new ModelAndView("redirect:/student/lecture/active/" + lectureDto.getTitle() + "/comments"); 			
 		}
 		return new ModelAndView("joinLecture");
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.POST)
-	public ModelAndView addComment(@PathVariable("lectureTitle") String lectureTitle, @ModelAttribute CommentDto commentDto, RedirectAttributes redirectAttributes) {
+	public ModelAndView addComment(@PathVariable("lectureTitle") String lectureTitle, @ModelAttribute CommentDto commentDto) {
 		commentDto.setLectureDto(this.getLectureAction.get(lectureTitle));
-//		CommentDto returnedCommentDto = 
 		this.addCommentAction.addComment(commentDto);
-		redirectAttributes.addFlashAttribute("lectureDto", commentDto.getLectureDto());
-//		if(returnedCommentDto != null) {
 		return new ModelAndView("redirect:/student/lecture/active/" + lectureTitle +"/comments"); 
-//		}
-		//?????????
-//		return new ModelAndView();
 	}
 	
 	private Boolean lectureIsActive(LectureDto lectureDto) {

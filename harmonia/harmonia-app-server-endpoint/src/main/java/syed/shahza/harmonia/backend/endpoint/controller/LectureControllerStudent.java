@@ -31,6 +31,7 @@ public class LectureControllerStudent {
     
     @RequestMapping(value = "/active/comments/add", method = RequestMethod.POST)
     public CommentDto addComment(@RequestBody CommentDto commentDto) {
+    	System.out.println("Endpoint ----> " + commentDto.getMessage());
     	return this.commentAdapter.toDto(this.lectureService.addComment(this.commentAdapter.toDomain(commentDto)));
     }
 }

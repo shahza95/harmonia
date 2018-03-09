@@ -43,9 +43,6 @@ public class LectureRepository {
 	}
 	
 	public Comments getAllComments(String lectureTitle) {
-		System.out.println("REPO---->" + lectureTitle);
-		System.out.println("REPO---->" + comments.get(0));
-		System.out.println("REPO---->" + comments.get(1));
 		List<Comment> commentList = new ArrayList<Comment>();
 		for(Comment comment: comments) {
 			if(comment.getLecture().getTitle().equals(lectureTitle)) {
@@ -56,6 +53,7 @@ public class LectureRepository {
 	}
 
 	public Comment addComment(Comment comment) {
+		System.out.println("Repo---> " + comment.getMessage());
 		comments.add(comment);
 		return comment;
 	}

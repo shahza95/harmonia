@@ -16,7 +16,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
@@ -35,9 +34,6 @@ public class LectureControllerLecturerTest {
     
     @Mock
     private LectureCreationAction mockLectureCreationAction;
-    
-    @Mock
-    private RedirectAttributes mockRedirectAttributes;
     
     @Captor
     private ArgumentCaptor<LectureDto> lectureDtoCaptor;
@@ -61,26 +57,19 @@ public class LectureControllerLecturerTest {
     @Test
     public void createRedirectsToViewLecturePageOnlyIfResponseIsDto() {
     	when(mockLectureCreationAction.create(lectureDto)).thenReturn(lectureDto);
-    	assertThat(this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime, mockRedirectAttributes).getViewName(), is("redirect:/lecturer/lecture/view/" + lectureDto.getTitle()));
+    	assertThat(this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime).getViewName(), is("redirect:/lecturer/lecture/view/" + lectureDto.getTitle()));
     }
-    
-    @Test
-    public void successfulCreatePassesDtoAsRedirectModelValueToViewOrActiveLecturePage() {
-    	when(mockLectureCreationAction.create(lectureDto)).thenReturn(lectureDto);
-    	this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime, mockRedirectAttributes);
-    	verify(this.mockRedirectAttributes).addFlashAttribute("lectureDto", lectureDto);
-    }
-    
+      
     @Test
     public void createRedirectsBackToCreateLectureOnlyIfResponseEmptyDto() {
     	when(mockLectureCreationAction.create(lectureDto)).thenReturn(anEmptyLectureDto().build());
-    	assertThat(this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime, mockRedirectAttributes).getViewName(), is("lectureCreation"));
+    	assertThat(this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime).getViewName(), is("lectureCreation"));
     }
     
     @Test
     public void createSetsDateAndTimes() {
     	when(this.mockLectureCreationAction.create(lectureDto)).thenReturn(lectureDto);
-    	this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime, mockRedirectAttributes);
+    	this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime);
     	
     	lectureDtoCaptor = ArgumentCaptor.forClass(LectureDto.class);
     	verify(this.mockLectureCreationAction).create(this.lectureDtoCaptor.capture());
@@ -94,6 +83,6 @@ public class LectureControllerLecturerTest {
     public void createRedirectsToActiveLectureIfLectureIsNow() {
     	when(this.mockLectureCreationAction.create(lectureDto)).thenReturn(lectureDto);
     	
-    	assertThat(this.lectureController.create(lectureDto, LocalDate.now().toString(), startTime, endTime, mockRedirectAttributes).getViewName(), is("redirect:/lecturer/lecture/active/" + lectureDto.getTitle() + "/comments"));
+    	assertThat(this.lectureController.create(lectureDto, LocalDate.now().toString(), startTime, endTime).getViewName(), is("redirect:/lecturer/lecture/active/" + lectureDto.getTitle() + "/comments"));
     }
 }

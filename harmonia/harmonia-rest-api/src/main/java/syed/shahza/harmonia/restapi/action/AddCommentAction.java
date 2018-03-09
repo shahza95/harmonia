@@ -12,6 +12,7 @@ public class AddCommentAction {
     }
 
     public CommentDto addComment(CommentDto commentDto) {
+    	System.out.println("Action ---> " + commentDto.getMessage());
         return this.restClient.post(URL_ENDPOINT, commentDto, CommentDto.class);
     }
 }

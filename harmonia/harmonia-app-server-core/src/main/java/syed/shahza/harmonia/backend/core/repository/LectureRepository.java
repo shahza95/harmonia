@@ -53,7 +53,6 @@ public class LectureRepository {
 	}
 
 	public Comment addComment(Comment comment) {
-		System.out.println("Repo---> " + comment.getMessage());
 		comments.add(comment);
 		return comment;
 	}

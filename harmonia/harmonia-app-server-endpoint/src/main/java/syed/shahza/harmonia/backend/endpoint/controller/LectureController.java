@@ -31,6 +31,7 @@ public class LectureController {
 
     @RequestMapping(value = "/active/comments/{lectureTitle}", method = RequestMethod.GET)
     public CommentDtoList getAllComments(@PathVariable String lectureTitle) {
+    	System.out.println("ENDPOINT---->" + lectureTitle);
         return this.commentAdapter.toDto(this.lectureService.getAllComments(lectureTitle));
     }
 }

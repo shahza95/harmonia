@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.backend.core.service;
 
+import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.core.JmsTemplate;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
@@ -7,6 +8,7 @@ import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 
+@EnableJms
 public class LectureService {
 	private final LectureRepository lectureRepository;
 	private final JmsTemplate jmsTemplate;
@@ -30,6 +32,7 @@ public class LectureService {
 	}
 	
 	public Comments getAllComments(String lectureTitle) {
+		System.out.println("SERVICE--->" + lectureTitle);
 		return this.lectureRepository.getAllComments(lectureTitle);
 	}
 	

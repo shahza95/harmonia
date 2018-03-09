@@ -12,6 +12,7 @@ public class GetAllCommentsAction {
     }
 
     public CommentDtoList getAll(String lectureTitle) {
+    	System.out.println("ACTION----> " + lectureTitle);
         return this.restClient.get(URL_ENDPOINT, CommentDtoList.class, lectureTitle);
     }
 }

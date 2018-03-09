@@ -50,21 +50,21 @@ public class LectureControllerStudentTest {
     
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForJoin() {
-    	assertThat(this.lectureController.getJoinLecturePage().getViewName(), is("joinLecture"));
+    	assertThat(this.lectureController.getJoinLecturePage().getViewName(), is("student/joinLecture"));
     }
     
     @Test
     public void joinReturnsJoinLecturePageIfPasswordInvalidThereforeReturnedDtoIsEmpty() {
     	when(this.mockJoinLectureAction.join(password)).thenReturn(anEmptyLectureDto().build());
     	
-    	assertThat(this.lectureController.join(password).getViewName(), is("joinLecture"));
+    	assertThat(this.lectureController.join(password).getViewName(), is("student/joinLecture"));
     }
     
     @Test
     public void joinRedirectsToJoinLecturePageIfPasswordValidThereforeReturnedDtoNotEmptyButLectureIsNotNow() {
     	when(this.mockJoinLectureAction.join(password)).thenReturn(lectureDto);
     	
-    	assertThat(this.lectureController.join(password).getViewName(), is("joinLecture"));
+    	assertThat(this.lectureController.join(password).getViewName(), is("student/joinLecture"));
     }
     
     @Test

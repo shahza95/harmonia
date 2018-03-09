@@ -14,7 +14,7 @@ public class JoinLecturePageTest extends ThymeleafTemplateTest {
     private HtmlElements tags;
 
     public JoinLecturePageTest() {
-        super("/joinLecture");
+        super("/student/joinLecture");
     }
     
     @Before

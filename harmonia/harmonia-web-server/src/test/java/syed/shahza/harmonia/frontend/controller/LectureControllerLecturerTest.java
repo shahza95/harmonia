@@ -46,12 +46,12 @@ public class LectureControllerLecturerTest {
     
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForCreate() {
-        assertThat(this.lectureController.getLectureCreationPage().getViewName(), is("lectureCreation"));
+        assertThat(this.lectureController.getLectureCreationPage().getViewName(), is("lecturer/lectureCreation"));
     }
     
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForView() {
-    	assertThat(this.lectureController.getViewLecturePage("title").getViewName(), is("viewLecture"));
+    	assertThat(this.lectureController.getViewLecturePage("title").getViewName(), is("lecturer/viewLecture"));
     }
     
     @Test
@@ -63,7 +63,7 @@ public class LectureControllerLecturerTest {
     @Test
     public void createRedirectsBackToCreateLectureOnlyIfResponseEmptyDto() {
     	when(mockLectureCreationAction.create(lectureDto)).thenReturn(anEmptyLectureDto().build());
-    	assertThat(this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime).getViewName(), is("lectureCreation"));
+    	assertThat(this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime).getViewName(), is("lecturer/lectureCreation"));
     }
     
     @Test

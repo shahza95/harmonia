@@ -27,19 +27,19 @@ public class LectureControllerLecturer {
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView getLectureCreationPage() {
-		return new ModelAndView("lectureCreation");
+		return new ModelAndView("lecturer/lectureCreation");
 	}
 	
 	@RequestMapping(value = "/view/{lectureTitle}", method = RequestMethod.GET)
 	public ModelAndView getViewLecturePage(@PathVariable("lectureTitle") String lectureTitle) {
-		return new ModelAndView("viewLecture", "lectureDto", this.getLectureAction.get(lectureTitle)); 
+		return new ModelAndView("lecturer/viewLecture", "lectureDto", this.getLectureAction.get(lectureTitle)); 
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ModelAndView create(@ModelAttribute LectureDto lectureDto, @RequestParam("lectureDate") String date, @RequestParam("lectureStartTime") String startTime, @RequestParam("lectureEndTime") String endTime) {
 		LectureDto returnedLectureDto = lectureCreationAction.create(getCompleteLectureDto(lectureDto, date, startTime, endTime));
 		if(returnedLectureDto.isEmpty()) {
-			return new ModelAndView("lectureCreation");
+			return new ModelAndView("lecturer/lectureCreation");
 		}
 		if(lectureIsActive(returnedLectureDto)){
 			return new ModelAndView("redirect:/lecturer/lecture/active/" + returnedLectureDto.getTitle() + "/comments");

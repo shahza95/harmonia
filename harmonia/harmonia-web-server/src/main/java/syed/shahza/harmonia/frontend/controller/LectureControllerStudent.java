@@ -31,7 +31,7 @@ public class LectureControllerStudent {
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public ModelAndView getJoinLecturePage() {
-		return new ModelAndView("joinLecture"); 
+		return new ModelAndView("student/joinLecture"); 
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
@@ -40,7 +40,7 @@ public class LectureControllerStudent {
 		if(!lectureDto.isEmpty() && lectureIsActive(lectureDto)) {
 			return new ModelAndView("redirect:/student/lecture/active/" + lectureDto.getTitle() + "/comments"); 			
 		}
-		return new ModelAndView("joinLecture");
+		return new ModelAndView("student/joinLecture");
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.POST)

@@ -20,8 +20,8 @@ import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LectureControllerTest {
-    private LectureController lectureController;
+public class ActiveLectureControllerStudentTest {
+    private ActiveLectureControllerStudent lectureController;
     private LectureDto lectureDto;
     
     @Mock
@@ -33,7 +33,7 @@ public class LectureControllerTest {
     @Before
     public void before() {
     	lectureDto = aValidLectureDto().build();
-        this.lectureController = new LectureController(this.mockGetLectureAction, this.mockGetAllCommentsAction);
+        this.lectureController = new ActiveLectureControllerStudent(this.mockGetLectureAction, this.mockGetAllCommentsAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
     }
     
@@ -47,7 +47,7 @@ public class LectureControllerTest {
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLecture() {
     	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
-    	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getViewName(), is("activeLecture"));
+    	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getViewName(), is("student/activeLecture"));
     }
     
     @Test

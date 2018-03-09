@@ -22,7 +22,7 @@ public class ViewLecturePageTest extends ThymeleafTemplateTest {
     private LectureDto lectureDto;
 
     public ViewLecturePageTest() {
-        super("/viewLecture");
+        super("/lecturer/viewLecture");
     }
     
     @Before

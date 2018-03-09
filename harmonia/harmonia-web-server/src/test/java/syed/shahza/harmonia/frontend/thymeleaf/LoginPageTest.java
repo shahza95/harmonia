@@ -14,7 +14,7 @@ public class LoginPageTest extends ThymeleafTemplateTest {
     private HtmlElements tags;
 
     public LoginPageTest() {
-        super("/login");
+        super("/lecturer/login");
     }
     
     @Before

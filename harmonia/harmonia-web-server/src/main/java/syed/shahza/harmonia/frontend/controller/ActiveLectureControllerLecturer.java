@@ -11,12 +11,12 @@ import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 
 @Controller
-@RequestMapping("**/lecture")
-public class LectureController {
+@RequestMapping("/lecturer/lecture")
+public class ActiveLectureControllerLecturer {
 	private final GetLectureAction getLectureAction;
 	private final GetAllCommentsAction getAllCommentsAction;
 
-	public LectureController(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction) {
+	public ActiveLectureControllerLecturer(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction) {
 		this.getLectureAction = getLectureAction;
 		this.getAllCommentsAction = getAllCommentsAction;
 	}
@@ -24,7 +24,7 @@ public class LectureController {
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.GET)
 	public ModelAndView getActiveLecturePage(@PathVariable("lectureTitle") String lectureTitle) {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
-		ModelAndView modelAndView = new ModelAndView("activeLecture");
+		ModelAndView modelAndView = new ModelAndView("lecturer/activeLecture");
 		modelAndView.addObject("lectureDto", lectureDto);
 		modelAndView.addObject("commentDtoList", this.getAllCommentsAction.getAll(lectureDto.getTitle()));
 		return modelAndView;

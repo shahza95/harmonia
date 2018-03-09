@@ -25,6 +25,10 @@ public class LectureService {
 		return this.lectureRepository.retrieveLectureFromPassword(password);
 	}
 	
+	public Lecture getLecture(String lectureTitle) {
+		return this.lectureRepository.retrieveLectureFromTitle(lectureTitle);
+	}
+	
 	public Comments getAllComments(String lectureTitle) {
 		return this.lectureRepository.getAllComments(lectureTitle);
 	}

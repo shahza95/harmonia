@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
@@ -16,6 +17,7 @@ import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.TestCommentDtoList;
 import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
+import syed.shahza.harmonia.restapi.action.GetLectureAction;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LectureControllerTest {
@@ -23,18 +25,29 @@ public class LectureControllerTest {
     private LectureDto lectureDto;
     
     @Mock
+    private GetLectureAction mockGetLectureAction;
+    
+    @Mock
     private GetAllCommentsAction mockGetAllCommentsAction;
     
     @Before
     public void before() {
     	lectureDto = aValidLectureDto().build();
-        this.lectureController = new LectureController(this.mockGetAllCommentsAction);
+        this.lectureController = new LectureController(this.mockGetLectureAction, this.mockGetAllCommentsAction);
+        when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
+    }
+    
+    @Test
+    public void getActiveLectureInvokesGetLectureAction() {
+    	this.lectureController.getActiveLecturePage(lectureDto.getTitle());
+    	
+    	Mockito.verify(this.mockGetLectureAction).get(lectureDto.getTitle());
     }
         
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLecture() {
     	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
-    	assertThat(this.lectureController.getActiveLecturePage(lectureDto).getViewName(), is("activeLecture"));
+    	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getViewName(), is("activeLecture"));
     }
     
     @Test
@@ -42,7 +55,7 @@ public class LectureControllerTest {
     	CommentDtoList commentDtoList = TestCommentDtoList.aFilledCommentDtoList(3);
     	when(this.mockGetAllCommentsAction.getAll(lectureDto.getTitle())).thenReturn(commentDtoList);
     
-    	assertThat(this.lectureController.getActiveLecturePage(lectureDto).getModel().get("lectureDto"), is(lectureDto));
+    	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getModel().get("lectureDto"), is(lectureDto));
     }
     
     @Test
@@ -50,6 +63,6 @@ public class LectureControllerTest {
     	CommentDtoList commentDtoList = TestCommentDtoList.aFilledCommentDtoList(3);
     	when(this.mockGetAllCommentsAction.getAll(lectureDto.getTitle())).thenReturn(commentDtoList);
     	
-    	assertThat(this.lectureController.getActiveLecturePage(lectureDto).getModel().get("commentDtoList"), is(commentDtoList));
+    	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getModel().get("commentDtoList"), is(commentDtoList));
     }
 }

@@ -33,6 +33,15 @@ public class LectureRepository {
 		return aLecture().build();
 	}
 	
+	public Lecture retrieveLectureFromTitle(String lectureTitle) {
+		for (Lecture lecture : lectures) {
+			if (lecture.getTitle().equals(lectureTitle)) {
+				return lecture;
+			}
+		}
+		return aLecture().build();
+	}
+	
 	public Comments getAllComments(String lectureTitle) {
 		List<Comment> commentList = new ArrayList<Comment>();
 		for(Comment comment: comments) {

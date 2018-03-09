@@ -19,6 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -28,6 +29,9 @@ public class LectureControllerLecturerTest {
     private String dateTomorrow = LocalDate.now().plusDays(1).toString();
     private String startTime = LocalTime.now().toString();
     private String endTime = LocalTime.now().plusHours(1).toString();
+    
+    @Mock
+    private GetLectureAction mockGetLectureAction;
     
     @Mock
     private LectureCreationAction mockLectureCreationAction;
@@ -41,7 +45,7 @@ public class LectureControllerLecturerTest {
     @Before
     public void before() {
     	lectureDto = aValidLectureDto().date(null).startTime(null).endTime(null).build();
-        this.lectureController = new LectureControllerLecturer(this.mockLectureCreationAction);
+        this.lectureController = new LectureControllerLecturer(this.mockGetLectureAction, this.mockLectureCreationAction);
     }
     
     @Test
@@ -51,13 +55,13 @@ public class LectureControllerLecturerTest {
     
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForView() {
-    	assertThat(this.lectureController.getViewLecturePage(lectureDto).getViewName(), is("viewLecture"));
+    	assertThat(this.lectureController.getViewLecturePage("title").getViewName(), is("viewLecture"));
     }
     
     @Test
     public void createRedirectsToViewLecturePageOnlyIfResponseIsDto() {
     	when(mockLectureCreationAction.create(lectureDto)).thenReturn(lectureDto);
-    	assertThat(this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime, mockRedirectAttributes).getViewName(), is("redirect:/lecturer/lecture/view"));
+    	assertThat(this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime, mockRedirectAttributes).getViewName(), is("redirect:/lecturer/lecture/view/" + lectureDto.getTitle()));
     }
     
     @Test
@@ -90,6 +94,6 @@ public class LectureControllerLecturerTest {
     public void createRedirectsToActiveLectureIfLectureIsNow() {
     	when(this.mockLectureCreationAction.create(lectureDto)).thenReturn(lectureDto);
     	
-    	assertThat(this.lectureController.create(lectureDto, LocalDate.now().toString(), startTime, endTime, mockRedirectAttributes).getViewName(), is("redirect:/lecturer/lecture/active/comments"));
+    	assertThat(this.lectureController.create(lectureDto, LocalDate.now().toString(), startTime, endTime, mockRedirectAttributes).getViewName(), is("redirect:/lecturer/lecture/active/" + lectureDto.getTitle() + "/comments"));
     }
 }

@@ -35,15 +35,28 @@ public class LectureRepositoryTest {
     }
     
     @Test
-    public void joinReturnsLectureObjectIfPasswordValid() {
+    public void retrieveLectureFromPasswordReturnsLectureObjectIfPasswordValid() {
     	this.lectureRepository.create(lecture);
     	
     	assertThat(lectureRepository.retrieveLectureFromPassword(lecture.getPassword()), is(lecture));
     }
     
     @Test
-    public void joinReturnsEmptyLectureObjectIfPasswordInvalid() {
+    public void retrieveLectureFromPasswordReturnsEmptyLectureObjectIfPasswordInvalid() {
     	Lecture lecture = lectureRepository.retrieveLectureFromPassword("passwordForNonExistentLecture");
+    	assertTrue(lecture.isEmpty());
+    }
+    
+    @Test
+    public void retrieveLectureFromTitleReturnsLectureObjectIfTitleValid() {
+    	this.lectureRepository.create(lecture);
+    	
+    	assertThat(lectureRepository.retrieveLectureFromTitle(lecture.getTitle()), is(lecture));
+    }
+    
+    @Test
+    public void retrieveLectureFromTitleReturnsEmptyLectureObjectIfTitleInvalid() {
+    	Lecture lecture = lectureRepository.retrieveLectureFromTitle("titleForNonExistentLecture");
     	assertTrue(lecture.isEmpty());
     }
     

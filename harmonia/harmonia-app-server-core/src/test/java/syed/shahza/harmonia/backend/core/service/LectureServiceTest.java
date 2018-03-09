@@ -69,6 +69,22 @@ public class LectureServiceTest {
     }
     
     @Test
+    public void getLectureInvokesLectureRepository() {
+    	String title = "title";
+    	lectureService.getLecture(title);
+    	
+    	verify(this.mockLectureRepository).retrieveLectureFromTitle(title);
+    }
+    
+    @Test
+    public void getLectureReturnsLectureObject() {
+    	String title = "title";
+    	when(this.mockLectureRepository.retrieveLectureFromTitle(title)).thenReturn(lecture);
+    	
+    	assertThat(lectureService.getLecture(title), instanceOf(Lecture.class));
+    }
+    
+    @Test
     public void addCommentInvokesLectureRepository() {
     	this.lectureService.addComment(comment);
     	

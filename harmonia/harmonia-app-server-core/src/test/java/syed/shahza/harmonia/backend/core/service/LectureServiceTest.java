@@ -14,10 +14,14 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
+import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
+import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
+import syed.shahza.harmonia.backend.core.domain.TestComments;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
+import syed.shahza.harmonia.backend.core.domain.TestMoods;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -103,6 +107,13 @@ public class LectureServiceTest {
     }
     
     @Test
+    public void getAllCommentsReturnsCommentsObject() {
+    	when(this.mockLectureRepository.getAllComments("title")).thenReturn(TestComments.aFilledCommentsList(1));
+    	
+    	assertThat(this.lectureService.getAllComments("title"), instanceOf(Comments.class));
+    }
+    
+    @Test
     public void addMoodInvokesLectureRepository() {
     	Mood mood = TestMood.aValidMood().build();
     	this.lectureService.addMood(mood);
@@ -116,5 +127,19 @@ public class LectureServiceTest {
     	when(this.mockLectureRepository.addMood(mood)).thenReturn(mood);
     	
     	assertThat(this.lectureService.addMood(mood), instanceOf(Mood.class));
+    }
+    
+    @Test
+    public void getAllMoodsInvokesLectureRepository() {
+    	this.lectureService.getAllMoods("someTitle");
+    	
+    	verify(this.mockLectureRepository).getAllMoods("someTitle");
+    }
+    
+    @Test
+    public void getAllMoodsReturnsMoodsObject() {
+    	when(this.mockLectureRepository.getAllMoods("title")).thenReturn(TestMoods.aFilledMoodsList(1));
+    	
+    	assertThat(this.lectureService.getAllMoods("title"), instanceOf(Moods.class));
     }
 }

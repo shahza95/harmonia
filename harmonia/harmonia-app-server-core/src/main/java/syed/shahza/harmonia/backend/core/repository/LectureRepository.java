@@ -9,6 +9,7 @@ import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
+import syed.shahza.harmonia.backend.core.domain.Moods;
 
 public class LectureRepository {
 	private List<Lecture> lectures = new ArrayList<>();
@@ -63,5 +64,15 @@ public class LectureRepository {
 	public Mood addMood(Mood mood) {
 		moods.add(mood);
 		return mood;
+	}
+	
+	public Moods getAllMoods(String lectureTitle) {
+		List<Mood> moodList = new ArrayList<Mood>();
+		for(Mood mood: moods) {
+			if(mood.getLecture().getTitle().equals(lectureTitle)) {
+				moodList.add(mood);
+			}
+		}
+		return Moods.aMoodListBuilder().moodList(moodList).build();
 	}
 }

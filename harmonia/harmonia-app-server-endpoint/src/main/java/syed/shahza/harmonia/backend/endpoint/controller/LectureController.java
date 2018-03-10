@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.backend.dto.MoodDtoList;
 import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
+import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
 
 @RestController
 @RequestMapping("/lecture")
@@ -17,11 +19,13 @@ public class LectureController {
     private final LectureService lectureService;
     private final LectureAdapter lectureAdapter; 
     private final CommentAdapter commentAdapter; 
+    private final MoodAdapter moodAdapter; 
 
-    public LectureController(LectureService lectureService, LectureAdapter lectureAdapter, CommentAdapter commentAdapter) {
+    public LectureController(LectureService lectureService, LectureAdapter lectureAdapter, CommentAdapter commentAdapter, MoodAdapter moodAdapter) {
         this.lectureService = lectureService;
         this.lectureAdapter = lectureAdapter;
         this.commentAdapter = commentAdapter;
+        this.moodAdapter = moodAdapter;
     }
     
     @RequestMapping(value = "/{lectureTitle}", method = RequestMethod.GET)
@@ -32,5 +36,10 @@ public class LectureController {
     @RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.GET)
     public CommentDtoList getAllComments(@PathVariable String lectureTitle) {
         return this.commentAdapter.toDto(this.lectureService.getAllComments(lectureTitle));
+    }
+    
+    @RequestMapping(value = "/active/{lectureTitle}/moods", method = RequestMethod.GET)
+    public MoodDtoList getAllMoods(@PathVariable String lectureTitle) {
+    	return this.moodAdapter.toDto(this.lectureService.getAllMoods(lectureTitle));
     }
 }

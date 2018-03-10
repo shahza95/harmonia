@@ -12,17 +12,24 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
+import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.TestComments;
 import syed.shahza.harmonia.backend.core.domain.TestLecture;
+import syed.shahza.harmonia.backend.core.domain.TestMoods;
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
+import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LectureControllerTest {
     private LectureController lectureController;
+    private String lectureTitle;
+    
+    @Mock
+    private MoodAdapter mockMoodAdapter;
     
     @Mock
     private CommentAdapter mockCommentAdapter;
@@ -35,15 +42,15 @@ public class LectureControllerTest {
 
     @Before
     public void before() {
-        this.lectureController = new LectureController(this.mockLectureService, this.mockLectureAdapter, this.mockCommentAdapter);
+    	this.lectureTitle = "title";
+        this.lectureController = new LectureController(this.mockLectureService, this.mockLectureAdapter, this.mockCommentAdapter, this.mockMoodAdapter);
     }
     
     @Test
     public void getAllCommentsInvokesServiceWithLectureTitleString() {
-    	String title = "someTitle";
-        this.lectureController.getAllComments(title);
+        this.lectureController.getAllComments(this.lectureTitle);
 
-        verify(this.mockLectureService).getAllComments(title);
+        verify(this.mockLectureService).getAllComments(this.lectureTitle);
     }
     
     @Test
@@ -58,19 +65,34 @@ public class LectureControllerTest {
     
     @Test
     public void getLectureInvokesServiceWithLectureTitleString() {
-    	String title = "someTitle";
-    	this.lectureController.getLecture(title);
+    	this.lectureController.getLecture(this.lectureTitle);
     	
-    	verify(this.mockLectureService).getLecture(title);
+    	verify(this.mockLectureService).getLecture(this.lectureTitle);
     }
     
     @Test
     public void getLectureInvokesAdapterToDtoForReturn() {
     	Lecture lecture = TestLecture.aValidLecture().build();
-    	String title = "title";
-    	when(mockLectureService.getLecture(title)).thenReturn(lecture);
-    	this.lectureController.getLecture(title);
+    	when(mockLectureService.getLecture(this.lectureTitle)).thenReturn(lecture);
+    	this.lectureController.getLecture(this.lectureTitle);
     	
     	verify(this.mockLectureAdapter).toDto(lecture);
+    }
+    
+    @Test
+    public void getAllMoodsInvokesServiceWithLectureTitleString() {
+        this.lectureController.getAllMoods(this.lectureTitle);
+
+        verify(this.mockLectureService).getAllMoods(this.lectureTitle);
+    }
+    
+    @Test
+    public void getAllMoodsInvokesAdapterToDtoForReturn() {
+    	LectureDto lectureDto = TestLectureDto.anActiveLectureDto().build();
+    	Moods moods = TestMoods.aFilledMoodsList(3);
+    	when(mockLectureService.getAllMoods(lectureDto.getTitle())).thenReturn(moods);
+    	this.lectureController.getAllMoods(lectureDto.getTitle());
+    	
+    	verify(this.mockMoodAdapter).toDto(moods);
     }
 }

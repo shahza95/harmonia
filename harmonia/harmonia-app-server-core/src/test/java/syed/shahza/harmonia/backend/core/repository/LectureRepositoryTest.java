@@ -15,6 +15,7 @@ import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
+import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
 
@@ -86,5 +87,22 @@ public class LectureRepositoryTest {
     public void addMoodShouldReturnTheMood() {
     	Mood mood = TestMood.aValidMood().build();
     	assertThat(this.lectureRepository.addMood(mood), is(mood));
+    }
+    
+    @Test
+    public void getAllMoodsShouldReturnAllMoodsForParticularLecture() {
+    	Mood mood = TestMood.aValidMood().build();
+    	this.lectureRepository.addMood(mood);
+    	this.lectureRepository.addMood(TestMood.aValidMood().emoji(":D").lecture(aValidLecture().title("otherTitle").build()).build());
+    	
+    	assertThat(this.lectureRepository.getAllMoods("otherTitle").getMoodList().size(), is(1));
+    }
+    
+    @Test
+    public void getAllMoodsShouldReturnMoodsObject() {
+    	Mood mood = TestMood.aValidMood().build();
+    	this.lectureRepository.addMood(mood);
+    	
+    	assertThat(this.lectureRepository.getAllMoods(lecture.getTitle()), instanceOf(Moods.class));
     }
 }

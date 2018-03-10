@@ -72,6 +72,6 @@ public class ActiveLecturePageLecturerTest extends ThymeleafTemplateTest {
     
     @Test
     public void moodButtonShouldRedirectToActiveLectureMoodPage() throws NodeSelectorException {
-    	assertThat(this.tags.matching("form").get(2).attr("action"), is("/lecturer/lecture/active/title/mood"));
+    	assertThat(this.tags.matching("form").get(2).attr("action"), is("/lecturer/lecture/active/title/moods"));
     }
 }

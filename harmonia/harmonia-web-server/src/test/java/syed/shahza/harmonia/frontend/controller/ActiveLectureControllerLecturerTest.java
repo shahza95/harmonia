@@ -14,9 +14,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.backend.dto.MoodDtoList;
 import syed.shahza.harmonia.backend.dto.TestCommentDtoList;
 import syed.shahza.harmonia.backend.dto.TestLectureDto;
+import syed.shahza.harmonia.backend.dto.TestMoodDtoList;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
+import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -30,10 +33,13 @@ public class ActiveLectureControllerLecturerTest {
     @Mock
     private GetAllCommentsAction mockGetAllCommentsAction;
     
+    @Mock
+    private GetAllMoodsAction mockGetAllMoodsAction;
+    
     @Before
     public void before() {
     	lectureDto = aValidLectureDto().build();
-        this.lectureController = new ActiveLectureControllerLecturer(this.mockGetLectureAction, this.mockGetAllCommentsAction);
+        this.lectureController = new ActiveLectureControllerLecturer(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
     }
     
@@ -64,5 +70,34 @@ public class ActiveLectureControllerLecturerTest {
     	when(this.mockGetAllCommentsAction.getAll(lectureDto.getTitle())).thenReturn(commentDtoList);
     	
     	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getModel().get("commentDtoList"), is(commentDtoList));
+    }
+    
+    @Test
+    public void getActiveLectureMoodInvokesGetLectureAction() {
+    	this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle());
+    	
+    	Mockito.verify(this.mockGetLectureAction).get(lectureDto.getTitle());
+    }
+    
+    @Test
+    public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureMood() {
+    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
+    	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getViewName(), is("lecturer/activeLectureMood"));
+    }
+    
+    @Test
+    public void getActiveLectureMoodSendsLectureDtoAsModel() {
+    	MoodDtoList moodDtoList = TestMoodDtoList.aFilledMoodDtoList(3);
+    	when(this.mockGetAllMoodsAction.getAll(lectureDto.getTitle())).thenReturn(moodDtoList);
+    	
+    	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getModel().get("lectureDto"), is(lectureDto));
+    }
+    
+    @Test
+    public void getActiveLectureMoodSendsMoodDtoListAsModel() {
+    	MoodDtoList moodDtoList = TestMoodDtoList.aFilledMoodDtoList(3);
+    	when(this.mockGetAllMoodsAction.getAll(lectureDto.getTitle())).thenReturn(moodDtoList);
+    	
+    	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getModel().get("moodDtoList"), is(moodDtoList));
     }
 }

@@ -63,4 +63,10 @@ public class ActiveLectureMoodPageLecturerTest extends ThymeleafTemplateTest {
     		assertThat(this.tags.matching("td").get(i).text(), is(moodDtoList.getMoodDtoList().get(i).getEmoji()));
     	}
     }
+    
+    @Test
+    public void shouldRefreshEvery5Seconds() throws NodeSelectorException {
+    	assertThat(this.tags.matching("meta").get(0).attr("http-equiv"), is("refresh"));
+    	assertThat(this.tags.matching("meta").get(0).attr("content"), is("5"));
+    }
 }

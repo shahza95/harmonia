@@ -2,7 +2,10 @@ package syed.shahza.harmonia.endtoend.test.service.page;
 
 import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.endtoend.test.api.Result;
+import syed.shahza.harmonia.endtoend.test.page.ActiveLectureMoodLecturerPage;
+import syed.shahza.harmonia.endtoend.test.page.ActiveLectureMoodStudentPage;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureStudentPage;
 import syed.shahza.harmonia.endtoend.test.page.JoinLecturePage;
 import syed.shahza.harmonia.endtoend.test.page.LectureCreationPage;
@@ -13,11 +16,15 @@ public class PageBasedLectureService implements LectureService {
     private final LectureCreationPage lectureCreationPage;
     private final JoinLecturePage joinLecturePage;
     private final ActiveLectureStudentPage activeLectureStudentPage;
+    private final ActiveLectureMoodStudentPage activeLectureMoodStudentPage;
+    private final ActiveLectureMoodLecturerPage activeLectureMoodLecturerPage;
 
-    public PageBasedLectureService(LectureCreationPage lectureCreationPage, JoinLecturePage joinLecturePage, ActiveLectureStudentPage activeLectureStudentPage) {
+    public PageBasedLectureService(LectureCreationPage lectureCreationPage, JoinLecturePage joinLecturePage, ActiveLectureStudentPage activeLectureStudentPage, ActiveLectureMoodStudentPage activeLectureMoodStudentPage, ActiveLectureMoodLecturerPage activeLectureMoodLecturerPage) {
         this.lectureCreationPage = lectureCreationPage;
         this.joinLecturePage = joinLecturePage;
         this.activeLectureStudentPage = activeLectureStudentPage;
+        this.activeLectureMoodStudentPage = activeLectureMoodStudentPage;
+        this.activeLectureMoodLecturerPage = activeLectureMoodLecturerPage;
     }
 
     @Override
@@ -40,4 +47,21 @@ public class PageBasedLectureService implements LectureService {
 		return this.activeLectureStudentPage.clickCommentButton(commentDto.getMessage());
 	}
 
+	@Override
+	public void addMood(MoodDto moodDto) {
+		this.activeLectureMoodStudentPage.navigateTo(moodDto.getLectureDto().getTitle());
+		this.activeLectureMoodStudentPage.enterEmoji(moodDto.getEmoji());
+		this.activeLectureMoodStudentPage.clickSendButton();
+	}
+
+	@Override
+	public void getAllMoods(String lectureTitle) {
+		this.activeLectureMoodLecturerPage.navigateTo(lectureTitle);
+	}
+	
+	@Override
+	public Result checkEmojiReceived(String lectureTitle, String emoji) {
+		getAllMoods(lectureTitle);
+		return this.activeLectureMoodLecturerPage.checkEmojiIsPresent(emoji);
+	}
 }

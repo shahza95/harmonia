@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Active Lecture</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all"
+      href="../../resources/css/styles.css" th:href="@{/resources/css/styles.css}"/>
+</head>
+<body>
+	<h1 th:text="${lectureDto.title} + ': Mood'">title</h1>
+	<div id="leftMenu">
+	    <form method="get">
+	      <div class="button">
+	    	  <input type="submit" value="Comments" />
+	      </div>
+	    </form>  
+	    <form method="get">
+	      <div class="button">
+	    	  <input type="submit" value="Questions" />
+	      </div>
+	    </form>    
+	    <form method="get">
+	      <div class="button">
+	    	  <input type="submit" value="Mood" />
+	      </div>
+	    </form>
+    </div>
+    
+    <div id="rightPanel">
+    	<form method="post">
+	    	<div class="field">
+	        	<input id="Mood" name="emoji" />
+	    	</div>
+	    	<div class="button">
+		    	<input type="submit" value="Mood" name="Mood" />
+		    </div>
+	    </form>
+    </div>
+</body>
+</html>

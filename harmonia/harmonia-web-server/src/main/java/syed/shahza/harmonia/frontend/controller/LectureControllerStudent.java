@@ -3,30 +3,21 @@ package syed.shahza.harmonia.frontend.controller;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
-import syed.shahza.harmonia.restapi.action.AddCommentAction;
-import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 
 @Controller
 @RequestMapping("/student/lecture")
 public class LectureControllerStudent {
-	private final GetLectureAction getLectureAction;
 	private final JoinLectureAction joinLectureAction;
-	private final AddCommentAction addCommentAction;
 
-	public LectureControllerStudent(GetLectureAction getLectureAction, JoinLectureAction joinLectureAction, AddCommentAction addCommentAction) {
-		this.getLectureAction = getLectureAction;
+	public LectureControllerStudent(JoinLectureAction joinLectureAction) {
 		this.joinLectureAction = joinLectureAction;
-		this.addCommentAction = addCommentAction;
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
@@ -41,13 +32,6 @@ public class LectureControllerStudent {
 			return new ModelAndView("redirect:/student/lecture/active/" + lectureDto.getTitle() + "/comments"); 			
 		}
 		return new ModelAndView("student/joinLecture");
-	}
-	
-	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.POST)
-	public ModelAndView addComment(@PathVariable("lectureTitle") String lectureTitle, @ModelAttribute CommentDto commentDto) {
-		commentDto.setLectureDto(this.getLectureAction.get(lectureTitle));
-		this.addCommentAction.addComment(commentDto);
-		return new ModelAndView("redirect:/student/lecture/active/" + lectureTitle +"/comments"); 
 	}
 	
 	private Boolean lectureIsActive(LectureDto lectureDto) {

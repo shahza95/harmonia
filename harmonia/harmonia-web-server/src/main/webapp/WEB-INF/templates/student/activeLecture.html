@@ -19,7 +19,7 @@
 	    	  <input type="submit" value="Questions" />
 	      </div>
 	    </form>    
-	    <form method="get">
+	    <form th:action="@{/student/lecture/active/__${lectureDto.title}__/mood}">
 	      <div class="button">
 	    	  <input type="submit" value="Mood" />
 	      </div>

@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Active Lecture</title>
-<meta http-equiv="refresh" content="5" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" media="all"
       href="../../resources/css/styles.css" th:href="@{/resources/css/styles.css}"/>
 </head>
 <body>
-	<h1 th:text="${lectureDto.title}">title</h1>
+	<h1 th:text="${lectureDto.title} + ': Mood'">title</h1>
 	<div id="leftMenu">
 	    <form method="get">
 	      <div class="button">
@@ -19,7 +19,7 @@
 	    	  <input type="submit" value="Questions" />
 	      </div>
 	    </form>    
-	    <form th:action="@{/lecturer/lecture/active/__${lectureDto.title}__/mood}">
+	    <form method="get">
 	      <div class="button">
 	    	  <input type="submit" value="Mood" />
 	      </div>
@@ -28,8 +28,8 @@
     
     <div id="rightPanel">
     	<table>
-	    	<tr th:each="commentDto, stat : ${commentDtoList.commentDtoList}"> 
-	    		<td th:text="${commentDto.getMessage()}"></td>
+	    	<tr th:each="moodDto, stat : ${moodDtoList.moodDtoList}"> 
+	    		<td th:text="${moodDto.getEmoji()}"></td>
 	    	</tr>      		
     	</table>
     </div>

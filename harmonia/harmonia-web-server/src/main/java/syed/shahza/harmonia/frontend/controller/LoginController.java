@@ -19,14 +19,14 @@ public class LoginController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getLoginPage() {
-		return new ModelAndView("login");
+		return new ModelAndView("lecturer/login");
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView login(LecturerDto lecturerDto) {
 		if (loginAction.login(lecturerDto)) {
-			return new ModelAndView("success");
+			return new ModelAndView("lecturer/success");
 		} 
-		return new ModelAndView("login");
+		return new ModelAndView("lecturer/login");
 	}
 }

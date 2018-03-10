@@ -8,15 +8,18 @@ import java.util.List;
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
+import syed.shahza.harmonia.backend.core.domain.Mood;
 
 public class LectureRepository {
 	private List<Lecture> lectures = new ArrayList<>();
 	private List<Comment> comments = new ArrayList<>();
+	private List<Mood> moods = new ArrayList<>();
 	
 	public LectureRepository() {
 		Lecture lecture = Lecture.aLecture().title("myTitle").build();
 		this.comments.add(Comment.aComment().message("comment1").lecture(lecture).build());
 		this.comments.add(Comment.aComment().message("comment2").lecture(lecture).build());
+		this.moods.add(Mood.aMood().emoji(":)").lecture(lecture).build());
 	}
 
 	public Lecture create(Lecture lecture) {
@@ -55,5 +58,10 @@ public class LectureRepository {
 	public Comment addComment(Comment comment) {
 		comments.add(comment);
 		return comment;
+	}
+	
+	public Mood addMood(Mood mood) {
+		moods.add(mood);
+		return mood;
 	}
 }

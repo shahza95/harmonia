@@ -3,6 +3,7 @@ package syed.shahza.harmonia.backend.core.service;
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
+import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 
 public class LectureService {
@@ -30,5 +31,9 @@ public class LectureService {
 	
 	public Comment addComment(Comment comment) {
 		return this.lectureRepository.addComment(comment);
+	}
+	
+	public Mood addMood(Mood mood) {
+		return this.lectureRepository.addMood(mood);
 	}
 }

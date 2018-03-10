@@ -1,7 +1,7 @@
 package syed.shahza.harmonia.backend.core.repository;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static syed.shahza.harmonia.backend.core.domain.TestLecture.aValidLecture;
@@ -14,7 +14,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
+import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
+import syed.shahza.harmonia.backend.core.domain.TestMood;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LectureRepositoryTest {
@@ -78,5 +80,11 @@ public class LectureRepositoryTest {
     	this.lectureRepository.addComment(comment);
     	
     	assertThat(this.lectureRepository.getAllComments(lecture.getTitle()), instanceOf(Comments.class));
+    }
+    
+    @Test
+    public void addMoodShouldReturnTheMood() {
+    	Mood mood = TestMood.aValidMood().build();
+    	assertThat(this.lectureRepository.addMood(mood), is(mood));
     }
 }

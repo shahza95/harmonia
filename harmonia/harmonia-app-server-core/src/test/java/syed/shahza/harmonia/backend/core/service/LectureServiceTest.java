@@ -15,7 +15,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
+import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
+import syed.shahza.harmonia.backend.core.domain.TestMood;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -98,5 +100,21 @@ public class LectureServiceTest {
     	this.lectureService.getAllComments("someTitle");
     	
     	verify(this.mockLectureRepository).getAllComments("someTitle");
+    }
+    
+    @Test
+    public void addMoodInvokesLectureRepository() {
+    	Mood mood = TestMood.aValidMood().build();
+    	this.lectureService.addMood(mood);
+    	
+    	verify(this.mockLectureRepository).addMood(mood);
+    }
+    
+    @Test
+    public void addMoodReturnsMoodObject() {
+    	Mood mood = TestMood.aValidMood().build();
+    	when(this.mockLectureRepository.addMood(mood)).thenReturn(mood);
+    	
+    	assertThat(this.lectureService.addMood(mood), instanceOf(Mood.class));
     }
 }

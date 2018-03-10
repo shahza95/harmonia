@@ -12,12 +12,17 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
+import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
+import syed.shahza.harmonia.backend.core.domain.TestMood;
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.dto.CommentDto;
+import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.backend.dto.TestCommentDto;
+import syed.shahza.harmonia.backend.dto.TestMoodDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
+import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LectureControllerStudentTest {
@@ -25,6 +30,8 @@ public class LectureControllerStudentTest {
     private Lecture lecture;
     private CommentDto commentDto;
     private Comment comment;
+    private MoodDto moodDto;
+    private Mood mood;
     
     @Mock
     private LectureService mockLectureService;
@@ -34,13 +41,18 @@ public class LectureControllerStudentTest {
     
     @Mock
     private CommentAdapter mockCommentAdapter;
+    
+    @Mock
+    private MoodAdapter mockMoodAdapter;
 
     @Before
     public void before() {
-        this.lectureController = new LectureControllerStudent(this.mockLectureService, this.mockLectureAdapter, this.mockCommentAdapter);
-        lecture = aValidLecture().build();
-        commentDto = TestCommentDto.aValidCommentDto().build();
-        comment = TestComment.aValidComment().build();
+        this.lectureController = new LectureControllerStudent(this.mockLectureService, this.mockLectureAdapter, this.mockCommentAdapter, this.mockMoodAdapter);
+        this.lecture = aValidLecture().build();
+        this.commentDto = TestCommentDto.aValidCommentDto().build();
+        this.comment = TestComment.aValidComment().build();
+        this.moodDto = TestMoodDto.aValidMoodDto().build();
+        this.mood = TestMood.aValidMood().build();
     }
     
     @Test
@@ -83,5 +95,30 @@ public class LectureControllerStudentTest {
     	this.lectureController.addComment(commentDto);
     	
     	verify(this.mockCommentAdapter).toDto(comment);
+    }
+    
+    @Test
+    public void addMoodInvokesAdapterToDomain() {
+    	MoodDto moodDto = TestMoodDto.aValidMoodDto().build();
+    	this.lectureController.addMood(moodDto);
+    	
+    	verify(this.mockMoodAdapter).toDomain(moodDto);
+    }
+    
+    @Test
+    public void addMoodInvokesLectureServiceWithMood() {
+    	when(this.mockMoodAdapter.toDomain(moodDto)).thenReturn(mood);
+    	this.lectureController.addMood(moodDto);
+    	
+    	verify(this.mockLectureService).addMood(mood);
+    }
+    
+    @Test
+    public void addMoodInvokesAdapterToDto() {
+    	when(this.mockMoodAdapter.toDomain(moodDto)).thenReturn(mood);
+    	when(this.mockLectureService.addMood(mood)).thenReturn(mood);
+    	this.lectureController.addMood(moodDto);
+    	
+    	verify(this.mockMoodAdapter).toDto(mood);
     }
 }

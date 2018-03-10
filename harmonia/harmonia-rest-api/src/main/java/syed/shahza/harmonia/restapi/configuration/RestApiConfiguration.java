@@ -11,6 +11,7 @@ import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 import syed.shahza.harmonia.restapi.action.LoginAction;
+import syed.shahza.harmonia.restapi.action.SendMoodAction;
 import syed.shahza.harmonia.restapi.client.RestClient;
 
 @Configuration
@@ -53,5 +54,10 @@ public class RestApiConfiguration {
 	@Bean
 	public GetAllCommentsAction getAllCommentsAction() {
 		return new GetAllCommentsAction(restClient());
+	}
+	
+	@Bean
+	public SendMoodAction sendMoodAction() {
+		return new SendMoodAction(restClient());
 	}
 }

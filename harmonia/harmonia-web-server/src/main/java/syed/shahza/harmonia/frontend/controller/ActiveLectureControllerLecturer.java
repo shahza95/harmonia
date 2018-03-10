@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
+import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 
 @Controller
@@ -15,10 +16,12 @@ import syed.shahza.harmonia.restapi.action.GetLectureAction;
 public class ActiveLectureControllerLecturer {
 	private final GetLectureAction getLectureAction;
 	private final GetAllCommentsAction getAllCommentsAction;
+	private final GetAllMoodsAction getAllMoodsAction;
 
-	public ActiveLectureControllerLecturer(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction) {
+	public ActiveLectureControllerLecturer(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction, GetAllMoodsAction getAllMoodsAction) {
 		this.getLectureAction = getLectureAction;
 		this.getAllCommentsAction = getAllCommentsAction;
+		this.getAllMoodsAction = getAllMoodsAction;
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.GET)
@@ -30,4 +33,12 @@ public class ActiveLectureControllerLecturer {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/active/{lectureTitle}/moods", method = RequestMethod.GET)
+	public ModelAndView getActiveLectureMoodPage(@PathVariable("lectureTitle") String lectureTitle) {
+		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
+		ModelAndView modelAndView = new ModelAndView("lecturer/activeLectureMood");
+		modelAndView.addObject("lectureDto", lectureDto);
+		modelAndView.addObject("moodDtoList", this.getAllMoodsAction.getAll(lectureDto.getTitle()));
+		return modelAndView;
+	}
 }

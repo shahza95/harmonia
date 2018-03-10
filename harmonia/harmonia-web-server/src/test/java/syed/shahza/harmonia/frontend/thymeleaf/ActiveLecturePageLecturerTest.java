@@ -69,4 +69,9 @@ public class ActiveLecturePageLecturerTest extends ThymeleafTemplateTest {
     	assertThat(this.tags.matching("meta").get(0).attr("http-equiv"), is("refresh"));
     	assertThat(this.tags.matching("meta").get(0).attr("content"), is("5"));
     }
+    
+    @Test
+    public void moodButtonShouldRedirectToActiveLectureMoodPage() throws NodeSelectorException {
+    	assertThat(this.tags.matching("form").get(2).attr("action"), is("/lecturer/lecture/active/title/moods"));
+    }
 }

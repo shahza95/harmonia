@@ -7,6 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
+import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
@@ -54,6 +55,11 @@ public class RestApiConfiguration {
 	@Bean
 	public GetAllCommentsAction getAllCommentsAction() {
 		return new GetAllCommentsAction(restClient());
+	}
+	
+	@Bean
+	public GetAllMoodsAction getAllMoodsAction() {
+		return new GetAllMoodsAction(restClient());
 	}
 	
 	@Bean

@@ -35,34 +35,47 @@ public class LectureRepositoryTest {
     }
     
     @Test
-    public void joinReturnsLectureObjectIfPasswordValid() {
+    public void retrieveLectureFromPasswordReturnsLectureObjectIfPasswordValid() {
     	this.lectureRepository.create(lecture);
     	
     	assertThat(lectureRepository.retrieveLectureFromPassword(lecture.getPassword()), is(lecture));
     }
     
     @Test
-    public void joinReturnsEmptyLectureObjectIfPasswordInvalid() {
+    public void retrieveLectureFromPasswordReturnsEmptyLectureObjectIfPasswordInvalid() {
     	Lecture lecture = lectureRepository.retrieveLectureFromPassword("passwordForNonExistentLecture");
     	assertTrue(lecture.isEmpty());
     }
     
     @Test
+    public void retrieveLectureFromTitleReturnsLectureObjectIfTitleValid() {
+    	this.lectureRepository.create(lecture);
+    	
+    	assertThat(lectureRepository.retrieveLectureFromTitle(lecture.getTitle()), is(lecture));
+    }
+    
+    @Test
+    public void retrieveLectureFromTitleReturnsEmptyLectureObjectIfTitleInvalid() {
+    	Lecture lecture = lectureRepository.retrieveLectureFromTitle("titleForNonExistentLecture");
+    	assertTrue(lecture.isEmpty());
+    }
+    
+    @Test
     public void addCommentShouldReturnTheComment() {
-    	assertThat(this.lectureRepository.addComment("someTitle", comment), is(comment));
+    	assertThat(this.lectureRepository.addComment(comment), is(comment));
     }
     
     @Test
     public void getAllCommentsShouldReturnAllCommentsForParticularLecture() {
-    	this.lectureRepository.addComment(lecture.getTitle(), comment);
-    	this.lectureRepository.addComment(lecture.getTitle(), TestComment.aValidComment().message("no").build());
+    	this.lectureRepository.addComment(comment);
+    	this.lectureRepository.addComment(TestComment.aValidComment().message("no").lecture(aValidLecture().title("otherTitle").build()).build());
     	
-    	assertThat(this.lectureRepository.getAllComments(lecture.getTitle()).getCommentList().size(), is(1));
+    	assertThat(this.lectureRepository.getAllComments("otherTitle").getCommentList().size(), is(1));
     }
     
     @Test
     public void getAllCommentsShouldReturnCommentsObject() {
-    	this.lectureRepository.addComment(lecture.getTitle(), comment);
+    	this.lectureRepository.addComment(comment);
     	
     	assertThat(this.lectureRepository.getAllComments(lecture.getTitle()), instanceOf(Comments.class));
     }

@@ -36,11 +36,11 @@ public class EndpointConfiguration {
     
     @Bean
     public LectureControllerStudent lectureControllerStudent() {
-    	return new LectureControllerStudent(this.lectureService, new LectureAdapter());
+    	return new LectureControllerStudent(this.lectureService, new LectureAdapter(), new CommentAdapter(new LectureAdapter()));
     }
     
     @Bean
     public LectureController lectureController() {
-    	return new LectureController(this.lectureService, new CommentAdapter());
+    	return new LectureController(this.lectureService, new LectureAdapter(), new CommentAdapter(new LectureAdapter()));
     }
 }

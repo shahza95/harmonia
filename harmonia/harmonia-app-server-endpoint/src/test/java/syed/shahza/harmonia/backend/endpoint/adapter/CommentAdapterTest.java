@@ -9,16 +9,26 @@ import static syed.shahza.harmonia.backend.dto.TestCommentDtoList.aFilledComment
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
+import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CommentAdapterTest {
     private CommentAdapter commentAdapter;
+    
+    @Mock
+    private LectureAdapter mockLectureAdapter;
 
     @Before
     public void before() {
-        this.commentAdapter = new CommentAdapter();
+        this.commentAdapter = new CommentAdapter(this.mockLectureAdapter);
     }
 
     @Test
@@ -29,6 +39,20 @@ public class CommentAdapterTest {
     @Test
     public void canAdaptCommentMessageToDomain() {
         assertThat(this.commentAdapter.toDomain(aValidCommentDto().message("someMessage").build()).getMessage(), is("someMessage"));
+    }
+    
+    @Test
+    public void toDtoInvokesLectureAdapterToDto() {
+    	Comment comment = aValidComment().build();
+    	this.commentAdapter.toDto(comment);
+    	Mockito.verify(this.mockLectureAdapter).toDto(comment.getLecture());
+    }
+    
+    @Test
+    public void toDomainInvokesLectureAdapterToDomain() {
+    	CommentDto commentDto = aValidCommentDto().build();
+    	this.commentAdapter.toDomain(commentDto);
+    	Mockito.verify(this.mockLectureAdapter).toDomain(commentDto.getLectureDto());
     }
 
     @Test

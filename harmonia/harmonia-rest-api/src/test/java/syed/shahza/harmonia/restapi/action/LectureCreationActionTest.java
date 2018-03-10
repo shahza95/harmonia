@@ -24,7 +24,7 @@ public class LectureCreationActionTest {
     }
 
     @Test
-    public void lectureCreateWillInvokeMockRestClientGetMethodWithCorrectParameters() {
+    public void lectureCreateWillInvokeMockRestClientPostMethodWithCorrectParameters() {
     	LectureDto lectureDto = new LectureDto();
         this.lectureCreationAction.create(lectureDto);
 

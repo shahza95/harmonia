@@ -5,7 +5,7 @@ import syed.shahza.harmonia.restapi.client.RestClient;
 
 public class GetAllCommentsAction {
     private final RestClient restClient;
-    private final static String URL_ENDPOINT = "/lecture/active/comments/{lectureTitle}";
+    private final static String URL_ENDPOINT = "/lecture/active/{lectureTitle}/comments";
 
     public GetAllCommentsAction(RestClient restClient) {
         this.restClient = restClient;

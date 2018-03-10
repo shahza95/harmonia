@@ -14,7 +14,7 @@ public class LectureCreationPageTest extends ThymeleafTemplateTest {
     private HtmlElements tags;
 
     public LectureCreationPageTest() {
-        super("/lectureCreation");
+        super("/lecturer/lectureCreation");
     }
     
     @Before

@@ -28,6 +28,6 @@ public class GetAllCommentsActionTest {
     	String lectureTitle = "title";
         this.getAllCommentsAction.getAll(lectureTitle);
 
-        verify(this.mockRestClient).get("/lecture/active/comments/{lectureTitle}", CommentDtoList.class, lectureTitle);
+        verify(this.mockRestClient).get("/lecture/active/{lectureTitle}/comments", CommentDtoList.class, lectureTitle);
     }
 }

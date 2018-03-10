@@ -12,22 +12,22 @@ import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.restapi.client.RestClient;
 
 @RunWith(MockitoJUnitRunner.class)
-public class JoinLectureActionTest {
-    private JoinLectureAction joinLectureAction;
+public class GetLectureActionTest {
+    private GetLectureAction getLectureAction;
 
     @Mock
     private RestClient mockRestClient;
 
     @Before
     public void before() {
-        this.joinLectureAction = new JoinLectureAction(this.mockRestClient);
+        this.getLectureAction = new GetLectureAction(this.mockRestClient);
     }
 
     @Test
-    public void lectureCreateWillInvokeMockRestClientPostMethodWithCorrectParameters() {
-    	String password = "somePassword";
-        this.joinLectureAction.join(password);
+    public void getWillInvokeMockRestClientGetMethodWithCorrectParameters() {
+    	String lectureTitle = "title";
+        this.getLectureAction.get(lectureTitle);
 
-        verify(this.mockRestClient).post("/student/lecture/join", password, LectureDto.class);
+        verify(this.mockRestClient).get("/lecture/{lectureTitle}", LectureDto.class, lectureTitle);
     }
 }

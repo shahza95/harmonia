@@ -3,10 +3,7 @@ package syed.shahza.harmonia.backend.core.repository;
 import static syed.shahza.harmonia.backend.core.domain.Lecture.aLecture;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
@@ -14,10 +11,12 @@ import syed.shahza.harmonia.backend.core.domain.Lecture;
 
 public class LectureRepository {
 	private List<Lecture> lectures = new ArrayList<>();
-	private Map<String, ArrayList<Comment>> comments = new HashMap<String, ArrayList<Comment>>();
+	private List<Comment> comments = new ArrayList<>();
 	
 	public LectureRepository() {
-		this.comments.put("myTitle", new ArrayList(Arrays.asList(Comment.aComment().message("comment1").build(), Comment.aComment().message("comment2").build())));
+		Lecture lecture = Lecture.aLecture().title("myTitle").build();
+		this.comments.add(Comment.aComment().message("comment1").lecture(lecture).build());
+		this.comments.add(Comment.aComment().message("comment2").lecture(lecture).build());
 	}
 
 	public Lecture create(Lecture lecture) {
@@ -34,21 +33,27 @@ public class LectureRepository {
 		return aLecture().build();
 	}
 	
+	public Lecture retrieveLectureFromTitle(String lectureTitle) {
+		for (Lecture lecture : lectures) {
+			if (lecture.getTitle().equals(lectureTitle)) {
+				return lecture;
+			}
+		}
+		return aLecture().build();
+	}
+	
 	public Comments getAllComments(String lectureTitle) {
-		ArrayList<Comment> commentList = comments.get(lectureTitle);
+		List<Comment> commentList = new ArrayList<Comment>();
+		for(Comment comment: comments) {
+			if(comment.getLecture().getTitle().equals(lectureTitle)) {
+				commentList.add(comment);
+			}
+		}
 		return Comments.aCommentListBuilder().commentList(commentList).build();
 	}
 
-	public Comment addComment(String lectureTitle, Comment comment) {
-		ArrayList<Comment> commentList;
-		if(comments.containsKey(comment)) {
-			commentList = comments.get(lectureTitle);
-		} else {
-			commentList = new ArrayList<Comment>();
-		}
-		
-		commentList.add(comment);
-		comments.put(lectureTitle, commentList);
+	public Comment addComment(Comment comment) {
+		comments.add(comment);
 		return comment;
 	}
 }

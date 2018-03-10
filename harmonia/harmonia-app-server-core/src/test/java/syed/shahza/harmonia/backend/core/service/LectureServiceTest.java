@@ -4,7 +4,6 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.when;
 import static syed.shahza.harmonia.backend.core.domain.TestLecture.aValidLecture;
 
@@ -13,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.jms.core.JmsTemplate;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
@@ -24,21 +22,16 @@ import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 public class LectureServiceTest {
 	private LectureService lectureService;
 	private Lecture lecture;
-	private String lectureTitle;
 	private Comment comment;
 	
 	@Mock
 	private LectureRepository mockLectureRepository;
 	
-	@Mock
-	private JmsTemplate mockJmsTemplate;
-	
 	@Before
 	public void before() {
 		lecture = aValidLecture().build();
-		lectureTitle = lecture.getTitle();
 		comment = TestComment.aValidComment().build();
-		this.lectureService = new LectureService(this.mockLectureRepository, this.mockJmsTemplate);
+		this.lectureService = new LectureService(this.mockLectureRepository);
 	}
 	
     @Test
@@ -71,35 +64,35 @@ public class LectureServiceTest {
     }
     
     @Test
-    public void addCommentInvokesLectureRepository() {
-    	this.lectureService.addComment(lectureTitle, comment);
+    public void getLectureInvokesLectureRepository() {
+    	String title = "title";
+    	lectureService.getLecture(title);
     	
-    	verify(this.mockLectureRepository).addComment(lectureTitle, comment);
+    	verify(this.mockLectureRepository).retrieveLectureFromTitle(title);
+    }
+    
+    @Test
+    public void getLectureReturnsLectureObject() {
+    	String title = "title";
+    	when(this.mockLectureRepository.retrieveLectureFromTitle(title)).thenReturn(lecture);
+    	
+    	assertThat(lectureService.getLecture(title), instanceOf(Lecture.class));
+    }
+    
+    @Test
+    public void addCommentInvokesLectureRepository() {
+    	this.lectureService.addComment(comment);
+    	
+    	verify(this.mockLectureRepository).addComment(comment);
     }
     
     @Test
     public void addCommentReturnsCommentObject() {
-    	when(this.mockLectureRepository.addComment(lectureTitle, comment)).thenReturn(comment);
+    	when(this.mockLectureRepository.addComment(comment)).thenReturn(comment);
     	
-    	assertThat(this.lectureService.addComment(lectureTitle, comment), instanceOf(Comment.class));
+    	assertThat(this.lectureService.addComment(comment), instanceOf(Comment.class));
     }
-    
-    @Test
-    public void successfulAddCommentInvokesJmsTemplateWithCorrectParameters() {
-    	when(this.mockLectureRepository.addComment(lectureTitle, comment)).thenReturn(comment);
-    	this.lectureService.addComment(lectureTitle, comment);
-    	
-    	verify(this.mockJmsTemplate).convertAndSend("lecture", comment);
-    }
-    
-    @Test
-    public void unsuccessfulAddCommentDoesNotInvokeJmsTemplate() {
-    	when(this.mockLectureRepository.addComment(lectureTitle, comment)).thenReturn(null);
-    	this.lectureService.addComment(lectureTitle, comment);
-    	
-    	verify(this.mockJmsTemplate, never()).convertAndSend("lecture", comment);
-    }
-    
+
     @Test
     public void getAllCommentsInvokesLectureRepository() {
     	this.lectureService.getAllComments("someTitle");

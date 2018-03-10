@@ -45,6 +45,11 @@ public class WebDriverPage implements Page {
     public Optional<Button> findButtonByClass(String clazz) {
         return Button.wrap(find(By.className(clazz)));
     }
+    
+    @Override
+    public Optional<Button> findButtonByName(String name) {
+    	return Button.wrap(find(By.name(name)));
+    }
 
     @Override
     public Optional<Input> findInputByName(String name) {

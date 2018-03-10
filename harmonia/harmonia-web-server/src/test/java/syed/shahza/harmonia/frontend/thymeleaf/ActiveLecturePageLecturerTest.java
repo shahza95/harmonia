@@ -63,4 +63,10 @@ public class ActiveLecturePageLecturerTest extends ThymeleafTemplateTest {
     		assertThat(this.tags.matching("td").get(i).text(), is(commentDtoList.getCommentDtoList().get(i).getMessage()));
     	}
     }
+    
+    @Test
+    public void shouldRefreshEvery5Seconds() throws NodeSelectorException {
+    	assertThat(this.tags.matching("meta").get(0).attr("http-equiv"), is("refresh"));
+    	assertThat(this.tags.matching("meta").get(0).attr("content"), is("5"));
+    }
 }

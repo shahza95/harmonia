@@ -14,4 +14,6 @@ public interface Page {
     Optional<Input> findInputByName(String name);
 
 	Optional<Text> findTextByString(String name);
+
+	Optional<Button> findButtonByName(String name);
 }

@@ -30,18 +30,18 @@ public class LoginControllerTest {
     
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGet() {
-        assertThat(this.loginController.getLoginPage().getViewName(), is("login"));
+        assertThat(this.loginController.getLoginPage().getViewName(), is("lecturer/login"));
     }
     
     @Test
     public void loginRedirectsToSuccessOnlyIfResponseTrue() {
     	when(mockLoginAction.login(lecturerDto)).thenReturn(true);
-    	assertThat(this.loginController.login(lecturerDto).getViewName(),is("success"));
+    	assertThat(this.loginController.login(lecturerDto).getViewName(),is("lecturer/success"));
     }
     
     @Test
     public void loginRedirectsBackToLoginOnlyIfResponseFalse() {
     	when(mockLoginAction.login(lecturerDto)).thenReturn(false);
-    	assertThat(this.loginController.login(lecturerDto).getViewName(),is("login"));
+    	assertThat(this.loginController.login(lecturerDto).getViewName(),is("lecturer/login"));
     }
 }

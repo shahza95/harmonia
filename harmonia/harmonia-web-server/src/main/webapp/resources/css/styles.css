@@ -13,4 +13,5 @@ body {
 
 #rightPanel {
 	display: inline-block;
+	padding-right: 150px;
 }

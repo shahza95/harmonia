@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" media="all"
       href="../../resources/css/styles.css" th:href="@{/resources/css/styles.css}"/>
+
 </head>
 <body>
 	<h1 th:text="${lectureDto.title} + ': Mood'">title</h1>
@@ -31,10 +32,12 @@
 	    	<div class="field">
 	        	<input id="Mood" name="emoji" />
 	    	</div>
+	    	<br />
 	    	<div class="button">
 		    	<input type="submit" value="Send" name="Mood" />
 		    </div>
 	    </form>
     </div>
+    
 </body>
 </html>

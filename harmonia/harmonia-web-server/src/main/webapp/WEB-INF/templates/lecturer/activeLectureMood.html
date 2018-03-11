@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Active Lecture</title>
-<meta http-equiv="refresh" content="5" />
+<meta http-equiv="refresh" content="5" charset="UTF-8"/>
 <link rel="stylesheet" type="text/css" media="all"
       href="../../resources/css/styles.css" th:href="@{/resources/css/styles.css}"/>
 </head>
@@ -27,10 +27,10 @@
     </div>
     
     <div id="rightPanel">
-    	<table>
+        <table>
 	    	<tr th:each="moodDto, stat : ${moodDtoList.moodDtoList}"> 
-	    		<td th:text="${moodDto.getEmoji()}"></td>
-	    	</tr> 
+	    		<td th:utext="${moodDto.getEmoji()}"></td>
+	    	</tr>      		
     	</table>
     </div>
 </body>

@@ -42,7 +42,6 @@ public class SendMoodStepDefs {
 
     @Then("^the lecturer can see the emoji")
     public void thenTheLecturerCanSeeMyEmoji() {
-    	this.lectureService.checkEmojiReceived(this.moodDto.getLectureDto().getTitle(), this.moodDto.getEmoji());
-        assertThat(this.executionContext.getLastResultFor(Action.SEND_MOOD), is(Result.SUCCESS));
+        assertThat(this.lectureService.checkEmojiReceived(this.moodDto.getLectureDto().getTitle(), this.moodDto.getEmoji()), is(Result.SUCCESS));
     }
 }

@@ -12,7 +12,7 @@ public class WebDriverActiveLectureMoodStudentPage extends WebDriverPage impleme
     
     @Override
     public void navigateTo(String lectureTitle) {
-    	this.navigateTo("student/lecture/active/" + lectureTitle + "/moods");
+    	super.navigateTo("student/lecture/active/" + lectureTitle + "/mood");
     }
 
     @Override
@@ -22,6 +22,6 @@ public class WebDriverActiveLectureMoodStudentPage extends WebDriverPage impleme
 
     @Override
     public void clickSendButton() {
-        this.findButtonByName("Send").ifPresent(button -> button.submit());
+        this.findButtonByName("Mood").ifPresent(button -> button.submit());
     }
 }

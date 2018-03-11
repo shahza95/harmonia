@@ -13,7 +13,7 @@ public class WebDriverActiveLectureMoodLecturerPage extends WebDriverPage implem
     
     @Override
     public void navigateTo(String lectureTitle) {
-    	this.navigateTo("lecturer/lecture/active/" + lectureTitle + "/moods");
+    	super.navigateTo("lecturer/lecture/active/" + lectureTitle + "/moods");
     }
 
 	@Override

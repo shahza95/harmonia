@@ -8,9 +8,8 @@ import static syed.shahza.harmonia.backend.dto.TestMoodDto.aValidMoodDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
-import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
-import syed.shahza.harmonia.endtoend.test.api.Action;
+import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.endtoend.test.api.Result;
 import syed.shahza.harmonia.endtoend.test.context.ExecutionContext;
 import syed.shahza.harmonia.endtoend.test.service.LectureService;

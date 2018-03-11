@@ -27,6 +27,6 @@ public class WebDriverLoginPage extends WebDriverPage implements LoginPage {
     @Override
     public Result clickLoginButton() {
         this.findButtonByClass("button").ifPresent(button -> button.submit());
-        return findTextByString("Successfully").isPresent() ? Result.SUCCESS : Result.FAILURE;
+        return findTextByString("Create").isPresent() ? Result.SUCCESS : Result.FAILURE;
     }
 }

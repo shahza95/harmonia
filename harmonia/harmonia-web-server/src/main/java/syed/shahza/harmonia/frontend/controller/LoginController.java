@@ -25,7 +25,7 @@ public class LoginController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView login(LecturerDto lecturerDto) {
 		if (loginAction.login(lecturerDto)) {
-			return new ModelAndView("lecturer/success");
+			return new ModelAndView("redirect:/lecturer/lecture/create");
 		} 
 		return new ModelAndView("lecturer/login");
 	}

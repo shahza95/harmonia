@@ -36,7 +36,7 @@ public class LoginControllerTest {
     @Test
     public void loginRedirectsToSuccessOnlyIfResponseTrue() {
     	when(mockLoginAction.login(lecturerDto)).thenReturn(true);
-    	assertThat(this.loginController.login(lecturerDto).getViewName(),is("lecturer/success"));
+    	assertThat(this.loginController.login(lecturerDto).getViewName(),is("redirect:/lecturer/lecture/create"));
     }
     
     @Test

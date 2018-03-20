@@ -1,16 +1,3 @@
-body {
+h1, h2 {
   text-align: center;
-}
-
-.field input {
-  width: 250px;
-}
-
-#leftMenu {
-	float: left;
-	padding-left: 100px;
-}
-
-#rightPanel {
-	display: inline-block;
 }

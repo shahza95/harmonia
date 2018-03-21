@@ -6,17 +6,17 @@
 </head>
 <body>
 <div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
-    <div id="page-wrapper">
-        <div class="container-fluid">
-            <h1 th:text="${lectureDto.title} + ': Mood'">title</h1>                                      
-            <div class="col-sm-offset-4 col-sm-4 well" id="content">
-                <table>
-			    	<tr th:each="moodDto, stat : ${moodDtoList.moodDtoList}"> 
-			    		<td th:text="${moodDto.getEmoji()}"></td>
-			    	</tr>     		
-				</table>
-        	</div>
+<div id="page-wrapper">
+	<div class="container-fluid">
+        <h1 th:text="${lectureDto.title} + ': Mood'">title</h1>                                      
+        <div class="col-sm-offset-4 col-sm-4 well" id="content">
+            <table>
+			    <tr th:each="moodDto, stat : ${moodDtoList.moodDtoList}"> 
+			    	<td th:text="${moodDto.getEmoji()}"></td>
+			   	</tr>     		
+			</table>
         </div>
     </div>
+</div>
 </body>
 </html>

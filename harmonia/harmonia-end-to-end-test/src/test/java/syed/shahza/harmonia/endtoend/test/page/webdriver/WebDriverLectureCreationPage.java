@@ -29,7 +29,7 @@ public class WebDriverLectureCreationPage extends WebDriverPage implements Lectu
 
     @Override
     public Result clickCreateButton() {
-        this.findButtonByClass("button").ifPresent(button -> button.submit());
+        this.findButtonByClass("btn").ifPresent(button -> button.submit());
         return findTextByString("Active").isPresent() ? Result.SUCCESS : Result.FAILURE;
     }
 }

@@ -38,9 +38,14 @@ public class ActiveLecturePageStudentTest extends ThymeleafTemplateTest {
     }
     
     @Test
-    public void only5InputsShouldExist() throws NodeSelectorException {
-    	//4 buttons + 1 text input
-    	assertThat(this.tags.matching("input").size(), is(5));
+    public void dashboardShouldBeInjected() throws NodeSelectorException {
+    	assertThat(this.tags.matching("h1").get(0).text(), is("Harmonia"));
+    }
+    
+    @Test
+    public void only2InputsShouldExist() throws NodeSelectorException {
+    	//1 button + 1 text input
+    	assertThat(this.tags.matching("input").size(), is(2));
     }
     
     @Test
@@ -50,7 +55,7 @@ public class ActiveLecturePageStudentTest extends ThymeleafTemplateTest {
     
     @Test
     public void correctModelShouldFillTitle() throws NodeSelectorException {
-    	assertThat(this.tags.matching("h1").get(0).text(), is(lectureDto.getTitle()));
+    	assertThat(this.tags.matching("h1").get(1).text(), is(lectureDto.getTitle()));
     }
     
     @Test
@@ -63,10 +68,5 @@ public class ActiveLecturePageStudentTest extends ThymeleafTemplateTest {
     	for(int i=0; i<commentDtoList.getCommentDtoList().size(); i++) {
     		assertThat(this.tags.matching("td").get(i).text(), is(commentDtoList.getCommentDtoList().get(i).getMessage()));
     	}
-    }
-    
-    @Test
-    public void moodButtonShouldRedirectToActiveLectureMoodPage() throws NodeSelectorException {
-    	assertThat(this.tags.matching("form").get(2).attr("action"), is("/student/lecture/active/title/mood"));
     }
 }

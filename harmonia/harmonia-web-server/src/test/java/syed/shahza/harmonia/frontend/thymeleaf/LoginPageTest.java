@@ -30,17 +30,17 @@ public class LoginPageTest extends ThymeleafTemplateTest {
     
     @Test
     public void usernameLabelShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("label").get(0).text(), is("Username"));
+    	assertThat(this.tags.matching("label").get(0).text(), is("Username:"));
     }
     
     @Test
     public void passwordLabelShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("label").get(1).text(), is("Password"));
+    	assertThat(this.tags.matching("label").get(1).text(), is("Password:"));
     }
 
     @Test
     public void loginButtonShouldExist() throws NodeSelectorException {
-        assertThat(this.tags.matching("input").get(2).attr("value"), is("Login"));
+        assertThat(this.tags.matching("input").get(2).attr("value"), is("Log In"));
     }
 
     @Test

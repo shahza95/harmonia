@@ -30,27 +30,27 @@ public class LectureCreationPageTest extends ThymeleafTemplateTest {
     
     @Test
     public void titleLabelShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("label").get(0).text(), is("Title"));
+    	assertThat(this.tags.matching("label").get(0).text(), is("Title:"));
     }
     
     @Test
     public void passwordLabelShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("label").get(1).text(), is("Password"));
+    	assertThat(this.tags.matching("label").get(1).text(), is("Password:"));
     }
     
     @Test
     public void dateLabelShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("label").get(2).text(), is("Date"));
+    	assertThat(this.tags.matching("label").get(2).text(), is("Date:"));
     }
     
     @Test
     public void startTimeLabelShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("label").get(3).text(), is("Start Time"));
+    	assertThat(this.tags.matching("label").get(3).text(), is("Start Time:"));
     }
     
     @Test
     public void endTimeLabelShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("label").get(4).text(), is("End Time"));
+    	assertThat(this.tags.matching("label").get(4).text(), is("End Time:"));
     }
 
     @Test

@@ -30,7 +30,7 @@ public class JoinLecturePageTest extends ThymeleafTemplateTest {
     
     @Test
     public void passwordLabelShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("label").get(0).text(), is("Password"));
+    	assertThat(this.tags.matching("label").get(0).text(), is("Password:"));
     }
 
     @Test

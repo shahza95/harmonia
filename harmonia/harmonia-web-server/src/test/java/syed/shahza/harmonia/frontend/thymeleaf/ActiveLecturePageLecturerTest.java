@@ -38,6 +38,11 @@ public class ActiveLecturePageLecturerTest extends ThymeleafTemplateTest {
     }
     
     @Test
+    public void dashboardShouldBeInjected() throws NodeSelectorException {
+    	assertThat(this.tags.matching("h1").get(0).text(), is("Harmonia"));
+    }
+    
+    @Test
     public void oneTableForCommentsShouldExist() throws NodeSelectorException {
     	assertThat(this.tags.matching("table").size(), is(1));
     }

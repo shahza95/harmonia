@@ -24,7 +24,7 @@ public class WebDriverJoinLecturePage extends WebDriverPage implements JoinLectu
 
     @Override
     public Result clickJoinButton() {
-        this.findButtonByClass("button").ifPresent(button -> button.submit());
+        this.findButtonByClass("btn").ifPresent(button -> button.submit());
         return findTextByString("Active").isPresent() ? Result.SUCCESS : Result.FAILURE;
     }
 }

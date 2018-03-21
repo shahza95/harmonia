@@ -3,43 +3,9 @@
 <head>
 <title>Active Lecture</title>
 <meta http-equiv="refresh" content="5" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" type="text/css" media="all"
-      href="../../resources/css/styles.css" th:href="@{/resources/css/styles.css}"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div id="wrapper">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" >
-                <h1>Harmonia</h1>
-            </a>
-        </div>
-        <!-- Sidebar Menu -->
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav side-nav">
-                <li>
-                    <a href="#"> Comments </a>
-                </li>
-                <li>
-                    <a href="#"> Questions </a>
-                </li>
-                <li>            
-                    <a href="moods"> Mood </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
+<div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
     <div id="page-wrapper">
         <div class="container-fluid">
             <h1 th:text="${lectureDto.title}">title</h1>                                      
@@ -52,6 +18,5 @@
         	</div>
         </div>
     </div>
-</div>
 </body>
 </html>

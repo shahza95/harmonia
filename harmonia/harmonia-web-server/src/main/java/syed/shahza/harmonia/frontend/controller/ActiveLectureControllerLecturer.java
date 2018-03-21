@@ -33,7 +33,7 @@ public class ActiveLectureControllerLecturer {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/active/{lectureTitle}/moods", method = RequestMethod.GET)
+	@RequestMapping(value = "/active/{lectureTitle}/mood", method = RequestMethod.GET)
 	public ModelAndView getActiveLectureMoodPage(@PathVariable("lectureTitle") String lectureTitle) {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
 		ModelAndView modelAndView = new ModelAndView("lecturer/activeLectureMood");

@@ -19,7 +19,8 @@
     </div>
 </body>
 <script type="text/javascript" src="/resources/javascript/UpdateComments.js"></script>
-<script type="text/javascript">
-    setGetUrl("http://localhost:8080/lecture/active/myTitle/comments");
+<script th:inline="javascript">
+	var lectureTitle =/*[[${lectureDto.title}]]*/ 'title';
+    setGetUrl("http://localhost:8080/lecture/active/" + lectureTitle + "/comments");
 </script>
 </html>

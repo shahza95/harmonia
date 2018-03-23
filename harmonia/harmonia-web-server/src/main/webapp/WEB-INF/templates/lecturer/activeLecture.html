@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Active Lecture</title>
-<meta http-equiv="refresh" content="5" />
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
 <div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
@@ -19,4 +19,8 @@
         </div>
     </div>
 </body>
+<script type="text/javascript" src="/resources/javascript/UpdateComments.js"></script>
+<script th:inline="javascript">
+	setGetUrl(window.location.href + "/json");
+</script>
 </html>

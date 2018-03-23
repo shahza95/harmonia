@@ -1,6 +1,5 @@
 package syed.shahza.harmonia.backend.endpoint.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +13,6 @@ import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/lecture")
 public class LectureController {

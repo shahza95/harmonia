@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 
 import syed.shahza.harmonia.frontend.controller.ActiveLectureControllerLecturer;
 import syed.shahza.harmonia.frontend.controller.ActiveLectureControllerStudent;
+import syed.shahza.harmonia.frontend.controller.ActiveLectureRestController;
 import syed.shahza.harmonia.frontend.controller.LectureControllerLecturer;
 import syed.shahza.harmonia.frontend.controller.LectureControllerStudent;
 import syed.shahza.harmonia.frontend.controller.LoginController;
@@ -76,5 +77,10 @@ public class WebAppConfiguration {
     @Bean
     public ActiveLectureControllerStudent activeLectureControllerStudent() {
     	return new ActiveLectureControllerStudent(getLectureAction, getAllCommentsAction, addCommentAction, sendMoodAction);
+    }
+
+    @Bean
+    public ActiveLectureRestController activeLectureRestController() {
+    	return new ActiveLectureRestController(getAllCommentsAction);
     }
 }

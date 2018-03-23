@@ -69,4 +69,9 @@ public class ActiveLecturePageStudentTest extends ThymeleafTemplateTest {
     		assertThat(this.tags.matching("td").get(i).text(), is(commentDtoList.getCommentDtoList().get(i).getMessage()));
     	}
     }
+    
+    @Test
+    public void shouldCallUpdatecommentsJavascript() throws NodeSelectorException {
+    	assertThat(this.tags.matching("script").get(3).attr("src"), is("/resources/javascript/UpdateComments.js"));
+    }
 }

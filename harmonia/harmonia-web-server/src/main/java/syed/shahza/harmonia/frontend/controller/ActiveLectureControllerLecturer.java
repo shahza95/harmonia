@@ -12,7 +12,7 @@ import syed.shahza.harmonia.backend.dto.MoodDtoList;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
-import syed.shahza.harmonia.frontend.controller.EmojiUnicodeConverter;
+import syed.shahza.harmonia.frontend.utils.EmojiUnicodeConverter;
 
 @Controller
 @RequestMapping("/lecturer/lecture")

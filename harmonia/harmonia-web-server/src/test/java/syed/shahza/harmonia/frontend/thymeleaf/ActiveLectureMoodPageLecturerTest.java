@@ -38,13 +38,13 @@ public class ActiveLectureMoodPageLecturerTest extends ThymeleafTemplateTest {
     }
     
     @Test
-    public void only3ButtonsShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("input").size(), is(3));
+    public void dashboardShouldBeInjected() throws NodeSelectorException {
+    	assertThat(this.tags.matching("h1").get(0).text(), is("Harmonia"));
     }
     
     @Test
     public void correctModelShouldFillTitle() throws NodeSelectorException {
-    	assertThat(this.tags.matching("h1").get(0).text(), is(lectureDto.getTitle() + ": Mood"));
+    	assertThat(this.tags.matching("h1").get(1).text(), is(lectureDto.getTitle() + ": Mood"));
     }
     
     @Test

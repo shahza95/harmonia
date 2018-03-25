@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import syed.shahza.harmonia.backend.dto.LectureDto;
-import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
-import syed.shahza.harmonia.frontend.utils.EmojiUnicodeConverter;
 
 @Controller
 @RequestMapping("/lecturer/lecture")
@@ -42,19 +40,8 @@ public class ActiveLectureControllerLecturer {
 		ModelAndView modelAndView = new ModelAndView("lecturer/activeLectureMood");
 		modelAndView.addObject("lectureDto", lectureDto);
 		
-		MoodDtoList moodDtoList = convertEmojis(this.getAllMoodsAction.getAll(lectureDto.getTitle()));
+		MoodDtoList moodDtoList = this.getAllMoodsAction.getAll(lectureDto.getTitle());
 		modelAndView.addObject("moodDtoList", moodDtoList);
 		return modelAndView;
-	}
-	
-	private MoodDtoList convertEmojis(MoodDtoList moodDtoList) {
-		MoodDtoList convertedMoodDtoList = new MoodDtoList();
-		for(MoodDto moodDto: moodDtoList.getMoodDtoList()) {
-			String emojiUnicode = EmojiUnicodeConverter.convertToUnicode(moodDto.getEmoji());
-			moodDto.setEmoji(emojiUnicode);
-			convertedMoodDtoList.addMoodDtoToList(moodDto);
-		}
-		
-		return convertedMoodDtoList;
 	}
 }

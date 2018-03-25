@@ -72,18 +72,18 @@ public class ActiveLectureControllerLecturerTest {
     	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getModel().get("commentDtoList"), is(commentDtoList));
     }
     
-//    @Test
-//    public void getActiveLectureMoodInvokesGetLectureAction() {
-//    	this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle());
-//    	
-//    	Mockito.verify(this.mockGetLectureAction).get(lectureDto.getTitle());
-//    }
-//    
-//    @Test
-//    public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureMood() {
-//    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
-//    	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getViewName(), is("lecturer/activeLectureMood"));
-//    }
+    @Test
+    public void getActiveLectureMoodInvokesGetLectureAction() {
+    	this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle());
+    	
+    	Mockito.verify(this.mockGetLectureAction).get(lectureDto.getTitle());
+    }
+    
+    @Test
+    public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureMood() {
+    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
+    	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getViewName(), is("lecturer/activeLectureMood"));
+    }
     
     @Test
     public void getActiveLectureMoodSendsLectureDtoAsModel() {
@@ -93,11 +93,11 @@ public class ActiveLectureControllerLecturerTest {
     	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getModel().get("lectureDto"), is(lectureDto));
     }
     
-//    @Test
-//    public void getActiveLectureMoodSendsMoodDtoListAsModel() {
-//    	MoodDtoList moodDtoList = TestMoodDtoList.aFilledMoodDtoList(3);
-//    	when(this.mockGetAllMoodsAction.getAll(lectureDto.getTitle())).thenReturn(moodDtoList);
-//    	
-//    	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getModel().get("moodDtoList"), is(moodDtoList));
-//    }
+    @Test
+    public void getActiveLectureMoodSendsMoodDtoListAsModel() {
+    	MoodDtoList moodDtoList = TestMoodDtoList.aFilledMoodDtoList(3);
+    	when(this.mockGetAllMoodsAction.getAll(lectureDto.getTitle())).thenReturn(moodDtoList);
+    	
+    	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getModel().get("moodDtoList"), is(moodDtoList));
+    }
 }

@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import syed.shahza.harmonia.endtoend.test.component.Button;
 import syed.shahza.harmonia.endtoend.test.component.Input;
+import syed.shahza.harmonia.endtoend.test.component.Select;
 import syed.shahza.harmonia.endtoend.test.component.Text;
 import syed.shahza.harmonia.endtoend.test.service.page.Page;
 
@@ -54,6 +55,11 @@ public class WebDriverPage implements Page {
     @Override
     public Optional<Input> findInputByName(String name) {
         return Input.wrap(this.find(By.name(name)));
+    }
+    
+    @Override
+    public Optional<Select> findSelectByName(String name) {
+    	return Select.wrap(this.find(By.name(name)));
     }
     
     @Override

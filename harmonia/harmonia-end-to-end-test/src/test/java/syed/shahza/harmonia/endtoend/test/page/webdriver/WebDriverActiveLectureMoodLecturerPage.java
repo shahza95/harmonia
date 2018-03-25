@@ -16,6 +16,7 @@ public class WebDriverActiveLectureMoodLecturerPage extends WebDriverPage implem
     	super.navigateTo("lecturer/lecture/active/" + lectureTitle + "/mood");
     }
 
+    //CHECK GRAPH UPDATED
 	@Override
 	public Result checkEmojiIsPresent(String emoji) {
 		return findTextByString(emoji).isPresent() ? Result.SUCCESS : Result.FAILURE;

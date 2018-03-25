@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import syed.shahza.harmonia.endtoend.test.component.Button;
 import syed.shahza.harmonia.endtoend.test.component.Input;
+import syed.shahza.harmonia.endtoend.test.component.Select;
 import syed.shahza.harmonia.endtoend.test.component.Text;
 
 public interface Page {
@@ -16,4 +17,6 @@ public interface Page {
 	Optional<Text> findTextByString(String name);
 
 	Optional<Button> findButtonByName(String name);
+
+	Optional<Select> findSelectByName(String name);
 }

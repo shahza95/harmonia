@@ -23,9 +23,14 @@
 				</select>
 			</div>
 			<div class="col-sm-3">
-	    		<input type="submit" class="btn btn-default" value="Send" name="Mood" />
+	    		<input type="submit" class="btn btn-default" value="Send" name="Mood" disabled="disabled" />
 	    	</div>
 		</div>
 	</form>
 </body>
+<script>
+	$('#Mood').one('change', function() {
+	     $('.btn').prop('disabled', false);
+	});
+</script>
 </html>

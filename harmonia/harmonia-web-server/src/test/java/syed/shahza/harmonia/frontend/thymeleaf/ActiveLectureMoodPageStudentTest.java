@@ -38,9 +38,23 @@ public class ActiveLectureMoodPageStudentTest extends ThymeleafTemplateTest {
     }
     
     @Test
-    public void only2InputsShouldExist() throws NodeSelectorException {
-    	//1 button + 1 text input
-    	assertThat(this.tags.matching("input").size(), is(2));
+    public void onlyOneButtonShouldExist() throws NodeSelectorException {
+    	assertThat(this.tags.matching("input").size(), is(1));
+    }
+    
+    @Test
+    public void oneSelectDropDownMenuShouldExist() throws NodeSelectorException {
+    	assertThat(this.tags.matching("select").size(), is(1));
+    }
+    
+    @Test
+    public void fourOptionsShouldExistForDropDown() throws NodeSelectorException {
+    	assertThat(this.tags.matching("option").size(), is(4));
+    }
+    
+    @Test
+    public void scriptForButtonEnablingShouldExist() throws NodeSelectorException {
+    	assertThat(this.tags.matching("script").size(), is(3));
     }
     
     @Test

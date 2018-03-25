@@ -17,7 +17,7 @@ public class WebDriverActiveLectureMoodStudentPage extends WebDriverPage impleme
 
     @Override
     public void enterEmoji(String emoji) {
-    	this.findInputByName("emoji").ifPresent(input -> input.fill(emoji));
+    	this.findSelectByName("emoji").ifPresent(select -> select.choose(emoji));
     }
 
     @Override

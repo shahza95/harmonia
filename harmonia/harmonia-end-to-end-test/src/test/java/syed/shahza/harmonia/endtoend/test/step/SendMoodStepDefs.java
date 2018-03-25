@@ -20,7 +20,7 @@ import cucumber.api.java.en.When;
 @ContextConfiguration(locations = { "classpath:cucumber.xml" })
 public class SendMoodStepDefs {
 	private LectureDto lectureDto = anActiveLectureDto().password("thePassword").build();
-	private MoodDto moodDto = aValidMoodDto().emoji(":S").lectureDto(this.lectureDto).build();
+	private MoodDto moodDto = aValidMoodDto().emoji("&#x1F642;").lectureDto(this.lectureDto).build();
 
     @Autowired
     private LectureService lectureService;

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.backend.dto.MoodDtoList;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
@@ -38,7 +39,9 @@ public class ActiveLectureControllerLecturer {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
 		ModelAndView modelAndView = new ModelAndView("lecturer/activeLectureMood");
 		modelAndView.addObject("lectureDto", lectureDto);
-		modelAndView.addObject("moodDtoList", this.getAllMoodsAction.getAll(lectureDto.getTitle()));
+		
+		MoodDtoList moodDtoList = this.getAllMoodsAction.getAll(lectureDto.getTitle());
+		modelAndView.addObject("moodDtoList", moodDtoList);
 		return modelAndView;
 	}
 }

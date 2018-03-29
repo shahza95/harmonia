@@ -5,9 +5,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import syed.shahza.harmonia.backend.dto.CommentDto;
+import syed.shahza.harmonia.backend.dto.EmotionDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
@@ -53,9 +55,14 @@ public class ActiveLectureControllerStudent {
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/mood", method = RequestMethod.POST)
-	public ModelAndView sendMood(@PathVariable("lectureTitle") String lectureTitle, @ModelAttribute MoodDto moodDto) {
-		moodDto.setLectureDto(this.getLectureAction.get(lectureTitle));
-		this.sendMoodAction.sendMood(moodDto);
+	public ModelAndView sendMood(@PathVariable("lectureTitle") String lectureTitle, @RequestParam("mood") String mood) {
+		this.sendMoodAction.sendMood(constructMoodDto(mood, lectureTitle));
 		return new ModelAndView("redirect:/student/lecture/active/" + lectureTitle +"/mood"); 
+	}
+	//TEST
+	private MoodDto constructMoodDto(String mood, String lectureTitle) {
+		String[] moodParts = mood.split(" ");
+		EmotionDto emotionDto = EmotionDto.valueOf(moodParts[0]);
+		return MoodDto.aMoodDto().emotionDto(emotionDto).emoji(moodParts[1]).lectureDto(this.getLectureAction.get(lectureTitle)).build();
 	}
 }

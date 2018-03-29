@@ -59,7 +59,7 @@ public class ActiveLectureControllerStudent {
 		this.sendMoodAction.sendMood(constructMoodDto(mood, lectureTitle));
 		return new ModelAndView("redirect:/student/lecture/active/" + lectureTitle +"/mood"); 
 	}
-	//TEST
+
 	private MoodDto constructMoodDto(String mood, String lectureTitle) {
 		String[] moodParts = mood.split(" ");
 		EmotionDto emotionDto = EmotionDto.valueOf(moodParts[0]);

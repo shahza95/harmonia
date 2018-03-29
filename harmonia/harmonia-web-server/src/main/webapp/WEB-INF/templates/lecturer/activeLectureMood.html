@@ -3,6 +3,8 @@
 <head>
 <title>Active Lecture</title>
 <meta http-equiv="refresh" content="5" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
@@ -10,13 +12,16 @@
 	<div class="container-fluid">
         <h1 th:text="${lectureDto.title} + ': Mood'">title</h1>                                      
         <div class="col-sm-offset-4 col-sm-4 well" id="content">
-            <table>
-			    <tr th:each="moodDto, stat : ${moodDtoList.moodDtoList}"> 
-			    	<td th:text="${moodDto.getEmoji()}"></td>
-			   	</tr>     		
-			</table>
+			<div class="chart-container">
+			    <canvas id="moodPieChart"></canvas>
+			</div>
         </div>
     </div>
 </div>
 </body>
+<script type="text/javascript" src="/resources/javascript/MoodChart.js"></script>
+<script th:inline="javascript">
+	var list = /*[[${moodDtoList}]]*/ 'list';
+	setMoodDtoList(list);
+</script>
 </html>

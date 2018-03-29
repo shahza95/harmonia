@@ -45,3 +45,13 @@ h1, h2 {
         background-color: #1a242f !important;
     }
 }
+
+canvas {
+  border: 1px dotted red;
+}
+
+.chart-container {
+  position: relative;
+  margin: auto;
+  width: 100%;
+}

@@ -13,9 +13,9 @@ function setMoodDtoList(list) {
 function renderChart() {
   	var data = {
     	labels: [
-	        'Happy &#x1F642;',
-	        'Sad &#x1F641;',
-	        'Confused &#x1F615;'
+	        'Happy \uD83D\uDE42',
+	        'Sad \uD83D\uDE41',
+	        'Confused \uD83D\uDE15'
 	    ],
 	    datasets: [{
 	        data: [10, 20, 30],

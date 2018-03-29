@@ -5,9 +5,11 @@ import static org.junit.Assert.assertThat;
 import static syed.shahza.harmonia.backend.dto.TestLectureDto.anActiveLectureDto;
 import static syed.shahza.harmonia.backend.dto.TestMoodDto.aValidMoodDto;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+import syed.shahza.harmonia.backend.dto.EmotionDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.endtoend.test.api.Result;
@@ -19,8 +21,8 @@ import cucumber.api.java.en.When;
 
 @ContextConfiguration(locations = { "classpath:cucumber.xml" })
 public class SendMoodStepDefs {
-	private LectureDto lectureDto = anActiveLectureDto().password("thePassword").build();
-	private MoodDto moodDto = aValidMoodDto().emoji("&#x1F642;").lectureDto(this.lectureDto).build();
+	private LectureDto lectureDto = anActiveLectureDto().title(RandomStringUtils.randomAlphabetic(10)).password(RandomStringUtils.randomAlphanumeric(6)).build();
+	private MoodDto moodDto = aValidMoodDto().emoji("&#x1F642;").emotionDto(EmotionDto.HAPPY).lectureDto(this.lectureDto).build();
 
     @Autowired
     private LectureService lectureService;
@@ -41,6 +43,6 @@ public class SendMoodStepDefs {
 
     @Then("^the lecturer can see the emoji")
     public void thenTheLecturerCanSeeMyEmoji() {
-        assertThat(this.lectureService.checkEmojiReceived(this.moodDto.getLectureDto().getTitle(), this.moodDto.getEmoji()), is(Result.SUCCESS));
+        assertThat(this.lectureService.checkEmojiReceived(this.moodDto.getLectureDto().getTitle(), this.moodDto.getEmotionDto().toString().toLowerCase()), is(Result.SUCCESS));
     }
 }

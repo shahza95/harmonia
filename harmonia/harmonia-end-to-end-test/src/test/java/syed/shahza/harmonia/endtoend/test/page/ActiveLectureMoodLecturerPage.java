@@ -7,6 +7,6 @@ public interface ActiveLectureMoodLecturerPage extends Page {
 	
 	void navigateTo(String lectureTitle);
 
-	Result checkEmojiIsPresent(String emoji);
+	Result checkEmojiIsPresent(String emotionString);
 
 }

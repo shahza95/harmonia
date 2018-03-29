@@ -1,11 +1,13 @@
 package syed.shahza.harmonia.endtoend.test.page.webdriver;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import syed.shahza.harmonia.endtoend.test.api.Result;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureMoodLecturerPage;
 
 public class WebDriverActiveLectureMoodLecturerPage extends WebDriverPage implements ActiveLectureMoodLecturerPage {
+	JavascriptExecutor js = (JavascriptExecutor) this.getWebDriver();
 	
     public WebDriverActiveLectureMoodLecturerPage(WebDriver webDriver, String baseUrl) {
     	super(webDriver, baseUrl);
@@ -16,10 +18,10 @@ public class WebDriverActiveLectureMoodLecturerPage extends WebDriverPage implem
     	super.navigateTo("lecturer/lecture/active/" + lectureTitle + "/mood");
     }
 
-    //CHECK GRAPH UPDATED
 	@Override
-	public Result checkEmojiIsPresent(String emoji) {
-		return findTextByString(emoji).isPresent() ? Result.SUCCESS : Result.FAILURE;
+	public Result checkEmojiIsPresent(String emotionString) {
+		Long result = (Long) js.executeScript("return " + emotionString);
+		return (result == 1) ? Result.SUCCESS : Result.FAILURE;
 	}
 
 }

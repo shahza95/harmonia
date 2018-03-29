@@ -26,6 +26,10 @@ public class WebDriverPage implements Page {
         this.webDriver = webDriver;
         this.baseUrl = baseUrl;
     }
+    
+    public WebDriver getWebDriver() {
+    	return this.webDriver;
+    }
 
     @Override
     public void navigateTo(String url) {

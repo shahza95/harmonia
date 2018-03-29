@@ -41,4 +41,9 @@ public class LectureService {
 	public Moods getAllMoods(String lectureTitle) {
 		return this.lectureRepository.getAllMoods(lectureTitle);
 	}
+
+	public MoodSummaries getMoodSummaries(String lectureTitle) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

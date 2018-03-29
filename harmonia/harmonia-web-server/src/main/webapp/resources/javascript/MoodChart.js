@@ -4,10 +4,10 @@ var happy = 0;
 var sad = 0;
 var confused = 0;
 
-
-function setMoodDtoList(list) {
-	console.log(list.moodDtoList[0].emoji);
-	
+function setMoods(map) {
+	happy = map.HAPPY;
+	sad = map.SAD;
+	confused = map.CONFUSED;
 }
 
 function renderChart() {
@@ -18,7 +18,7 @@ function renderChart() {
 	        'Confused \uD83D\uDE15'
 	    ],
 	    datasets: [{
-	        data: [10, 20, 30],
+	        data: [happy, sad, confused],
           backgroundColor: ['rgb(200, 120, 50)', 'rgb(0, 80, 150)', 'rgb(140, 100, 200)'],
           hoverBorderColor: ['rgb(0,0,0)', 'rgb(0,0,0)', 'rgb(0,0,0)']
 	    }]

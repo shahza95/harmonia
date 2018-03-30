@@ -76,4 +76,8 @@ public class LectureRepository {
 		}
 		return Moods.aMoodListBuilder().moodList(moodList).build();
 	}
+	
+	public Boolean removeMood(String lectureTitle, String emoji) {
+		return moods.removeIf(mood -> mood.getLecture().getTitle().equals(lectureTitle) && mood.getEmoji().equals(emoji));
+	}
 }

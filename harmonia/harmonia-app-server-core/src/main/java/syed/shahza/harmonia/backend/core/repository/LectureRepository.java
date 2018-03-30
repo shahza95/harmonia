@@ -80,4 +80,12 @@ public class LectureRepository {
 	public Boolean removeMood(String lectureTitle, String emoji) {
 		return moods.removeIf(mood -> mood.getLecture().getTitle().equals(lectureTitle) && mood.getEmoji().equals(emoji));
 	}
+
+	public void update(Lecture updatedLecture) {
+		for(Lecture lecture: lectures) {
+			if(lecture.getTitle().equals(updatedLecture.getTitle())) {
+				lectures.set(lectures.indexOf(lecture), updatedLecture);
+			}
+		}
+	}
 }

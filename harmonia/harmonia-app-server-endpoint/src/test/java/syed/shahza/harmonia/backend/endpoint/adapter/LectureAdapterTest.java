@@ -45,6 +45,12 @@ public class LectureAdapterTest {
     	LocalTime localTime = new LocalTime();
     	assertThat(this.lectureAdapter.toDto(aValidLecture().endTime(localTime).build()).getEndTime(), is(localTime));
     }
+    
+    @Test
+    public void canAdaptEnabledToDto() {
+    	boolean enabled = true;
+    	assertThat(this.lectureAdapter.toDto(aValidLecture().enabled(enabled).build()).getEnabled(), is(enabled));
+    }
 
     @Test
     public void canAdaptUsernameToDomain() {
@@ -72,5 +78,11 @@ public class LectureAdapterTest {
     public void canAdaptEndTimeToDomain() {
     	LocalTime localTime = new LocalTime();
     	assertThat(this.lectureAdapter.toDomain(aValidLectureDto().endTime(localTime).build()).getEndTime(), is(localTime));
+    }
+    
+    @Test
+    public void canAdaptEnabledToDomain() {
+    	boolean enabled = false;
+    	assertThat(this.lectureAdapter.toDomain(aValidLectureDto().enabled(enabled).build()).getEnabled(), is(enabled));
     }
 }

@@ -121,4 +121,12 @@ public class LectureRepositoryTest {
     	//now remove
     	assertThat(this.lectureRepository.removeMood(lectureTitle, emoji), is(true));
     }
+    
+    @Test
+    public void updateReplacesOldLectureObject() {
+    	this.lectureRepository.create(this.lecture);
+    	assertThat(this.lectureRepository.retrieveLectureFromTitle(this.lecture.getTitle()).getEnabled(), is(true));
+    	this.lectureRepository.update(aValidLecture().title(this.lecture.getTitle()).enabled(false).build());
+    	assertThat(this.lectureRepository.retrieveLectureFromTitle(this.lecture.getTitle()).getEnabled(), is(false));
+    }
 }

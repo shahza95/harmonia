@@ -24,4 +24,9 @@ public class LectureControllerLecturer {
     public LectureDto create(@RequestBody LectureDto lectureDto) {
         return this.lectureAdapter.toDto(this.lectureService.create(this.lectureAdapter.toDomain(lectureDto)));
     }
+    
+    @RequestMapping(value = "/active/comments", method = RequestMethod.PUT)
+    public void toggleComments(@RequestBody LectureDto lectureDto) {
+    	this.lectureService.update(this.lectureAdapter.toDomain(lectureDto));
+    }
 }

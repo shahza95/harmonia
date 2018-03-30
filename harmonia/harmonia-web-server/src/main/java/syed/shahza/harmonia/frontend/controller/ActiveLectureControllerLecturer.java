@@ -51,7 +51,7 @@ public class ActiveLectureControllerLecturer {
 		return modelAndView;
 	}
 	
-	private Map<String, Integer> getMoodSummaryMap(MoodDtoList moodDtoList) {
+	protected static Map<String, Integer> getMoodSummaryMap(MoodDtoList moodDtoList) {
 		Map<String, Integer> moodMap = new HashMap<String, Integer>();
 		for(EmotionDto emotionDto: EmotionDto.values()){
 			Integer moodCount = 0;

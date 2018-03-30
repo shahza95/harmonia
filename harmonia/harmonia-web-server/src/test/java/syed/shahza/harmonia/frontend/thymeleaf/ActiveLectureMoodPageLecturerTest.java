@@ -54,12 +54,6 @@ public class ActiveLectureMoodPageLecturerTest extends ThymeleafTemplateTest {
     }
     
     @Test
-    public void shouldRefreshEvery5Seconds() throws NodeSelectorException {
-    	assertThat(this.tags.matching("meta").get(0).attr("http-equiv"), is("refresh"));
-    	assertThat(this.tags.matching("meta").get(0).attr("content"), is("5"));
-    }
-    
-    @Test
     public void shouldIncludeChartJsScript() throws NodeSelectorException {
     	assertThat(this.tags.matching("script").get(0).attr("src"), containsString("Chart.min.js"));
     }

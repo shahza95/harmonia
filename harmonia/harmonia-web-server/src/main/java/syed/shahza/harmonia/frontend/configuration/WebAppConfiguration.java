@@ -81,6 +81,6 @@ public class WebAppConfiguration {
 
     @Bean
     public ActiveLectureRestController activeLectureRestController() {
-    	return new ActiveLectureRestController(getAllCommentsAction);
+    	return new ActiveLectureRestController(getAllCommentsAction, getAllMoodsAction);
     }
 }

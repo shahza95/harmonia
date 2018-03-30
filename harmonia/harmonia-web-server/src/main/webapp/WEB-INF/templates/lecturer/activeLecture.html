@@ -8,6 +8,14 @@
 <div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
     <div id="page-wrapper">
         <div class="container-fluid">
+        	<br />
+		    <form class="col-sm-offset-2 form-horizontal" method="post">
+		        <div class="form-group">
+			    	<div class="col-sm-4">
+			    		<input id="featureToggleButton" type="submit" class="btn btn-default" name="toggle" th:value="${toggleValue}" />
+			    	</div>
+		    	</div>
+		    </form>
             <h1 th:text="${lectureDto.title}">title</h1>                                      
             <div class="col-sm-offset-4 col-sm-4 well" id="content">
                 <table>

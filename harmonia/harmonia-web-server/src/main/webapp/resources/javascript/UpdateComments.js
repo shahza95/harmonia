@@ -2,7 +2,6 @@ $(document).ready(updateComments);
 var urls = {};
 
 function setGetUrl(getUrl) {
-	console.log("URL: " + getUrl);
     urls.getUrl = getUrl;
 }
 

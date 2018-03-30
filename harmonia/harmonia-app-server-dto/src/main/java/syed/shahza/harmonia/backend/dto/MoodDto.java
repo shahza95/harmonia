@@ -2,6 +2,7 @@ package syed.shahza.harmonia.backend.dto;
 
 public class MoodDto {
 	private String emoji;
+	private EmotionDto emotionDto;
 	private LectureDto lectureDto;
 
     public MoodDto() {
@@ -11,6 +12,7 @@ public class MoodDto {
     private MoodDto(Builder builder) {
         this();
         this.emoji = builder.emoji;
+        this.emotionDto = builder.emotionDto;
         this.lectureDto = builder.lectureDto;
     }
 
@@ -20,6 +22,14 @@ public class MoodDto {
 
     public void setEmoji(String emoji) {
         this.emoji = emoji;
+    }
+    
+    public EmotionDto getEmotionDto() {
+    	return this.emotionDto;
+    }
+    
+    public void setEmotionDto(EmotionDto emotionDto) {
+    	this.emotionDto = emotionDto;
     }
     
     public LectureDto getLectureDto() {
@@ -36,11 +46,17 @@ public class MoodDto {
 
     public static class Builder {
         private String emoji;
+        private EmotionDto emotionDto;
         private LectureDto lectureDto;
 
         public Builder emoji(String emoji) {
             this.emoji = emoji;
             return this;
+        }
+        
+        public Builder emotionDto(EmotionDto emotionDto) {
+        	this.emotionDto = emotionDto;
+        	return this;
         }
         
         public Builder lectureDto(LectureDto lectureDto) {

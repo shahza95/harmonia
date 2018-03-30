@@ -50,7 +50,7 @@ public class PageBasedLectureService implements LectureService {
 	@Override
 	public void addMood(MoodDto moodDto) {
 		this.activeLectureMoodStudentPage.navigateTo(moodDto.getLectureDto().getTitle());
-		this.activeLectureMoodStudentPage.enterEmoji(moodDto.getEmoji());
+		this.activeLectureMoodStudentPage.enterEmoji(moodDto);
 		this.activeLectureMoodStudentPage.clickSendButton();
 	}
 
@@ -60,8 +60,8 @@ public class PageBasedLectureService implements LectureService {
 	}
 	
 	@Override
-	public Result checkEmojiReceived(String lectureTitle, String emoji) {
+	public Result checkEmojiReceived(String lectureTitle, String emotionString) {
 		getAllMoods(lectureTitle);
-		return this.activeLectureMoodLecturerPage.checkEmojiIsPresent(emoji);
+		return this.activeLectureMoodLecturerPage.checkEmojiIsPresent(emotionString);
 	}
 }

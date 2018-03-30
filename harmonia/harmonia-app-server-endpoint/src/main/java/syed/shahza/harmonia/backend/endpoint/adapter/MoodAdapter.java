@@ -7,8 +7,10 @@ import static syed.shahza.harmonia.backend.dto.MoodDto.aMoodDto;
 import java.util.ArrayList;
 import java.util.List;
 
+import syed.shahza.harmonia.backend.core.domain.Emotion;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
+import syed.shahza.harmonia.backend.dto.EmotionDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
 
@@ -21,11 +23,11 @@ public class MoodAdapter {
 	}
 
     public MoodDto toDto(Mood mood) {
-        return aMoodDto().emoji(mood.getEmoji()).lectureDto(this.lectureAdapter.toDto(mood.getLecture())).build();
+        return aMoodDto().emoji(mood.getEmoji()).emotionDto(EmotionDto.valueOf(mood.getEmotion().name())).lectureDto(this.lectureAdapter.toDto(mood.getLecture())).build();
     }
     
     public Mood toDomain(MoodDto moodDto) {
-    	return aMood().emoji(moodDto.getEmoji()).lecture(this.lectureAdapter.toDomain(moodDto.getLectureDto())).build();
+    	return aMood().emoji(moodDto.getEmoji()).emotion(Emotion.valueOf(moodDto.getEmotionDto().name())).lecture(this.lectureAdapter.toDomain(moodDto.getLectureDto())).build();
     }
     
     public MoodDtoList toDto(Moods moods) {

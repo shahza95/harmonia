@@ -17,5 +17,5 @@ public interface LectureService {
 
 	public void getAllMoods(String lectureTitle);
 	
-	public Result checkEmojiReceived(String lectureTitle, String emoji);
+	public Result checkEmojiReceived(String lectureTitle, String emotionString);
 }

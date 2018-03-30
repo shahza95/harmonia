@@ -5,6 +5,9 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 import static syed.shahza.harmonia.backend.dto.TestLectureDto.aValidLectureDto;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +29,8 @@ import syed.shahza.harmonia.restapi.action.GetLectureAction;
 public class ActiveLectureControllerLecturerTest {
     private ActiveLectureControllerLecturer lectureController;
     private LectureDto lectureDto;
+    private MoodDtoList moodDtoList;
+    private int numberOfSameMood;
     
     @Mock
     private GetLectureAction mockGetLectureAction;
@@ -38,9 +43,13 @@ public class ActiveLectureControllerLecturerTest {
     
     @Before
     public void before() {
-    	lectureDto = aValidLectureDto().build();
+    	this.lectureDto = aValidLectureDto().build();
         this.lectureController = new ActiveLectureControllerLecturer(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
+    	this.numberOfSameMood = 3;
+    	this.moodDtoList = TestMoodDtoList.aFilledMoodDtoList(numberOfSameMood);
+    	when(this.mockGetAllMoodsAction.getAll(lectureDto.getTitle())).thenReturn(moodDtoList);
+    	
     }
     
     @Test
@@ -58,9 +67,6 @@ public class ActiveLectureControllerLecturerTest {
     
     @Test
     public void getActiveLectureSendsLectureDtoAsModel() {
-    	CommentDtoList commentDtoList = TestCommentDtoList.aFilledCommentDtoList(3);
-    	when(this.mockGetAllCommentsAction.getAll(lectureDto.getTitle())).thenReturn(commentDtoList);
-    
     	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getModel().get("lectureDto"), is(lectureDto));
     }
     
@@ -87,17 +93,16 @@ public class ActiveLectureControllerLecturerTest {
     
     @Test
     public void getActiveLectureMoodSendsLectureDtoAsModel() {
-    	MoodDtoList moodDtoList = TestMoodDtoList.aFilledMoodDtoList(3);
-    	when(this.mockGetAllMoodsAction.getAll(lectureDto.getTitle())).thenReturn(moodDtoList);
-    	
     	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getModel().get("lectureDto"), is(lectureDto));
     }
     
     @Test
-    public void getActiveLectureMoodSendsMoodDtoListAsModel() {
-    	MoodDtoList moodDtoList = TestMoodDtoList.aFilledMoodDtoList(3);
-    	when(this.mockGetAllMoodsAction.getAll(lectureDto.getTitle())).thenReturn(moodDtoList);
+    public void getActiveLectureMoodSendsCorrectMoodMapAsModel() {
+    	Map<String, Integer> moodMap = new HashMap<String, Integer>();
+    	moodMap.put("HAPPY", numberOfSameMood);
+    	moodMap.put("SAD", 0);
+    	moodMap.put("CONFUSED", 0);
     	
-    	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getModel().get("moodDtoList"), is(moodDtoList));
+    	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getModel().get("moodMap"), is(moodMap));
     }
 }

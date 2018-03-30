@@ -9,6 +9,8 @@ import static syed.shahza.harmonia.backend.dto.TestLectureDto.aValidLectureDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -31,6 +33,8 @@ public class ActiveLectureControllerStudentTest {
     private ActiveLectureControllerStudent lectureController;
     private LectureDto lectureDto;
     private CommentDto commentDto;
+    private MoodDto moodDto;
+    private String moodString;
     private String title;
     
     @Mock
@@ -45,10 +49,15 @@ public class ActiveLectureControllerStudentTest {
     @Mock
     private SendMoodAction mockSendMoodAction;
     
+    @Captor
+    private ArgumentCaptor<MoodDto> moodDtoCaptor;
+    
     @Before
     public void before() {
-    	lectureDto = aValidLectureDto().build();
+    	this.lectureDto = aValidLectureDto().build();
     	this.commentDto = TestCommentDto.aValidCommentDto().build();
+    	this.moodDto = TestMoodDto.aValidMoodDto().build();
+    	this.moodString = moodDto.getEmotionDto().toString() + " " + moodDto.getEmoji();
     	this.title = "title";
         this.lectureController = new ActiveLectureControllerStudent(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockAddCommentAction, this.mockSendMoodAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
@@ -124,22 +133,24 @@ public class ActiveLectureControllerStudentTest {
     
     @Test
     public void sendMoodInvokesGetLectureAction() {
-    	MoodDto moodDto = TestMoodDto.aValidMoodDto().build();
-    	this.lectureController.sendMood(lectureDto.getTitle(), moodDto);
+    	this.lectureController.sendMood(lectureDto.getTitle(), this.moodString);
     	verify(this.mockGetLectureAction).get(lectureDto.getTitle());
     }
     
     @Test
-    public void sendMoodSendsInvokesSendMoodAction() {
-    	MoodDto moodDto = TestMoodDto.aValidMoodDto().build();
-    	this.lectureController.sendMood(lectureDto.getTitle(), moodDto);
+    public void sendMoodSendsInvokesSendMoodActionWithCorrectlyConstructedMoodDto() {
+    	this.lectureController.sendMood(lectureDto.getTitle(), this.moodString);
+    	String[] moodParts = this.moodString.split(" ");
     	
-    	verify(this.mockSendMoodAction).sendMood(moodDto);
+    	this.moodDtoCaptor = ArgumentCaptor.forClass(MoodDto.class);
+    	verify(this.mockSendMoodAction).sendMood(this.moodDtoCaptor.capture());
+    	
+    	assertThat(this.moodDtoCaptor.getValue().getEmotionDto().toString(), is(moodParts[0]));
+    	assertThat(this.moodDtoCaptor.getValue().getEmoji(), is(moodParts[1]));
     }
     
     @Test
     public void sendMoodRedirectsToCorrectView() {
-    	MoodDto moodDto = TestMoodDto.aValidMoodDto().build();
-    	assertThat(this.lectureController.sendMood(lectureDto.getTitle(), moodDto).getViewName(), is("redirect:/student/lecture/active/" + lectureDto.getTitle() + "/mood"));
+    	assertThat(this.lectureController.sendMood(lectureDto.getTitle(), this.moodString).getViewName(), is("redirect:/student/lecture/active/" + lectureDto.getTitle() + "/mood"));
     }
 }

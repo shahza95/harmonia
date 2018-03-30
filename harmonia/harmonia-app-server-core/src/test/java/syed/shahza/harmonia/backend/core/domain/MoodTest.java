@@ -9,8 +9,13 @@ import org.junit.Test;
 public class MoodTest {
     @Test
     public void canGetAndSetEmoji() {
-        String randomEmojiString = ":(";
+        String randomEmojiString = "&#x1F642;";
         assertThat(aValidMood().emoji(randomEmojiString).build().getEmoji(), is(randomEmojiString));
+    }
+    @Test
+    public void canGetAndSetEmotion() {
+    	Emotion randomEmotion = Emotion.HAPPY;
+    	assertThat(aValidMood().emotion(randomEmotion).build().getEmotion(), is(randomEmotion));
     }
     
     @Test

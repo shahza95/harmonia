@@ -14,8 +14,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import syed.shahza.harmonia.backend.core.domain.Emotion;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
+import syed.shahza.harmonia.backend.dto.EmotionDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
 
@@ -39,6 +41,16 @@ public class MoodAdapterTest {
     @Test
     public void canAdaptMoodMessageToDomain() {
         assertThat(this.moodAdapter.toDomain(aValidMoodDto().emoji(":D").build()).getEmoji(), is(":D"));
+    }
+    
+    @Test
+    public void canAdaptMoodEmotionToDto() {
+    	assertThat(this.moodAdapter.toDto(aValidMood().emotion(Emotion.CONFUSED).build()).getEmotionDto(), is(EmotionDto.CONFUSED));
+    }
+    
+    @Test
+    public void canAdaptMoodEmotionDtoToDomain() {
+    	assertThat(this.moodAdapter.toDomain(aValidMoodDto().emotionDto(EmotionDto.SAD).build()).getEmotion(), is(Emotion.SAD));
     }
     
     @Test

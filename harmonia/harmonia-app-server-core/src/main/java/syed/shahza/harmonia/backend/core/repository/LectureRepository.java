@@ -7,6 +7,7 @@ import java.util.List;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
+import syed.shahza.harmonia.backend.core.domain.Emotion;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
@@ -20,7 +21,7 @@ public class LectureRepository {
 		Lecture lecture = Lecture.aLecture().title("myTitle").build();
 		this.comments.add(Comment.aComment().message("comment1").lecture(lecture).build());
 		this.comments.add(Comment.aComment().message("comment2").lecture(lecture).build());
-		this.moods.add(Mood.aMood().emoji(":)").lecture(lecture).build());
+		this.moods.add(Mood.aMood().emoji("&#x1F642;").emotion(Emotion.HAPPY).lecture(lecture).build());
 	}
 
 	public Lecture create(Lecture lecture) {

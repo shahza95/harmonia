@@ -2,6 +2,7 @@ package syed.shahza.harmonia.endtoend.test.page.webdriver;
 
 import org.openqa.selenium.WebDriver;
 
+import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureMoodStudentPage;
 
 public class WebDriverActiveLectureMoodStudentPage extends WebDriverPage implements ActiveLectureMoodStudentPage {
@@ -16,8 +17,8 @@ public class WebDriverActiveLectureMoodStudentPage extends WebDriverPage impleme
     }
 
     @Override
-    public void enterEmoji(String emoji) {
-    	this.findSelectByName("emoji").ifPresent(select -> select.choose(emoji));
+    public void enterEmoji(MoodDto moodDto) {
+    	this.findSelectByName("mood").ifPresent(select -> select.choose(moodDto.getEmotionDto().toString() + " " + moodDto.getEmoji()));
     }
 
     @Override

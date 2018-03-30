@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.frontend.thymeleaf;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -48,25 +49,23 @@ public class ActiveLectureMoodPageLecturerTest extends ThymeleafTemplateTest {
     }
     
     @Test
-    public void oneTableForCommentsShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("table").size(), is(1));
-    }
-    
-    @Test
-    public void tableShouldHaveCorrectNumberOfRows() throws NodeSelectorException {
-    	assertThat(this.tags.matching("tr").size(), is(moodDtoList.getMoodDtoList().size()));
-    }
-    
-    @Test
-    public void correctModelShouldFillTable() throws NodeSelectorException {
-    	for(int i=0; i<moodDtoList.getMoodDtoList().size(); i++) {
-    		assertThat(this.tags.matching("td").get(i).text(), is(moodDtoList.getMoodDtoList().get(i).getEmoji()));
-    	}
+    public void canvasForChartShouldExist() throws NodeSelectorException {
+    	assertThat(this.tags.matching("canvas").size(), is(1));
     }
     
     @Test
     public void shouldRefreshEvery5Seconds() throws NodeSelectorException {
     	assertThat(this.tags.matching("meta").get(0).attr("http-equiv"), is("refresh"));
     	assertThat(this.tags.matching("meta").get(0).attr("content"), is("5"));
+    }
+    
+    @Test
+    public void shouldIncludeChartJsScript() throws NodeSelectorException {
+    	assertThat(this.tags.matching("script").get(0).attr("src"), containsString("Chart.min.js"));
+    }
+    
+    @Test
+    public void shouldCallMoodChartJavascript() throws NodeSelectorException {
+    	assertThat(this.tags.matching("script").get(3).attr("src"), is("/resources/javascript/MoodChart.js"));
     }
 }

@@ -15,15 +15,21 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
+import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.TestCommentDtoList;
+import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.backend.dto.TestMoodDtoList;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
+import syed.shahza.harmonia.restapi.action.GetLectureAction;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ActiveLectureRestControllerTest {
     private ActiveLectureRestController lectureController;
     private String lectureTitle;
+    
+    @Mock
+    private GetLectureAction mockGetLectureAction;
     
     @Mock
     private GetAllCommentsAction mockGetAllCommentsAction;
@@ -35,7 +41,7 @@ public class ActiveLectureRestControllerTest {
     @Before
     public void before() {
     	this.lectureTitle = "someTitle";
-        this.lectureController = new ActiveLectureRestController(this.mockGetAllCommentsAction, this.mockGetAllMoodsAction);
+        this.lectureController = new ActiveLectureRestController(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction);
     }
     
     @Test
@@ -71,5 +77,20 @@ public class ActiveLectureRestControllerTest {
     	moodMap.put("CONFUSED", 0);
     	
     	assertThat(this.lectureController.getMoodSummary(this.lectureTitle), is(moodMap));
+    }
+    
+    @Test
+    public void getLectureInvokesGetLectureAction() {
+    	this.lectureController.getLecture(this.lectureTitle);
+    	
+    	Mockito.verify(this.mockGetLectureAction).get(this.lectureTitle);
+    }
+    
+    @Test
+    public void getLectureReturnsALectureDto() {
+    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
+    	when(this.mockGetLectureAction.get(lectureTitle)).thenReturn(lectureDto);
+    
+    	assertThat(this.lectureController.getLecture(this.lectureTitle), is(lectureDto));
     }
 }

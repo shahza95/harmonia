@@ -8,25 +8,30 @@
 	<div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
 	<div id="page-wrapper">
 		<div class="container-fluid">
-	        <h1 th:text="${lectureDto.title}+ ' : Mood'">title</h1>                                      
+	        <h1 th:text="${lectureDto.title}+ ' : Mood'">title</h1> 
 	    </div>
-	</div>
     
-	<form class="col-sm-offset-5" method="post">
-		<div class="form-group">
-			<div class="col-sm-3">
-				<select class="form-control" id="Mood" name="mood">
-					<option value="" selected="selected" disabled="disabled" hidden="hidden">Choose your mood</option>
-					<option value="HAPPY &#x1F642;">Happy &#x1F642;</option>
-					<option value="SAD &#x1F641;">Sad &#x1F641;</option>
-					<option value="CONFUSED &#x1F615;">Confused &#x1F615;</option>
-				</select>
+		<form class="col-sm-offset-5  form-horizontal"  method="post">
+			<div class="form-group">
+				<div class="col-sm-offset-1 col-sm-3">
+					<input readonly="readonly" id="currentEmoji" name="currentEmoji" th:value="${currentEmoji}"/>
+				</div>
 			</div>
-			<div class="col-sm-3">
-	    		<input type="submit" class="btn btn-default" value="Send" name="Mood" disabled="disabled" />
-	    	</div>
-		</div>
-	</form>
+			<div class="form-group">
+				<div class="col-sm-3">
+					<select class="form-control" id="Mood" name="mood">
+						<option value="" selected="selected" disabled="disabled" hidden="hidden">Choose your mood</option>
+						<option value="HAPPY &#x1F642;">Happy &#x1F642;</option>
+						<option value="SAD &#x1F641;">Sad &#x1F641;</option>
+						<option value="CONFUSED &#x1F615;">Confused &#x1F615;</option>
+					</select>
+				</div>
+				<div class="col-sm-3">
+		    		<input type="submit" class="btn btn-default" value="Send" name="Mood" disabled="disabled" />
+		    	</div>
+			</div>
+		</form>
+	</div>
 </body>
 <script>
 	$('#Mood').one('change', function() {

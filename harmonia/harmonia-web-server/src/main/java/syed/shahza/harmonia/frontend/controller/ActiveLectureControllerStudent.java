@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.EmotionDto;
@@ -18,6 +20,7 @@ import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.SendMoodAction;
 
 @Controller
+@SessionAttributes("currentEmoji")
 @RequestMapping("/student/lecture")
 public class ActiveLectureControllerStudent {
 	private final GetLectureAction getLectureAction;
@@ -54,9 +57,12 @@ public class ActiveLectureControllerStudent {
 		return new ModelAndView("student/activeLectureMood", "lectureDto", lectureDto);
 	}
 	
+	//if currentEmoji exists, delete
 	@RequestMapping(value = "/active/{lectureTitle}/mood", method = RequestMethod.POST)
-	public ModelAndView sendMood(@PathVariable("lectureTitle") String lectureTitle, @RequestParam("mood") String mood) {
-		this.sendMoodAction.sendMood(constructMoodDto(mood, lectureTitle));
+	public ModelAndView sendMood(@PathVariable("lectureTitle") String lectureTitle, @RequestParam("mood") String mood, @RequestParam(required = false) String currentEmoji, RedirectAttributes redirectAttributes) {
+		MoodDto moodDto = constructMoodDto(mood, lectureTitle);
+		this.sendMoodAction.sendMood(moodDto);
+	    redirectAttributes.addFlashAttribute("currentEmoji", moodDto.getEmoji());
 		return new ModelAndView("redirect:/student/lecture/active/" + lectureTitle +"/mood"); 
 	}
 

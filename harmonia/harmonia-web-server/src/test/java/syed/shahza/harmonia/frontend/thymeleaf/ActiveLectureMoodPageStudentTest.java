@@ -39,7 +39,8 @@ public class ActiveLectureMoodPageStudentTest extends ThymeleafTemplateTest {
     
     @Test
     public void onlyOneButtonShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("input").size(), is(1));
+    	//Input for current emoji counts as an input too!
+    	assertThat(this.tags.matching("input").size(), is(2));
     }
     
     @Test

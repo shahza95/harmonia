@@ -14,6 +14,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
@@ -48,6 +49,9 @@ public class ActiveLectureControllerStudentTest {
     
     @Mock
     private SendMoodAction mockSendMoodAction;
+    
+    @Mock
+    private RedirectAttributes mockRedirectAttributes;
     
     @Captor
     private ArgumentCaptor<MoodDto> moodDtoCaptor;
@@ -133,13 +137,13 @@ public class ActiveLectureControllerStudentTest {
     
     @Test
     public void sendMoodInvokesGetLectureAction() {
-    	this.lectureController.sendMood(lectureDto.getTitle(), this.moodString);
+    	this.lectureController.sendMood(lectureDto.getTitle(), this.moodString, "", this.mockRedirectAttributes);
     	verify(this.mockGetLectureAction).get(lectureDto.getTitle());
     }
     
     @Test
     public void sendMoodSendsInvokesSendMoodActionWithCorrectlyConstructedMoodDto() {
-    	this.lectureController.sendMood(lectureDto.getTitle(), this.moodString);
+    	this.lectureController.sendMood(lectureDto.getTitle(), this.moodString, "", this.mockRedirectAttributes);
     	String[] moodParts = this.moodString.split(" ");
     	
     	this.moodDtoCaptor = ArgumentCaptor.forClass(MoodDto.class);
@@ -151,6 +155,13 @@ public class ActiveLectureControllerStudentTest {
     
     @Test
     public void sendMoodRedirectsToCorrectView() {
-    	assertThat(this.lectureController.sendMood(lectureDto.getTitle(), this.moodString).getViewName(), is("redirect:/student/lecture/active/" + lectureDto.getTitle() + "/mood"));
+    	assertThat(this.lectureController.sendMood(lectureDto.getTitle(), this.moodString, "", this.mockRedirectAttributes).getViewName(), is("redirect:/student/lecture/active/" + lectureDto.getTitle() + "/mood"));
+    }
+    
+    @Test
+    public void sendMoodAddsCorrectRedirectAttributeOfCurrentEmoji() {
+    	//current emoji gets updated by new selection
+    	this.lectureController.sendMood(lectureDto.getTitle(), this.moodString, "", this.mockRedirectAttributes);
+    	verify(this.mockRedirectAttributes).addFlashAttribute("currentEmoji", this.moodString.split(" ")[1]);
     }
 }

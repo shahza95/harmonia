@@ -2,6 +2,11 @@ h1, h2 {
   text-align: center;
 }
 
+#currentEmoji {
+	border: 0;
+	font-size: 50px;
+}
+
 @media(min-width:768px) {
     #wrapper {
         padding-left: 225px;

@@ -21,6 +21,7 @@ import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 import syed.shahza.harmonia.restapi.action.LoginAction;
+import syed.shahza.harmonia.restapi.action.RemoveMoodAction;
 import syed.shahza.harmonia.restapi.action.SendMoodAction;
 import syed.shahza.harmonia.restapi.configuration.RestApiConfiguration;
 
@@ -53,6 +54,9 @@ public class WebAppConfiguration {
     
     @Resource(name = "sendMoodAction")
     private SendMoodAction sendMoodAction;
+    
+    @Resource(name = "removeMoodAction")
+    private RemoveMoodAction removeMoodAction;
 
     @Bean
     public LoginController loginController() {
@@ -76,7 +80,7 @@ public class WebAppConfiguration {
     
     @Bean
     public ActiveLectureControllerStudent activeLectureControllerStudent() {
-    	return new ActiveLectureControllerStudent(getLectureAction, getAllCommentsAction, addCommentAction, sendMoodAction);
+    	return new ActiveLectureControllerStudent(getLectureAction, getAllCommentsAction, addCommentAction, sendMoodAction, removeMoodAction);
     }
 
     @Bean

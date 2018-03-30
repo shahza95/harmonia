@@ -121,4 +121,13 @@ public class LectureControllerStudentTest {
     	
     	verify(this.mockMoodAdapter).toDto(mood);
     }
+    
+    @Test
+    public void removeMoodInvokesServiceWithLectureTitleStringAndEmojiString() {
+    	String emoji = ":D";
+    	String lectureTitle = "title";
+        this.lectureController.removeMoodByEmoji(lectureTitle, emoji);
+
+        verify(this.mockLectureService).removeMood(lectureTitle, emoji);
+    }
 }

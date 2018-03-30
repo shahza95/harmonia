@@ -3,6 +3,7 @@ package syed.shahza.harmonia.frontend.controller;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 import static syed.shahza.harmonia.backend.dto.TestLectureDto.aValidLectureDto;
 
@@ -27,6 +28,7 @@ import syed.shahza.harmonia.backend.dto.TestMoodDto;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
+import syed.shahza.harmonia.restapi.action.RemoveMoodAction;
 import syed.shahza.harmonia.restapi.action.SendMoodAction;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -51,6 +53,9 @@ public class ActiveLectureControllerStudentTest {
     private SendMoodAction mockSendMoodAction;
     
     @Mock
+    private RemoveMoodAction mockRemoveMoodAction;
+    
+    @Mock
     private RedirectAttributes mockRedirectAttributes;
     
     @Captor
@@ -63,7 +68,7 @@ public class ActiveLectureControllerStudentTest {
     	this.moodDto = TestMoodDto.aValidMoodDto().build();
     	this.moodString = moodDto.getEmotionDto().toString() + " " + moodDto.getEmoji();
     	this.title = "title";
-        this.lectureController = new ActiveLectureControllerStudent(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockAddCommentAction, this.mockSendMoodAction);
+        this.lectureController = new ActiveLectureControllerStudent(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockAddCommentAction, this.mockSendMoodAction, this.mockRemoveMoodAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
     }
     
@@ -163,5 +168,19 @@ public class ActiveLectureControllerStudentTest {
     	//current emoji gets updated by new selection
     	this.lectureController.sendMood(lectureDto.getTitle(), this.moodString, "", this.mockRedirectAttributes);
     	verify(this.mockRedirectAttributes).addFlashAttribute("currentEmoji", this.moodString.split(" ")[1]);
+    }
+    
+    @Test
+    public void sendMoodInvokesRemoveMoodActionIfCurrentEmojiExists() {
+    	String emoji = ":)";
+    	this.lectureController.sendMood(lectureDto.getTitle(), this.moodString, emoji, this.mockRedirectAttributes);
+    	verify(this.mockRemoveMoodAction).removeMoodByEmoji(this.title, emoji);
+    }
+    
+    @Test
+    public void sendMoodDoesNotInvokeRemoveMoodActionIfNoCurrentEmojiExists() {
+    	String emoji = "";
+    	this.lectureController.sendMood(lectureDto.getTitle(), this.moodString, emoji, this.mockRedirectAttributes);
+    	verify(this.mockRemoveMoodAction, times(0)).removeMoodByEmoji(this.title, emoji);
     }
 }

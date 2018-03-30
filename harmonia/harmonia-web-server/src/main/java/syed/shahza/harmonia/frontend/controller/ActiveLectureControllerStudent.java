@@ -17,6 +17,7 @@ import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
+import syed.shahza.harmonia.restapi.action.RemoveMoodAction;
 import syed.shahza.harmonia.restapi.action.SendMoodAction;
 
 @Controller
@@ -27,12 +28,14 @@ public class ActiveLectureControllerStudent {
 	private final GetAllCommentsAction getAllCommentsAction;
 	private final AddCommentAction addCommentAction;
 	private final SendMoodAction sendMoodAction;
+	private final RemoveMoodAction removeMoodAction;
 
-	public ActiveLectureControllerStudent(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction,  AddCommentAction addCommentAction, SendMoodAction sendMoodAction) {
+	public ActiveLectureControllerStudent(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction,  AddCommentAction addCommentAction, SendMoodAction sendMoodAction, RemoveMoodAction removeMoodAction) {
 		this.getLectureAction = getLectureAction;
 		this.getAllCommentsAction = getAllCommentsAction;
 		this.addCommentAction = addCommentAction;
 		this.sendMoodAction = sendMoodAction;
+		this.removeMoodAction = removeMoodAction;
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.GET)
@@ -56,11 +59,13 @@ public class ActiveLectureControllerStudent {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
 		return new ModelAndView("student/activeLectureMood", "lectureDto", lectureDto);
 	}
-	
-	//if currentEmoji exists, delete
+
 	@RequestMapping(value = "/active/{lectureTitle}/mood", method = RequestMethod.POST)
 	public ModelAndView sendMood(@PathVariable("lectureTitle") String lectureTitle, @RequestParam("mood") String mood, @RequestParam(required = false) String currentEmoji, RedirectAttributes redirectAttributes) {
 		MoodDto moodDto = constructMoodDto(mood, lectureTitle);
+		if(!currentEmoji.isEmpty()) {
+			this.removeMoodAction.removeMoodByEmoji(lectureTitle, currentEmoji);			
+		}
 		this.sendMoodAction.sendMood(moodDto);
 	    redirectAttributes.addFlashAttribute("currentEmoji", moodDto.getEmoji());
 		return new ModelAndView("redirect:/student/lecture/active/" + lectureTitle +"/mood"); 

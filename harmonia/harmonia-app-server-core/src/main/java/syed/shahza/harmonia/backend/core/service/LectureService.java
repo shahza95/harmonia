@@ -41,4 +41,8 @@ public class LectureService {
 	public Moods getAllMoods(String lectureTitle) {
 		return this.lectureRepository.getAllMoods(lectureTitle);
 	}
+	
+	public void removeMood(String lectureTitle, String emoji) {
+		this.lectureRepository.removeMood(lectureTitle, emoji);
+	}
 }

@@ -2,6 +2,9 @@ package syed.shahza.harmonia.restapi.client;
 
 import static org.mockito.Mockito.verify;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.client.RestOperations;
 
-import syed.shahza.harmonia.restapi.client.RestClient;
 import syed.shahza.harmonia.backend.dto.LecturerDto;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -48,5 +50,15 @@ public class RestClientTest {
     	this.restClient.get(ENDPOINT_URL, Boolean.class, lecturerDto);
     	
     	verify(this.mockRestOperations).getForObject(FULL_URL, Boolean.class, lecturerDto);
+    }
+    
+    @Test
+    public void deleteRequestInvokesMockRestOperationsDeleteMethodWithCorrectParameters() {
+    	LecturerDto lecturerDto = new LecturerDto();
+    	Map<String, Object> variables = new HashMap<String, Object>();
+    	variables.put("lectureDto", lecturerDto);
+    	this.restClient.delete(ENDPOINT_URL, variables);
+    	
+    	verify(this.mockRestOperations).delete(FULL_URL, variables);
     }
 }

@@ -142,4 +142,13 @@ public class LectureServiceTest {
     	
     	assertThat(this.lectureService.getAllMoods("title"), instanceOf(Moods.class));
     }
+    
+    @Test
+    public void removeMoodInvokesLectureRepository() {
+    	String lectureTitle = "title";
+    	String emoji = ":)";
+    	this.lectureService.removeMood(lectureTitle, emoji);
+    	
+    	verify(this.mockLectureRepository).removeMood(lectureTitle, emoji);
+    }
 }

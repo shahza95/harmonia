@@ -13,10 +13,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
+import syed.shahza.harmonia.backend.core.domain.Emotion;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
+import syed.shahza.harmonia.backend.core.domain.TestLecture;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -104,5 +106,19 @@ public class LectureRepositoryTest {
     	this.lectureRepository.addMood(mood);
     	
     	assertThat(this.lectureRepository.getAllMoods(lecture.getTitle()), instanceOf(Moods.class));
+    }
+    
+    @Test
+    public void removeMoodShouldRemoveForCorrectLectureAndEmoji() {
+    	//first ensure the mood for the lecture exists
+    	String lectureTitle = "titleForLectureWithMood";
+    	Lecture lecture = TestLecture.aValidLecture().title(lectureTitle).build();
+    	String emoji = ":S";
+    	Mood mood = TestMood.aValidMood().emotion(Emotion.CONFUSED).emoji(emoji).lecture(lecture).build();
+    	
+    	this.lectureRepository.addMood(mood);
+    	
+    	//now remove
+    	assertThat(this.lectureRepository.removeMood(lectureTitle, emoji), is(true));
     }
 }

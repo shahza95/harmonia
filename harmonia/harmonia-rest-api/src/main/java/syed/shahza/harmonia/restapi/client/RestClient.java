@@ -1,5 +1,7 @@
 package syed.shahza.harmonia.restapi.client;
 
+import java.util.Map;
+
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,5 +24,9 @@ public class RestClient {
     
     public <R> R get(String url, Class<R> responseType, Object object) {
     	return this.restOperations.getForObject(this.baseUrl + url, responseType, object);
+    }
+    
+    public void delete(String url, Map<String, Object> variables) {
+    	this.restOperations.delete(this.baseUrl + url, variables);
     }
 }

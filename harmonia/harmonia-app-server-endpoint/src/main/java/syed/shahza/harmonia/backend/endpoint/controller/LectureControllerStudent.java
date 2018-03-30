@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.backend.endpoint.controller;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,5 +42,10 @@ public class LectureControllerStudent {
     @RequestMapping(value = "/active/mood", method = RequestMethod.POST)
     public MoodDto addMood(@RequestBody MoodDto moodDto) {
     	return this.moodAdapter.toDto(this.lectureService.addMood(this.moodAdapter.toDomain(moodDto)));
+    }
+    
+    @RequestMapping(value = "/active/{lectureTitle}/mood/{emoji}", method = RequestMethod.DELETE)
+    public void removeMoodByEmoji(@PathVariable("lectureTitle") String lectureTitle, @PathVariable("emoji") String emoji) {
+    	this.lectureService.removeMood(lectureTitle, emoji);
     }
 }

@@ -76,16 +76,16 @@ public class LectureDtoTest {
     }
 
     @Test
-    public void shouldSetEnabledToTrueByDefault() {
+    public void shouldSetCommentsEnabledToTrueByDefault() {
     	LectureDto lectureDto = aValidLectureDto().build();
-    	assertThat(lectureDto.getEnabled(), is(true));
+    	assertThat(lectureDto.getCommentsEnabled(), is(true));
     }
     
     @Test
-    public void canRetrieveEnabledOnceSet() {
+    public void canRetrieveCommentsEnabledOnceSet() {
     	LectureDto lectureDto = aValidLectureDto().build();
-        lectureDto.setEnabled(false);
+        lectureDto.setCommentsEnabled(false);
 
-        assertThat(lectureDto.getEnabled(), is(false));
+        assertThat(lectureDto.getCommentsEnabled(), is(false));
     }
 }

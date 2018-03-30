@@ -12,12 +12,12 @@ public class ToggleFeaturesAction {
     }
 
     public void disableCommenting(LectureDto lectureDto) {
-    	lectureDto.setEnabled(false);
+    	lectureDto.setCommentsEnabled(false);
         this.restClient.put(COMMENTS_URL_ENDPOINT, lectureDto);
     }
     
     public void enableCommenting(LectureDto lectureDto) {
-    	lectureDto.setEnabled(true);
+    	lectureDto.setCommentsEnabled(true);
     	this.restClient.put(COMMENTS_URL_ENDPOINT, lectureDto);
     }
 }

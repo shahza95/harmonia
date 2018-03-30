@@ -9,7 +9,7 @@ public class LectureDto {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
-    private boolean enabled;
+    private boolean commentsEnabled;
 
     public LectureDto() {
         super();
@@ -22,7 +22,7 @@ public class LectureDto {
         this.date = builder.date;
         this.startTime = builder.startTime;      
         this.endTime = builder.endTime;      
-        this.enabled = builder.enabled;      
+        this.commentsEnabled = builder.commentsEnabled;      
     }
 
     public String getTitle() {
@@ -65,12 +65,12 @@ public class LectureDto {
         this.endTime = endTime;
     }
     
-    public boolean getEnabled() {
-    	return this.enabled;
+    public boolean getCommentsEnabled() {
+    	return this.commentsEnabled;
     }
     
-    public void setEnabled(boolean enabled) {
-    	this.enabled = enabled;
+    public void setCommentsEnabled(boolean commentsEnabled) {
+    	this.commentsEnabled = commentsEnabled;
     }
     
     public Boolean isEmpty() {
@@ -87,7 +87,7 @@ public class LectureDto {
         private LocalDate date;
         private LocalTime startTime;
         private LocalTime endTime;
-        private boolean enabled = true;
+        private boolean commentsEnabled = true;
 
         public Builder title(String title) {
             this.title = title;
@@ -114,8 +114,8 @@ public class LectureDto {
         	return this;
         }
         
-        public Builder enabled(boolean enabled) {
-        	this.enabled = enabled;
+        public Builder commentsEnabled(boolean commentsEnabled) {
+        	this.commentsEnabled = commentsEnabled;
         	return this;
         }
 

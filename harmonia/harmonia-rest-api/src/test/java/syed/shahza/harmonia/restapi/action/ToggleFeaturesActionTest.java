@@ -55,7 +55,7 @@ public class ToggleFeaturesActionTest {
         this.lectureDtoCaptor = ArgumentCaptor.forClass(LectureDto.class); 
         verify(this.mockRestClient).put(eq("/lecturer/lecture/active/comments"), this.lectureDtoCaptor.capture());
     
-        assertThat(this.lectureDtoCaptor.getValue().getEnabled(), is(false));
+        assertThat(this.lectureDtoCaptor.getValue().getCommentsEnabled(), is(false));
     }
     
     @Test
@@ -66,6 +66,6 @@ public class ToggleFeaturesActionTest {
     	this.lectureDtoCaptor = ArgumentCaptor.forClass(LectureDto.class); 
     	verify(this.mockRestClient).put(eq("/lecturer/lecture/active/comments"), this.lectureDtoCaptor.capture());
     	
-    	assertThat(this.lectureDtoCaptor.getValue().getEnabled(), is(true));
+    	assertThat(this.lectureDtoCaptor.getValue().getCommentsEnabled(), is(true));
     }
 }

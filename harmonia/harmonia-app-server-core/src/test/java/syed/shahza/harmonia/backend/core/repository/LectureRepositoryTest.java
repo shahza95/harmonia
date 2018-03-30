@@ -125,8 +125,8 @@ public class LectureRepositoryTest {
     @Test
     public void updateReplacesOldLectureObject() {
     	this.lectureRepository.create(this.lecture);
-    	assertThat(this.lectureRepository.retrieveLectureFromTitle(this.lecture.getTitle()).getEnabled(), is(true));
-    	this.lectureRepository.update(aValidLecture().title(this.lecture.getTitle()).enabled(false).build());
-    	assertThat(this.lectureRepository.retrieveLectureFromTitle(this.lecture.getTitle()).getEnabled(), is(false));
+    	assertThat(this.lectureRepository.retrieveLectureFromTitle(this.lecture.getTitle()).getCommentsEnabled(), is(true));
+    	this.lectureRepository.update(aValidLecture().title(this.lecture.getTitle()).commentsEnabled(false).build());
+    	assertThat(this.lectureRepository.retrieveLectureFromTitle(this.lecture.getTitle()).getCommentsEnabled(), is(false));
     }
 }

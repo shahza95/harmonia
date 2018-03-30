@@ -49,7 +49,7 @@ public class LectureAdapterTest {
     @Test
     public void canAdaptEnabledToDto() {
     	boolean enabled = true;
-    	assertThat(this.lectureAdapter.toDto(aValidLecture().enabled(enabled).build()).getEnabled(), is(enabled));
+    	assertThat(this.lectureAdapter.toDto(aValidLecture().commentsEnabled(enabled).build()).getCommentsEnabled(), is(enabled));
     }
 
     @Test
@@ -83,6 +83,6 @@ public class LectureAdapterTest {
     @Test
     public void canAdaptEnabledToDomain() {
     	boolean enabled = false;
-    	assertThat(this.lectureAdapter.toDomain(aValidLectureDto().enabled(enabled).build()).getEnabled(), is(enabled));
+    	assertThat(this.lectureAdapter.toDomain(aValidLectureDto().commentsEnabled(enabled).build()).getCommentsEnabled(), is(enabled));
     }
 }

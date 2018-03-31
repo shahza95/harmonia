@@ -45,7 +45,7 @@ public class ActiveLectureControllerLecturer {
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.POST) 
-	public ModelAndView toggleCommenting(@PathVariable("lectureTitle") String lectureTitle, @RequestParam String commentsToggle) {
+	public ModelAndView toggleCommenting(@PathVariable("lectureTitle") String lectureTitle, @RequestParam(defaultValue="Disable") String commentsToggle) {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
 		if(commentsToggle.equals("Disable")) {
 			this.toggleFeaturesAction.disableCommenting(lectureDto);

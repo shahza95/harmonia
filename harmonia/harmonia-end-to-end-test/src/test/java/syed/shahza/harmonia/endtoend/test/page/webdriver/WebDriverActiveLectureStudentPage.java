@@ -1,5 +1,7 @@
 package syed.shahza.harmonia.endtoend.test.page.webdriver;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.openqa.selenium.WebDriver;
 
 import syed.shahza.harmonia.endtoend.test.api.Result;
@@ -21,4 +23,11 @@ public class WebDriverActiveLectureStudentPage extends WebDriverPage implements 
         this.findButtonByName("Comment").ifPresent(button -> button.submit());
         return findTextByString(message).isPresent() ? Result.SUCCESS : Result.FAILURE;
     }
+
+	@Override
+	public Result checkCommentingDisabled() {
+		AtomicBoolean enabled = new AtomicBoolean(true);
+		this.findInputByName("message").ifPresent(input -> enabled.set(input.checkEnabled()));
+		return enabled.get() ? Result.FAILURE : Result.SUCCESS;
+	}
 }

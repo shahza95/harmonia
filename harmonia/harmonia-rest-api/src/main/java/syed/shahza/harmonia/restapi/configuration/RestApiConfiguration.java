@@ -14,6 +14,7 @@ import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 import syed.shahza.harmonia.restapi.action.LoginAction;
 import syed.shahza.harmonia.restapi.action.RemoveMoodAction;
 import syed.shahza.harmonia.restapi.action.SendMoodAction;
+import syed.shahza.harmonia.restapi.action.ToggleFeaturesAction;
 import syed.shahza.harmonia.restapi.client.RestClient;
 
 @Configuration
@@ -71,5 +72,10 @@ public class RestApiConfiguration {
 	@Bean
 	public RemoveMoodAction removeMoodAction() {
 		return new RemoveMoodAction(restClient());
+	}
+	
+	@Bean
+	public ToggleFeaturesAction toggleFeaturesAction() {
+		return new ToggleFeaturesAction(restClient());
 	}
 }

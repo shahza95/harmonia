@@ -74,4 +74,18 @@ public class LectureDtoTest {
     	LectureDto lectureDto = anEmptyLectureDto().build();
     	assertThat(lectureDto.isEmpty(), is(true));
     }
+
+    @Test
+    public void shouldSetCommentsEnabledToTrueByDefault() {
+    	LectureDto lectureDto = aValidLectureDto().build();
+    	assertThat(lectureDto.getCommentsEnabled(), is(true));
+    }
+    
+    @Test
+    public void canRetrieveCommentsEnabledOnceSet() {
+    	LectureDto lectureDto = aValidLectureDto().build();
+        lectureDto.setCommentsEnabled(false);
+
+        assertThat(lectureDto.getCommentsEnabled(), is(false));
+    }
 }

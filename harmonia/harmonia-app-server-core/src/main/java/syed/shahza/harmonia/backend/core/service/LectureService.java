@@ -45,4 +45,8 @@ public class LectureService {
 	public void removeMood(String lectureTitle, String emoji) {
 		this.lectureRepository.removeMood(lectureTitle, emoji);
 	}
+	
+	public void update(Lecture lecture) {
+		this.lectureRepository.update(lecture);
+	}
 }

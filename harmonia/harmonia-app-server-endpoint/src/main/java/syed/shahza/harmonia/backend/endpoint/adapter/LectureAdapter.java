@@ -9,10 +9,10 @@ import syed.shahza.harmonia.backend.dto.LectureDto;
 public class LectureAdapter {
 
     public LectureDto toDto(Lecture lecture) {
-        return aLectureDto().title(lecture.getTitle()).password(lecture.getPassword()).date(lecture.getDate()).startTime(lecture.getStartTime()).endTime(lecture.getEndTime()).build();
+        return aLectureDto().title(lecture.getTitle()).password(lecture.getPassword()).date(lecture.getDate()).startTime(lecture.getStartTime()).endTime(lecture.getEndTime()).commentsEnabled(lecture.getCommentsEnabled()).build();
     }
     
     public Lecture toDomain(LectureDto lectureDto) {
-    	return aLecture().title(lectureDto.getTitle()).password(lectureDto.getPassword()).date(lectureDto.getDate()).startTime(lectureDto.getStartTime()).endTime(lectureDto.getEndTime()).build();
+    	return aLecture().title(lectureDto.getTitle()).password(lectureDto.getPassword()).date(lectureDto.getDate()).startTime(lectureDto.getStartTime()).endTime(lectureDto.getEndTime()).commentsEnabled(lectureDto.getCommentsEnabled()).build();
     }
 }

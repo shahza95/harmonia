@@ -3,6 +3,7 @@ package syed.shahza.harmonia.frontend.controller;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 import static syed.shahza.harmonia.backend.dto.TestLectureDto.aValidLectureDto;
 
 import java.util.HashMap;
@@ -24,6 +25,7 @@ import syed.shahza.harmonia.backend.dto.TestMoodDtoList;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
+import syed.shahza.harmonia.restapi.action.ToggleFeaturesAction;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ActiveLectureControllerLecturerTest {
@@ -41,10 +43,13 @@ public class ActiveLectureControllerLecturerTest {
     @Mock
     private GetAllMoodsAction mockGetAllMoodsAction;
     
+    @Mock
+    private ToggleFeaturesAction mockToggleFeaturesAction;
+    
     @Before
     public void before() {
     	this.lectureDto = aValidLectureDto().build();
-        this.lectureController = new ActiveLectureControllerLecturer(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction);
+        this.lectureController = new ActiveLectureControllerLecturer(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction, this.mockToggleFeaturesAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
     	this.numberOfSameMood = 3;
     	this.moodDtoList = TestMoodDtoList.aFilledMoodDtoList(numberOfSameMood);
@@ -104,5 +109,22 @@ public class ActiveLectureControllerLecturerTest {
     	moodMap.put("CONFUSED", 0);
     	
     	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getModel().get("moodMap"), is(moodMap));
+    }
+    
+    @Test
+    public void toggleCommentingReturnsActiveLecturePage() {
+     	assertThat(this.lectureController.toggleCommenting(lectureDto.getTitle(), "").getViewName(), is("lecturer/activeLecture"));
+    }
+    
+    @Test
+    public void toggleCommentingInvokesDisableCommentingIfToggleIsDisable() {
+    	this.lectureController.toggleCommenting(lectureDto.getTitle(), "Disable");
+    	verify(this.mockToggleFeaturesAction).disableCommenting(lectureDto);
+    }
+    
+    @Test
+    public void toggleCommentingInvokesEnableCommentingIfToggleIsEnable() {
+    	this.lectureController.toggleCommenting(lectureDto.getTitle(), "Enable");
+    	verify(this.mockToggleFeaturesAction).enableCommenting(lectureDto);
     }
 }

@@ -30,7 +30,11 @@
 	</form>
 </body>
 <script type="text/javascript" src="/resources/javascript/UpdateComments.js"></script>
+<script type="text/javascript" src="/resources/javascript/CheckCommentsEnabled.js"></script>
 <script th:inline="javascript">
-	setGetUrl(window.location.href + "/json");
+	setGetCommentsUrl(window.location.href + "/json");
+	
+	var lectureTitle = /*[[${lectureDto.title}]]*/ 'default';
+	setGetLectureUrl(window.location.hostname + "/student/lecture/active/" + lectureTitle + "/json");
 </script>
 </html>

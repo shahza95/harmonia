@@ -35,8 +35,8 @@ public class LectureServiceTest {
 	
 	@Before
 	public void before() {
-		lecture = aValidLecture().build();
-		comment = TestComment.aValidComment().build();
+		this.lecture = aValidLecture().build();
+		this.comment = TestComment.aValidComment().build();
 		this.lectureService = new LectureService(this.mockLectureRepository);
 	}
 	
@@ -150,5 +150,11 @@ public class LectureServiceTest {
     	this.lectureService.removeMood(lectureTitle, emoji);
     	
     	verify(this.mockLectureRepository).removeMood(lectureTitle, emoji);
+    }
+    
+    @Test
+    public void updateInvokesLectureRepository() {
+    	this.lectureService.update(this.lecture);
+    	verify(this.mockLectureRepository).update(this.lecture);
     }
 }

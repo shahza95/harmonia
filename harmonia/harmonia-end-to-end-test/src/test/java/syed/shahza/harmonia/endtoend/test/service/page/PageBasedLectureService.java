@@ -4,6 +4,7 @@ import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.endtoend.test.api.Result;
+import syed.shahza.harmonia.endtoend.test.page.ActiveLectureLecturerPage;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureMoodLecturerPage;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureMoodStudentPage;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureStudentPage;
@@ -15,13 +16,15 @@ import syed.shahza.harmonia.endtoend.test.service.LectureService;
 public class PageBasedLectureService implements LectureService {
     private final LectureCreationPage lectureCreationPage;
     private final JoinLecturePage joinLecturePage;
+    private final ActiveLectureLecturerPage activeLectureLecturerPage;
     private final ActiveLectureStudentPage activeLectureStudentPage;
     private final ActiveLectureMoodStudentPage activeLectureMoodStudentPage;
     private final ActiveLectureMoodLecturerPage activeLectureMoodLecturerPage;
 
-    public PageBasedLectureService(LectureCreationPage lectureCreationPage, JoinLecturePage joinLecturePage, ActiveLectureStudentPage activeLectureStudentPage, ActiveLectureMoodStudentPage activeLectureMoodStudentPage, ActiveLectureMoodLecturerPage activeLectureMoodLecturerPage) {
+    public PageBasedLectureService(LectureCreationPage lectureCreationPage, JoinLecturePage joinLecturePage, ActiveLectureLecturerPage activeLectureLecturerPage, ActiveLectureStudentPage activeLectureStudentPage, ActiveLectureMoodStudentPage activeLectureMoodStudentPage, ActiveLectureMoodLecturerPage activeLectureMoodLecturerPage) {
         this.lectureCreationPage = lectureCreationPage;
         this.joinLecturePage = joinLecturePage;
+        this.activeLectureLecturerPage = activeLectureLecturerPage;
         this.activeLectureStudentPage = activeLectureStudentPage;
         this.activeLectureMoodStudentPage = activeLectureMoodStudentPage;
         this.activeLectureMoodLecturerPage = activeLectureMoodLecturerPage;
@@ -63,5 +66,16 @@ public class PageBasedLectureService implements LectureService {
 	public Result checkEmojiReceived(String lectureTitle, String emotionString) {
 		getAllMoods(lectureTitle);
 		return this.activeLectureMoodLecturerPage.checkEmojiIsPresent(emotionString);
+	}
+
+	
+	@Override
+	public void disableCommenting() {
+		this.activeLectureLecturerPage.clickDisableButton();
+	}
+
+	@Override
+	public Result checkCommentingDisabled() {
+		return this.activeLectureStudentPage.checkCommentingDisabled();
 	}
 }

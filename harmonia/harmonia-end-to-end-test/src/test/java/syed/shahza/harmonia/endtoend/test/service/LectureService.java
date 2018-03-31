@@ -18,4 +18,8 @@ public interface LectureService {
 	public void getAllMoods(String lectureTitle);
 	
 	public Result checkEmojiReceived(String lectureTitle, String emotionString);
+	
+	public void disableCommenting();
+
+	public Result checkCommentingDisabled();
 }

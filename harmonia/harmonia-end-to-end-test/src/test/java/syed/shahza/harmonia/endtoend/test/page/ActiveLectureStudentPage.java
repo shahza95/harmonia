@@ -8,4 +8,6 @@ public interface ActiveLectureStudentPage extends Page {
 	void enterMessage(String message);
 
 	Result clickCommentButton(String message);
+
+	Result checkCommentingDisabled();
 }

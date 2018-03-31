@@ -25,4 +25,8 @@ public class Input {
     public void fill(String filler) {
         this.webElement.sendKeys(filler);
     }
+
+	public boolean checkEnabled() {
+		return this.webElement.isEnabled();
+	}
 }

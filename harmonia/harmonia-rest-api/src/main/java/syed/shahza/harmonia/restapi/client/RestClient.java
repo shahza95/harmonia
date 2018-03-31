@@ -29,4 +29,8 @@ public class RestClient {
     public void delete(String url, Map<String, Object> variables) {
     	this.restOperations.delete(this.baseUrl + url, variables);
     }
+    
+    public void put(String url, Object object) {
+    	this.restOperations.put(this.baseUrl + url, object);
+    }
 }

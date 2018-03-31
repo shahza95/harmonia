@@ -35,26 +35,24 @@ public class ActiveLectureControllerLecturer {
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.GET)
-	public ModelAndView getActiveLecturePage(@PathVariable("lectureTitle") String lectureTitle, @RequestParam(defaultValue="Disable") String toggle) {
+	public ModelAndView getActiveLecturePage(@PathVariable("lectureTitle") String lectureTitle) {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
 		ModelAndView modelAndView = new ModelAndView("lecturer/activeLecture");
 		modelAndView.addObject("lectureDto", lectureDto);
-		modelAndView.addObject("toggleValue", toggle);
+		modelAndView.addObject("commentsEnabled", lectureDto.getCommentsEnabled());
 		modelAndView.addObject("commentDtoList", this.getAllCommentsAction.getAll(lectureDto.getTitle()));
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.POST) 
-	public ModelAndView toggleCommenting(@PathVariable("lectureTitle") String lectureTitle, @RequestParam("toggle") String toggle) {
+	public ModelAndView toggleCommenting(@PathVariable("lectureTitle") String lectureTitle, @RequestParam String commentsToggle) {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
-		if(toggle.equals("Disable")) {
+		if(commentsToggle.equals("Disable")) {
 			this.toggleFeaturesAction.disableCommenting(lectureDto);
-			toggle = "Enable";
 		} else {
 			this.toggleFeaturesAction.enableCommenting(lectureDto);
-			toggle = "Disable";
 		}
-		return getActiveLecturePage(lectureTitle, toggle);
+		return getActiveLecturePage(lectureTitle);
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/mood", method = RequestMethod.GET)

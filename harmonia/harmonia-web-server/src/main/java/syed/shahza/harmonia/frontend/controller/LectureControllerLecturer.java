@@ -48,7 +48,6 @@ public class LectureControllerLecturer {
 	}
 	
 	private LectureDto getCompleteLectureDto(LectureDto lectureDto, String date, String startTime, String endTime) {
-		lectureDto.setCommentsEnabled(true);
 		lectureDto.setDate(LocalDate.parse(date));
 		lectureDto.setStartTime(LocalTime.parse(startTime));
 		lectureDto.setEndTime(LocalTime.parse(endTime));

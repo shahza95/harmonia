@@ -39,7 +39,6 @@ public class ActiveLectureControllerLecturer {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
 		ModelAndView modelAndView = new ModelAndView("lecturer/activeLecture");
 		modelAndView.addObject("lectureDto", lectureDto);
-		modelAndView.addObject("commentsEnabled", lectureDto.getCommentsEnabled());
 		modelAndView.addObject("commentDtoList", this.getAllCommentsAction.getAll(lectureDto.getTitle()));
 		return modelAndView;
 	}
@@ -60,11 +59,19 @@ public class ActiveLectureControllerLecturer {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
 		ModelAndView modelAndView = new ModelAndView("lecturer/activeLectureMood");
 		modelAndView.addObject("lectureDto", lectureDto);
-
-		Map<String, Integer> moodMap = getMoodSummaryMap(this.getAllMoodsAction.getAll(lectureDto.getTitle()));
-		modelAndView.addObject("moodMap", moodMap);
-		
+		modelAndView.addObject("moodMap", getMoodSummaryMap(this.getAllMoodsAction.getAll(lectureDto.getTitle())));
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/active/{lectureTitle}/mood", method = RequestMethod.POST) 
+	public ModelAndView toggleMood(@PathVariable("lectureTitle") String lectureTitle, @RequestParam(defaultValue="Disable") String moodToggle) {
+		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
+		if(moodToggle.equals("Disable")) {
+			this.toggleFeaturesAction.disableMood(lectureDto);
+		} else {
+			this.toggleFeaturesAction.enableMood(lectureDto);
+		}
+		return getActiveLectureMoodPage(lectureTitle);
 	}
 	
 	protected static Map<String, Integer> getMoodSummaryMap(MoodDtoList moodDtoList) {

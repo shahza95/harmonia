@@ -110,7 +110,7 @@ public class ActiveLectureControllerLecturerTest {
     	
     	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getModel().get("moodMap"), is(moodMap));
     }
-    
+
     @Test
     public void toggleCommentingReturnsActiveLecturePage() {
      	assertThat(this.lectureController.toggleCommenting(lectureDto.getTitle(), "").getViewName(), is("lecturer/activeLecture"));
@@ -126,5 +126,22 @@ public class ActiveLectureControllerLecturerTest {
     public void toggleCommentingInvokesEnableCommentingIfToggleIsEnable() {
     	this.lectureController.toggleCommenting(lectureDto.getTitle(), "Enable");
     	verify(this.mockToggleFeaturesAction).enableCommenting(lectureDto);
+    }
+    
+    @Test
+    public void toggleMoodReturnsActiveLectureMoodPage() {
+    	assertThat(this.lectureController.toggleMood(lectureDto.getTitle(), "").getViewName(), is("lecturer/activeLectureMood"));
+    }
+    
+    @Test
+    public void toggleMoodInvokesDisableMoodIfToggleIsDisable() {
+    	this.lectureController.toggleMood(lectureDto.getTitle(), "Disable");
+    	verify(this.mockToggleFeaturesAction).disableMood(lectureDto);
+    }
+    
+    @Test
+    public void toggleMoodInvokesEnableMoodIfToggleIsEnable() {
+    	this.lectureController.toggleMood(lectureDto.getTitle(), "Enable");
+    	verify(this.mockToggleFeaturesAction).enableMood(lectureDto);
     }
 }

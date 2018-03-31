@@ -59,7 +59,7 @@ public class ActiveLectureControllerLecturerTest {
     
     @Test
     public void getActiveLectureInvokesGetLectureAction() {
-    	this.lectureController.getActiveLecturePage(lectureDto.getTitle(), "");
+    	this.lectureController.getActiveLecturePage(lectureDto.getTitle());
     	
     	Mockito.verify(this.mockGetLectureAction).get(lectureDto.getTitle());
     }
@@ -67,12 +67,12 @@ public class ActiveLectureControllerLecturerTest {
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLecture() {
     	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
-    	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle(), "").getViewName(), is("lecturer/activeLecture"));
+    	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getViewName(), is("lecturer/activeLecture"));
     }
     
     @Test
     public void getActiveLectureSendsLectureDtoAsModel() {
-    	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle(), "").getModel().get("lectureDto"), is(lectureDto));
+    	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getModel().get("lectureDto"), is(lectureDto));
     }
     
     @Test
@@ -80,7 +80,7 @@ public class ActiveLectureControllerLecturerTest {
     	CommentDtoList commentDtoList = TestCommentDtoList.aFilledCommentDtoList(3);
     	when(this.mockGetAllCommentsAction.getAll(lectureDto.getTitle())).thenReturn(commentDtoList);
     	
-    	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle(), "").getModel().get("commentDtoList"), is(commentDtoList));
+    	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getModel().get("commentDtoList"), is(commentDtoList));
     }
     
     @Test

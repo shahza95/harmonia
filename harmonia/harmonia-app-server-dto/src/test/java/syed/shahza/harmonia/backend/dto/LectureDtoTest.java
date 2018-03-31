@@ -76,8 +76,14 @@ public class LectureDtoTest {
     }
 
     @Test
-    public void shouldSetCommentsEnabledToTrueByDefault() {
+    public void shouldSetCommentsEnabledToTrueByDefaultViaBuilder() {
     	LectureDto lectureDto = aValidLectureDto().build();
+    	assertThat(lectureDto.getCommentsEnabled(), is(true));
+    }
+    
+    @Test
+    public void shouldSetCommentsEnabledToTrueByDefault() {
+    	LectureDto lectureDto = new LectureDto();
     	assertThat(lectureDto.getCommentsEnabled(), is(true));
     }
     
@@ -87,5 +93,25 @@ public class LectureDtoTest {
         lectureDto.setCommentsEnabled(false);
 
         assertThat(lectureDto.getCommentsEnabled(), is(false));
+    }
+    
+    @Test
+    public void canRetrieveMoodEnabledOnceSet() {
+    	LectureDto lectureDto = aValidLectureDto().build();
+    	lectureDto.setMoodEnabled(false);
+    	
+    	assertThat(lectureDto.getMoodEnabled(), is(false));
+    }
+    
+    @Test
+    public void shouldSetMoodEnabledToTrueByDefaultViaBuilder() {
+    	LectureDto lectureDto = aValidLectureDto().build();
+    	assertThat(lectureDto.getMoodEnabled(), is(true));
+    }
+    
+    @Test
+    public void shouldSetMoodEnabledToTrueByDefault() {
+    	LectureDto lectureDto = new LectureDto();
+    	assertThat(lectureDto.getMoodEnabled(), is(true));
     }
 }

@@ -33,9 +33,13 @@
 		</form>
 	</div>
 </body>
-<script>
-	$('#Mood').one('change', function() {
+<script type="text/javascript" src="/resources/javascript/CheckMoodEnabled.js"></script>
+<script th:inline="javascript">
+	$('#Mood').on('change', function() {
 	     $('.btn').prop('disabled', false);
 	});
+	
+	var lectureTitle = /*[[${lectureDto.title}]]*/ 'default';
+	setGetLectureUrl(window.location.hostname + "/student/lecture/active/" + lectureTitle + "/json");
 </script>
 </html>

@@ -71,14 +71,14 @@ public class LectureControllerLecturerTest {
     
     @Test
     public void toggleCommentsInvokesAdapterToDomain() {
-    	this.lectureController.toggleComments(lectureDto);
+    	this.lectureController.updateLecture(lectureDto);
     	verify(this.mockLectureAdapter).toDomain(lectureDto);
     }
 
     @Test
     public void toggleCommentsInvokesServiceWithLectureDomainObject() {
     	when(mockLectureAdapter.toDomain(lectureDto)).thenReturn(lecture);
-        this.lectureController.toggleComments(lectureDto);
+        this.lectureController.updateLecture(lectureDto);
 
         verify(this.mockLectureService).update(lecture);
     }

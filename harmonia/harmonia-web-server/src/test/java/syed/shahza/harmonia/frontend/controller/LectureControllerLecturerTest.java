@@ -67,7 +67,7 @@ public class LectureControllerLecturerTest {
     }
     
     @Test
-    public void createSetsDateAndTimesAndFeatureToggling() {
+    public void createSetsDateAndTimes() {
     	when(this.mockLectureCreationAction.create(lectureDto)).thenReturn(lectureDto);
     	this.lectureController.create(lectureDto, dateTomorrow, startTime, endTime);
     	
@@ -77,7 +77,6 @@ public class LectureControllerLecturerTest {
     	assertThat(lectureDtoCaptor.getValue().getDate(), is(LocalDate.parse(dateTomorrow)));
     	assertThat(lectureDtoCaptor.getValue().getStartTime(), is(LocalTime.parse(startTime)));
     	assertThat(lectureDtoCaptor.getValue().getEndTime(), is(LocalTime.parse(endTime)));
-    	assertThat(lectureDtoCaptor.getValue().getCommentsEnabled(), is(true));
     }
     
     @Test

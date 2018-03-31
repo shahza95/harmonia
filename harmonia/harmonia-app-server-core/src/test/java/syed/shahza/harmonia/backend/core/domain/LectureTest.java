@@ -38,4 +38,16 @@ public class LectureTest {
     	LocalTime randomEndTime = new LocalTime(13,30);
     	assertThat(aValidLecture().endTime(randomEndTime).build().getEndTime(), is(randomEndTime));
     }
+    
+    @Test
+    public void canGetAndSetCommentsEnabled() {
+    	boolean commentsEnabled = false;
+    	assertThat(aValidLecture().commentsEnabled(commentsEnabled).build().getCommentsEnabled(), is(commentsEnabled));
+    }
+    
+    @Test
+    public void canGetAndSetMoodEnabled() {
+    	boolean moodEnabled = false;
+    	assertThat(aValidLecture().commentsEnabled(moodEnabled).build().getMoodEnabled(), is(moodEnabled));
+    }
 }

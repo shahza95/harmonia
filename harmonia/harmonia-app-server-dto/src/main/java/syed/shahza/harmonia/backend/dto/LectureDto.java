@@ -9,7 +9,8 @@ public class LectureDto {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
-    private boolean commentsEnabled;
+    private boolean commentsEnabled = true;
+    private boolean moodEnabled = true;
 
     public LectureDto() {
         super();
@@ -23,6 +24,7 @@ public class LectureDto {
         this.startTime = builder.startTime;      
         this.endTime = builder.endTime;      
         this.commentsEnabled = builder.commentsEnabled;      
+        this.moodEnabled = builder.moodEnabled;      
     }
 
     public String getTitle() {
@@ -73,6 +75,14 @@ public class LectureDto {
     	this.commentsEnabled = commentsEnabled;
     }
     
+    public boolean getMoodEnabled() {
+    	return this.moodEnabled;
+    }
+    
+    public void setMoodEnabled(boolean moodEnabled) {
+    	this.moodEnabled = moodEnabled;
+    }
+    
     public Boolean isEmpty() {
     	return this.title == null && this.password == null && this.date == null && this.startTime == null && this.endTime == null;
     }
@@ -88,6 +98,7 @@ public class LectureDto {
         private LocalTime startTime;
         private LocalTime endTime;
         private boolean commentsEnabled = true;
+        private boolean moodEnabled = true;
 
         public Builder title(String title) {
             this.title = title;
@@ -116,6 +127,11 @@ public class LectureDto {
         
         public Builder commentsEnabled(boolean commentsEnabled) {
         	this.commentsEnabled = commentsEnabled;
+        	return this;
+        }
+        
+        public Builder moodEnabled(boolean moodEnabled) {
+        	this.moodEnabled = moodEnabled;
         	return this;
         }
 

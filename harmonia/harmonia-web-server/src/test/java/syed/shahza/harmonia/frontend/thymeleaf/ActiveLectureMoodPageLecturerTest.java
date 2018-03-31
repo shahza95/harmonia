@@ -23,6 +23,7 @@ public class ActiveLectureMoodPageLecturerTest extends ThymeleafTemplateTest {
     private HtmlElements tags;
     private LectureDto lectureDto;
     private MoodDtoList moodDtoList;
+    private Map<String, Object> model;
     
     public ActiveLectureMoodPageLecturerTest() {
         super("/lecturer/activeLectureMood");
@@ -30,12 +31,12 @@ public class ActiveLectureMoodPageLecturerTest extends ThymeleafTemplateTest {
     
     @Before
     public void setUp() {
-        Map<String, Object> model = new HashMap<>();
+        this.model = new HashMap<>();
         this.lectureDto = TestLectureDto.anActiveLectureDto().build();
         this.moodDtoList = TestMoodDtoList.aFilledMoodDtoList(2);
-        model.put("lectureDto", this.lectureDto);
-        model.put("moodDtoList", this.moodDtoList);
-        this.tags = process(model);
+        this.model.put("lectureDto", this.lectureDto);
+        this.model.put("moodDtoList", this.moodDtoList);
+        this.tags = process(this.model);
     }
     
     @Test
@@ -61,5 +62,25 @@ public class ActiveLectureMoodPageLecturerTest extends ThymeleafTemplateTest {
     @Test
     public void shouldCallMoodChartJavascript() throws NodeSelectorException {
     	assertThat(this.tags.matching("script").get(3).attr("src"), is("/resources/javascript/MoodChart.js"));
+    }
+    
+    @Test
+    public void oneButtonForFeatureTogglingShouldExist() throws NodeSelectorException {
+    	assertThat(this.tags.matching("input").size(), is(1));
+    }
+    
+    @Test
+    public void buttonShouldDisplayDisableIfCommentsEnabledIsTrue() throws NodeSelectorException {
+    	assertThat(this.lectureDto.getMoodEnabled(), is(true));
+    	assertThat(this.tags.matching("input").get(0).attr("value"), is("Disable"));
+    }
+    
+    @Test
+    public void buttonShouldDisplayEnableIfCommentsEnabledIsFalse() throws NodeSelectorException {
+    	this.lectureDto.setMoodEnabled(false);
+    	this.model.put("lectureDto", this.lectureDto);
+    	this.tags = process(this.model);
+    	
+    	assertThat(this.tags.matching("input").get(0).attr("value"), is("Enable"));
     }
 }

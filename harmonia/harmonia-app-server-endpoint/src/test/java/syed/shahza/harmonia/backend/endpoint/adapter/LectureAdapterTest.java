@@ -47,9 +47,15 @@ public class LectureAdapterTest {
     }
     
     @Test
-    public void canAdaptEnabledToDto() {
+    public void canAdaptCommentsEnabledToDto() {
     	boolean enabled = true;
     	assertThat(this.lectureAdapter.toDto(aValidLecture().commentsEnabled(enabled).build()).getCommentsEnabled(), is(enabled));
+    }
+    
+    @Test
+    public void canAdaptMoodEnabledToDto() {
+    	boolean enabled = true;
+    	assertThat(this.lectureAdapter.toDto(aValidLecture().moodEnabled(enabled).build()).getMoodEnabled(), is(enabled));
     }
 
     @Test
@@ -81,8 +87,14 @@ public class LectureAdapterTest {
     }
     
     @Test
-    public void canAdaptEnabledToDomain() {
+    public void canAdaptCommentsEnabledToDomain() {
     	boolean enabled = false;
     	assertThat(this.lectureAdapter.toDomain(aValidLectureDto().commentsEnabled(enabled).build()).getCommentsEnabled(), is(enabled));
+    }
+    
+    @Test
+    public void canAdaptMoodEnabledToDomain() {
+    	boolean enabled = false;
+    	assertThat(this.lectureAdapter.toDomain(aValidLectureDto().moodEnabled(enabled).build()).getMoodEnabled(), is(enabled));
     }
 }

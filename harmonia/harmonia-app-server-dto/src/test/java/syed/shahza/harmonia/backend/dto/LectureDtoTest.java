@@ -114,4 +114,24 @@ public class LectureDtoTest {
     	LectureDto lectureDto = new LectureDto();
     	assertThat(lectureDto.getMoodEnabled(), is(true));
     }
+    
+    @Test
+    public void canRetrieveEndedOnceSet() {
+    	LectureDto lectureDto = aValidLectureDto().build();
+    	lectureDto.setEnded(true);
+    	
+    	assertThat(lectureDto.getEnded(), is(true));
+    }
+    
+    @Test
+    public void shouldSetEndedToFalseByDefaultViaBuilder() {
+    	LectureDto lectureDto = aValidLectureDto().build();
+    	assertThat(lectureDto.getEnded(), is(false));
+    }
+    
+    @Test
+    public void shouldSetEndedToFalseByDefault() {
+    	LectureDto lectureDto = new LectureDto();
+    	assertThat(lectureDto.getEnded(), is(false));
+    }
 }

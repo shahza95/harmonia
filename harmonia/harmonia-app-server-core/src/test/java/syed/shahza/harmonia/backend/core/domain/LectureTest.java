@@ -50,4 +50,10 @@ public class LectureTest {
     	boolean moodEnabled = false;
     	assertThat(aValidLecture().commentsEnabled(moodEnabled).build().getMoodEnabled(), is(moodEnabled));
     }
+    
+    @Test
+    public void canGetAndSetEnded() {
+    	boolean ended = true;
+    	assertThat(aValidLecture().ended(ended).build().getEnded(), is(ended));
+    }
 }

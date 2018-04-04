@@ -11,6 +11,7 @@ public class Lecture {
     private LocalTime endTime;
     private boolean commentsEnabled;
     private boolean moodEnabled;
+    private boolean ended;
 
     public Lecture() {
         super();
@@ -25,6 +26,7 @@ public class Lecture {
         this.endTime = builder.endTime;      
         this.commentsEnabled = builder.commentsEnabled;      
         this.moodEnabled = builder.moodEnabled;      
+        this.ended = builder.ended;      
     }
 
     public String getTitle() {
@@ -54,6 +56,10 @@ public class Lecture {
     public boolean getMoodEnabled() {
     	return this.moodEnabled;
     }
+    
+    public boolean getEnded() {
+    	return this.ended;
+    }
 
     public Boolean isEmpty() {
     	return this.title == null && this.password == null && this.date == null && this.startTime == null && this.endTime == null;
@@ -71,6 +77,7 @@ public class Lecture {
         private LocalTime endTime;
         private boolean commentsEnabled;
         private boolean moodEnabled;
+        private boolean ended;
 
         public Builder title(String title) {
             this.title = title;
@@ -104,6 +111,11 @@ public class Lecture {
         
         public Builder moodEnabled(boolean moodEnabled) {
         	this.moodEnabled = moodEnabled;
+        	return this;
+        }
+        
+        public Builder ended(boolean ended) {
+        	this.ended = ended;
         	return this;
         }
 

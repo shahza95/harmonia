@@ -1,6 +1,7 @@
 package syed.shahza.harmonia.endtoend.test.service;
 
 import syed.shahza.harmonia.backend.dto.CommentDto;
+import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.endtoend.test.api.Result;
@@ -22,4 +23,12 @@ public interface LectureService {
 	public void disableCommenting();
 
 	public Result checkCommentingDisabled();
+	
+	public void endLecture(String lectureTitle);
+	
+	public void addFeedback(FeedbackDto feedbackDto);
+	
+	public void viewAllFeedback(String lectureTitle);
+	
+	public Result checkFeedbackReceived(FeedbackDto feedbackDto);
 }

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import syed.shahza.harmonia.endtoend.test.component.Button;
 import syed.shahza.harmonia.endtoend.test.component.Input;
+import syed.shahza.harmonia.endtoend.test.component.RadioButton;
 import syed.shahza.harmonia.endtoend.test.component.Select;
 import syed.shahza.harmonia.endtoend.test.component.Text;
 
@@ -19,4 +20,6 @@ public interface Page {
 	Optional<Button> findButtonByName(String name);
 
 	Optional<Select> findSelectByName(String name);
+
+	Optional<RadioButton> findRadioButtonById(String id);
 }

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.core.service.LoginService;
 import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
+import syed.shahza.harmonia.backend.endpoint.adapter.FeedbackAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LecturerAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
@@ -38,6 +39,11 @@ public class EndpointConfiguration {
     @Bean
     public MoodAdapter moodAdapter() {
     	return new MoodAdapter(this.lectureAdapter());
+    }
+    
+    @Bean
+    public FeedbackAdapter feedbackAdapter() {
+    	return new FeedbackAdapter(this.lectureAdapter());
     }
     
     @Bean

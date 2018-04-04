@@ -14,4 +14,9 @@ public class WebDriverActiveLectureLecturerPage extends WebDriverPage implements
     public void clickDisableButton() {
         this.findButtonByName("commentsToggle").ifPresent(button -> button.submit());
     }  
+    
+    @Override
+    public void clickEndLectureButton() {
+    	this.findTextByString("End Lecture").ifPresent(text -> text.click());
+    }  
 }

@@ -60,6 +60,16 @@
 			<constructor-arg name="webDriver" ref="webDriver" />
 		</bean>
 
+		<bean id="activeLectureFeedbackStudentPage"
+			class="syed.shahza.harmonia.endtoend.test.page.webdriver.WebDriverActiveLectureFeedbackStudentPage">
+			<constructor-arg name="webDriver" ref="webDriver" />
+		</bean>
+
+		<bean id="activeLectureFeedbackLecturerPage"
+			class="syed.shahza.harmonia.endtoend.test.page.webdriver.WebDriverActiveLectureFeedbackLecturerPage">
+			<constructor-arg name="webDriver" ref="webDriver" />
+		</bean>
+
 		<bean id="loginService"
 			class="syed.shahza.harmonia.endtoend.test.service.page.PageBasedLoginService">
 			<constructor-arg name="loginPage" ref="loginPage" />
@@ -73,6 +83,8 @@
 			<constructor-arg name="activeLectureStudentPage" ref="activeLectureStudentPage" />
 			<constructor-arg name="activeLectureMoodStudentPage" ref="activeLectureMoodStudentPage" />
 			<constructor-arg name="activeLectureMoodLecturerPage" ref="activeLectureMoodLecturerPage" />
+			<constructor-arg name="activeLectureFeedbackStudentPage" ref="activeLectureFeedbackStudentPage" />
+			<constructor-arg name="activeLectureFeedbackLecturerPage" ref="activeLectureFeedbackLecturerPage" />
 		</bean>
 
 	</beans>

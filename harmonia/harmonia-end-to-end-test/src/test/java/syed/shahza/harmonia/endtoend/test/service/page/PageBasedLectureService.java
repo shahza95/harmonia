@@ -1,9 +1,12 @@
 package syed.shahza.harmonia.endtoend.test.service.page;
 
 import syed.shahza.harmonia.backend.dto.CommentDto;
+import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.endtoend.test.api.Result;
+import syed.shahza.harmonia.endtoend.test.page.ActiveLectureFeedbackLecturerPage;
+import syed.shahza.harmonia.endtoend.test.page.ActiveLectureFeedbackStudentPage;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureLecturerPage;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureMoodLecturerPage;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureMoodStudentPage;
@@ -20,14 +23,18 @@ public class PageBasedLectureService implements LectureService {
     private final ActiveLectureStudentPage activeLectureStudentPage;
     private final ActiveLectureMoodStudentPage activeLectureMoodStudentPage;
     private final ActiveLectureMoodLecturerPage activeLectureMoodLecturerPage;
+    private final ActiveLectureFeedbackStudentPage activeLectureFeedbackStudentPage;
+    private final ActiveLectureFeedbackLecturerPage activeLectureFeedbackLecturerPage;
 
-    public PageBasedLectureService(LectureCreationPage lectureCreationPage, JoinLecturePage joinLecturePage, ActiveLectureLecturerPage activeLectureLecturerPage, ActiveLectureStudentPage activeLectureStudentPage, ActiveLectureMoodStudentPage activeLectureMoodStudentPage, ActiveLectureMoodLecturerPage activeLectureMoodLecturerPage) {
+    public PageBasedLectureService(LectureCreationPage lectureCreationPage, JoinLecturePage joinLecturePage, ActiveLectureLecturerPage activeLectureLecturerPage, ActiveLectureStudentPage activeLectureStudentPage, ActiveLectureMoodStudentPage activeLectureMoodStudentPage, ActiveLectureMoodLecturerPage activeLectureMoodLecturerPage, ActiveLectureFeedbackStudentPage activeLectureFeedbackStudentPage, ActiveLectureFeedbackLecturerPage activeLectureFeedbackLecturerPage) {
         this.lectureCreationPage = lectureCreationPage;
         this.joinLecturePage = joinLecturePage;
         this.activeLectureLecturerPage = activeLectureLecturerPage;
         this.activeLectureStudentPage = activeLectureStudentPage;
         this.activeLectureMoodStudentPage = activeLectureMoodStudentPage;
         this.activeLectureMoodLecturerPage = activeLectureMoodLecturerPage;
+        this.activeLectureFeedbackStudentPage = activeLectureFeedbackStudentPage;
+        this.activeLectureFeedbackLecturerPage = activeLectureFeedbackLecturerPage;
     }
 
     @Override
@@ -68,7 +75,6 @@ public class PageBasedLectureService implements LectureService {
 		return this.activeLectureMoodLecturerPage.checkEmojiIsPresent(emotionString);
 	}
 
-	
 	@Override
 	public void disableCommenting() {
 		this.activeLectureLecturerPage.clickDisableButton();
@@ -77,5 +83,27 @@ public class PageBasedLectureService implements LectureService {
 	@Override
 	public Result checkCommentingDisabled() {
 		return this.activeLectureStudentPage.checkCommentingDisabled();
+	}
+
+	@Override
+	public void endLecture(String lectureTitle) {
+		this.activeLectureLecturerPage.clickEndLectureButton();
+	}
+
+	@Override
+	public void addFeedback(FeedbackDto feedbackDto) {
+		this.activeLectureFeedbackStudentPage.enterFeedback(feedbackDto);
+		this.activeLectureFeedbackStudentPage.clickSubmitButton();
+	}
+
+	@Override
+	public void viewAllFeedback(String lectureTitle) {
+		this.activeLectureFeedbackLecturerPage.navigateTo(lectureTitle);
+		
+	}
+
+	@Override
+	public Result checkFeedbackReceived(FeedbackDto feedbackDto) {
+		return this.activeLectureFeedbackLecturerPage.checkFeedbackReceived(feedbackDto);
 	}
 }

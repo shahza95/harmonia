@@ -172,4 +172,21 @@ public class ActiveLectureControllerLecturerTest {
     public void getActiveLectureFeedbackSendsLectureDtoAsModel() {
     	assertThat(this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle()).getModel().get("lectureDto"), is(lectureDto));
     }
+    
+    @Test
+    public void toggleFeedbackReturnsActiveLectureFeedbackPage() {
+    	assertThat(this.lectureController.toggleFeedback(lectureDto.getTitle(), "").getViewName(), is("lecturer/activeLectureFeedback"));
+    }
+    
+    @Test
+    public void toggleFeedbackInvokesDisableFeedbackIfToggleIsDisable() {
+    	this.lectureController.toggleFeedback(lectureDto.getTitle(), "Disable");
+    	verify(this.mockToggleFeaturesAction).disableFeedback(lectureDto);
+    }
+    
+    @Test
+    public void toggleFeedbackInvokesEnableFeedbackIfToggleIsEnable() {
+    	this.lectureController.toggleFeedback(lectureDto.getTitle(), "Enable");
+    	verify(this.mockToggleFeaturesAction).enableFeedback(lectureDto);
+    }
 }

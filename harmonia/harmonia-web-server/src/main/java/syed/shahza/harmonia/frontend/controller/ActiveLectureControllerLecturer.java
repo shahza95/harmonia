@@ -89,6 +89,18 @@ public class ActiveLectureControllerLecturer {
 		return new ModelAndView("lecturer/activeLectureFeedback", "lectureDto", this.getLectureAction.get(lectureTitle));
 	}
 	
+	@RequestMapping(value = "/active/{lectureTitle}/feedback", method = RequestMethod.POST) 
+	public ModelAndView toggleFeedback(@PathVariable("lectureTitle") String lectureTitle, @RequestParam(defaultValue="Disable") String feedbackToggle) {
+		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
+		if(feedbackToggle.equals("Disable")) {
+			this.toggleFeaturesAction.disableFeedback(lectureDto);
+		} else {
+			this.toggleFeaturesAction.enableFeedback(lectureDto);
+		}
+		return getActiveLectureFeedbackPage(lectureTitle);
+	}
+	
+	
 	protected static Map<String, Integer> getMoodSummaryMap(MoodDtoList moodDtoList) {
 		Map<String, Integer> moodMap = new HashMap<String, Integer>();
 		for(EmotionDto emotionDto: EmotionDto.values()){

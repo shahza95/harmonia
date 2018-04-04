@@ -13,9 +13,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import syed.shahza.harmonia.backend.core.domain.Feedbacks;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
+import syed.shahza.harmonia.backend.core.domain.TestFeedbacks;
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.backend.endpoint.adapter.FeedbackAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -23,16 +26,19 @@ public class LectureControllerLecturerTest {
     private LectureControllerLecturer lectureController;
     private LectureDto lectureDto;
     private Lecture lecture;
-    
-    @Mock
-    private LectureAdapter mockLectureAdapter;
 
     @Mock
     private LectureService mockLectureService;
+    
+    @Mock
+    private LectureAdapter mockLectureAdapter;
+    
+    @Mock
+    private FeedbackAdapter mockFeedbackAdapter;
 
     @Before
     public void before() {
-        this.lectureController = new LectureControllerLecturer(this.mockLectureService, this.mockLectureAdapter);
+        this.lectureController = new LectureControllerLecturer(this.mockLectureService, this.mockLectureAdapter, this.mockFeedbackAdapter);
         lectureDto = aValidLectureDto().build();
         lecture = aValidLecture().build();
     }
@@ -81,5 +87,21 @@ public class LectureControllerLecturerTest {
         this.lectureController.updateLecture(lectureDto);
 
         verify(this.mockLectureService).update(lecture);
+    }
+    
+    @Test
+    public void getAllFeedbackInvokesServiceWithLectureTitle() {
+    	this.lectureController.getAllFeedback(lectureDto.getTitle());
+    	
+    	verify(this.mockLectureService).getAllFeedback(lectureDto.getTitle());
+    }
+    
+    @Test
+    public void getAllFeedbackInvokesAdapterToDto() {
+    	Feedbacks feedbacks = TestFeedbacks.aFilledFeedbacksList(2);
+    	when(mockLectureService.getAllFeedback(lectureDto.getTitle())).thenReturn(feedbacks);
+
+    	this.lectureController.getAllFeedback(lectureDto.getTitle());
+    	verify(this.mockFeedbackAdapter).toDto(feedbacks);
     }
 }

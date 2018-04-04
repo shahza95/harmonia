@@ -16,8 +16,19 @@
 			    	</div>
 		    	</div>
 		    </form>
-            <h1 th:text="${lectureDto.title}">title</h1>                                      
-            <div class="col-sm-offset-4 col-sm-4 well" id="content">
+            <h1 th:text="${lectureDto.title}">title</h1>   
+            <br />                                   
+            <div class="feedbackTopSection" id="rating">
+                <label> Average Rating: </label>
+                <h3 th:text="${averageRating}">rating</h3>
+            	<label> Overall feedback messages: </label>
+        	</div>
+            <div class="col-sm-offset-4 col-sm-4 well" id="overallFeedback">
+                <table>
+				    <tr th:each="feedbackDto, stat : ${feedbackDtoList.feedbackDtoList}"> 
+				    	<td th:text="${feedbackDto.getMessage()}"></td>
+				    </tr>      		
+				</table>
         	</div>
         </div>
     </div>

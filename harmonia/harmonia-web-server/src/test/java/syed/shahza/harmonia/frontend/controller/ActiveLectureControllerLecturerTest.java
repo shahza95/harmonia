@@ -17,13 +17,16 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
+import syed.shahza.harmonia.backend.dto.FeedbackDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
 import syed.shahza.harmonia.backend.dto.TestCommentDtoList;
+import syed.shahza.harmonia.backend.dto.TestFeedbackDtoList;
 import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.backend.dto.TestMoodDtoList;
 import syed.shahza.harmonia.restapi.action.EndLectureAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
+import syed.shahza.harmonia.restapi.action.GetAllFeedbackAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.ToggleFeaturesAction;
@@ -50,10 +53,13 @@ public class ActiveLectureControllerLecturerTest {
     @Mock
     private EndLectureAction mockEndLectureAction;
     
+    @Mock
+    private GetAllFeedbackAction mockGetAllFeedbackAction;
+    
     @Before
     public void before() {
     	this.lectureDto = aValidLectureDto().build();
-        this.lectureController = new ActiveLectureControllerLecturer(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction, this.mockToggleFeaturesAction, this.mockEndLectureAction);
+        this.lectureController = new ActiveLectureControllerLecturer(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction, this.mockToggleFeaturesAction, this.mockEndLectureAction, this.mockGetAllFeedbackAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
     	this.numberOfSameMood = 3;
     	this.moodDtoList = TestMoodDtoList.aFilledMoodDtoList(numberOfSameMood);
@@ -171,6 +177,21 @@ public class ActiveLectureControllerLecturerTest {
     @Test
     public void getActiveLectureFeedbackSendsLectureDtoAsModel() {
     	assertThat(this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle()).getModel().get("lectureDto"), is(lectureDto));
+    }
+    
+    @Test
+    public void getActiveLectureFeedbackInvokesGetAllFeedbackAction() {
+    	this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle());
+    	
+    	Mockito.verify(this.mockGetAllFeedbackAction).getAll(lectureDto.getTitle());
+    }
+    
+    @Test
+    public void getActiveLectureFeedbackSendsFeedbackDtoListAsModel() {
+    	FeedbackDtoList feedbackDtoList = TestFeedbackDtoList.aFilledFeedbackDtoList(3);
+    	when(this.mockGetAllFeedbackAction.getAll(lectureDto.getTitle())).thenReturn(feedbackDtoList);
+    	
+    	assertThat(this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle()).getModel().get("feedbackDtoList"), is(feedbackDtoList));
     }
     
     @Test

@@ -15,6 +15,7 @@ import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Emotion;
 import syed.shahza.harmonia.backend.core.domain.Feedback;
+import syed.shahza.harmonia.backend.core.domain.Feedbacks;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
@@ -137,5 +138,22 @@ public class LectureRepositoryTest {
     @Test
     public void addFeedbackShouldReturnTheFeedback() {
     	assertThat(this.lectureRepository.addFeedback(this.feedback), is(this.feedback));
+    }
+    
+    @Test
+    public void getAllFeedbackShouldReturnAllFeedbackForParticularLecture() {
+    	String lectureTitle = "otherTitle";
+    	this.lectureRepository.addFeedback(TestFeedback.aValidFeedback().build());
+    	this.lectureRepository.addFeedback(TestFeedback.aValidFeedback().lecture(aValidLecture().title(lectureTitle).build()).build());
+    	
+    	assertThat(this.lectureRepository.getAllFeedback(lectureTitle).getFeedbackList().size(), is(1));
+    }
+    
+    @Test
+    public void getAllFeedbackShouldReturnFeedbacksObject() {
+    	Feedback feedback = TestFeedback.aValidFeedback().build();
+    	this.lectureRepository.addFeedback(feedback);
+    	
+    	assertThat(this.lectureRepository.getAllFeedback(lecture.getTitle()), instanceOf(Feedbacks.class));
     }
 }

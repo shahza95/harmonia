@@ -16,12 +16,14 @@ import org.mockito.runners.MockitoJUnitRunner;
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Feedback;
+import syed.shahza.harmonia.backend.core.domain.Feedbacks;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
 import syed.shahza.harmonia.backend.core.domain.TestComments;
 import syed.shahza.harmonia.backend.core.domain.TestFeedback;
+import syed.shahza.harmonia.backend.core.domain.TestFeedbacks;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
 import syed.shahza.harmonia.backend.core.domain.TestMoods;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
@@ -174,5 +176,19 @@ public class LectureServiceTest {
     	when(this.mockLectureRepository.addFeedback(feedback)).thenReturn(feedback);
     	
     	assertThat(this.lectureService.addFeedback(feedback), instanceOf(Feedback.class));
+    }
+    
+    @Test
+    public void getAllFeedbackInvokesLectureRepository() {
+    	this.lectureService.getAllFeedback("someTitle");
+    	
+    	verify(this.mockLectureRepository).getAllFeedback("someTitle");
+    }
+    
+    @Test
+    public void getAllFeedbackReturnsFeedbacksObject() {
+    	when(this.mockLectureRepository.getAllFeedback("title")).thenReturn(TestFeedbacks.aFilledFeedbacksList(1));
+    	
+    	assertThat(this.lectureService.getAllFeedback("title"), instanceOf(Feedbacks.class));
     }
 }

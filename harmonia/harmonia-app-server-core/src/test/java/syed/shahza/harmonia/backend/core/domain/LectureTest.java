@@ -40,6 +40,12 @@ public class LectureTest {
     }
     
     @Test
+    public void canGetAndSetEnded() {
+    	boolean ended = true;
+    	assertThat(aValidLecture().ended(ended).build().getEnded(), is(ended));
+    }
+    
+    @Test
     public void canGetAndSetCommentsEnabled() {
     	boolean commentsEnabled = false;
     	assertThat(aValidLecture().commentsEnabled(commentsEnabled).build().getCommentsEnabled(), is(commentsEnabled));
@@ -48,12 +54,12 @@ public class LectureTest {
     @Test
     public void canGetAndSetMoodEnabled() {
     	boolean moodEnabled = false;
-    	assertThat(aValidLecture().commentsEnabled(moodEnabled).build().getMoodEnabled(), is(moodEnabled));
+    	assertThat(aValidLecture().moodEnabled(moodEnabled).build().getMoodEnabled(), is(moodEnabled));
     }
     
     @Test
-    public void canGetAndSetEnded() {
-    	boolean ended = true;
-    	assertThat(aValidLecture().ended(ended).build().getEnded(), is(ended));
+    public void canGetAndSetFeedbackEnabled() {
+    	boolean feedbackEnabled = false;
+    	assertThat(aValidLecture().feedbackEnabled(feedbackEnabled).build().getFeedbackEnabled(), is(feedbackEnabled));
     }
 }

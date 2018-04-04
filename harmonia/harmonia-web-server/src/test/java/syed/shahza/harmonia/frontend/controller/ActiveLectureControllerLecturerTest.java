@@ -161,4 +161,15 @@ public class ActiveLectureControllerLecturerTest {
     	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
     	assertThat(this.lectureController.endLecture(lectureDto.getTitle()).getViewName(), is("redirect:/lecturer/lecture/active/" + this.lectureDto.getTitle() + "/feedback"));
     }
+    
+    @Test
+    public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureFeedback() {
+    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
+    	assertThat(this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle()).getViewName(), is("lecturer/activeLectureFeedback"));
+    }
+    
+    @Test
+    public void getActiveLectureFeedbackSendsLectureDtoAsModel() {
+    	assertThat(this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle()).getModel().get("lectureDto"), is(lectureDto));
+    }
 }

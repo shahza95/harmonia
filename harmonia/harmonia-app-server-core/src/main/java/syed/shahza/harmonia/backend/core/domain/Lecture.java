@@ -9,9 +9,10 @@ public class Lecture {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
+    private boolean ended;
     private boolean commentsEnabled;
     private boolean moodEnabled;
-    private boolean ended;
+    private boolean feedbackEnabled;
 
     public Lecture() {
         super();
@@ -24,9 +25,10 @@ public class Lecture {
         this.date = builder.date;
         this.startTime = builder.startTime;      
         this.endTime = builder.endTime;      
+        this.ended = builder.ended;      
         this.commentsEnabled = builder.commentsEnabled;      
         this.moodEnabled = builder.moodEnabled;      
-        this.ended = builder.ended;      
+        this.feedbackEnabled = builder.feedbackEnabled;      
     }
 
     public String getTitle() {
@@ -49,6 +51,10 @@ public class Lecture {
         return this.endTime;
     }
     
+    public boolean getEnded() {
+    	return this.ended;
+    }
+    
     public boolean getCommentsEnabled() {
     	return this.commentsEnabled;
     }
@@ -57,8 +63,8 @@ public class Lecture {
     	return this.moodEnabled;
     }
     
-    public boolean getEnded() {
-    	return this.ended;
+    public boolean getFeedbackEnabled() {
+    	return this.feedbackEnabled;
     }
 
     public Boolean isEmpty() {
@@ -75,9 +81,10 @@ public class Lecture {
         private LocalDate date;
         private LocalTime startTime;
         private LocalTime endTime;
+        private boolean ended;
         private boolean commentsEnabled;
         private boolean moodEnabled;
-        private boolean ended;
+        private boolean feedbackEnabled;
 
         public Builder title(String title) {
             this.title = title;
@@ -104,6 +111,11 @@ public class Lecture {
         	return this;
         }
         
+        public Builder ended(boolean ended) {
+        	this.ended = ended;
+        	return this;
+        }
+        
         public Builder commentsEnabled(boolean commentsEnabled) {
         	this.commentsEnabled = commentsEnabled;
         	return this;
@@ -114,8 +126,8 @@ public class Lecture {
         	return this;
         }
         
-        public Builder ended(boolean ended) {
-        	this.ended = ended;
+        public Builder feedbackEnabled(boolean feedbackEnabled) {
+        	this.feedbackEnabled = feedbackEnabled;
         	return this;
         }
 

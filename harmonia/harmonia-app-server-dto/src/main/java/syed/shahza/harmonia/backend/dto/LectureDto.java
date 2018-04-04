@@ -9,9 +9,10 @@ public class LectureDto {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
+    private boolean ended = false;
     private boolean commentsEnabled = true;
     private boolean moodEnabled = true;
-    private boolean ended = false;
+    private boolean feedbackEnabled = true;
 
     public LectureDto() {
         super();
@@ -24,9 +25,10 @@ public class LectureDto {
         this.date = builder.date;
         this.startTime = builder.startTime;      
         this.endTime = builder.endTime;      
+        this.ended = builder.ended;      
         this.commentsEnabled = builder.commentsEnabled;      
         this.moodEnabled = builder.moodEnabled;      
-        this.ended = builder.ended;      
+        this.feedbackEnabled = builder.feedbackEnabled;      
     }
 
     public String getTitle() {
@@ -69,6 +71,14 @@ public class LectureDto {
         this.endTime = endTime;
     }
     
+    public boolean getEnded() {
+    	return this.ended;
+    }
+    
+    public void setEnded(boolean ended) {
+    	this.ended = ended;
+    }
+    
     public boolean getCommentsEnabled() {
     	return this.commentsEnabled;
     }
@@ -85,12 +95,12 @@ public class LectureDto {
     	this.moodEnabled = moodEnabled;
     }
     
-    public boolean getEnded() {
-    	return this.ended;
+    public boolean getFeedbackEnabled() {
+    	return this.feedbackEnabled;
     }
     
-    public void setEnded(boolean ended) {
-    	this.ended = ended;
+    public void setFeedbackEnabled(boolean feedbackEnabled) {
+    	this.feedbackEnabled = feedbackEnabled;
     }
     
     public Boolean isEmpty() {
@@ -107,9 +117,10 @@ public class LectureDto {
         private LocalDate date;
         private LocalTime startTime;
         private LocalTime endTime;
+        private boolean ended = false;
         private boolean commentsEnabled = true;
         private boolean moodEnabled = true;
-        private boolean ended = false;
+        private boolean feedbackEnabled = true;
 
         public Builder title(String title) {
             this.title = title;
@@ -136,6 +147,11 @@ public class LectureDto {
         	return this;
         }
         
+        public Builder ended(boolean ended) {
+        	this.ended = ended;
+        	return this;
+        }
+        
         public Builder commentsEnabled(boolean commentsEnabled) {
         	this.commentsEnabled = commentsEnabled;
         	return this;
@@ -146,8 +162,8 @@ public class LectureDto {
         	return this;
         }
         
-        public Builder ended(boolean ended) {
-        	this.ended = ended;
+        public Builder feedbackEnabled(boolean feedbackEnabled) {
+        	this.feedbackEnabled = feedbackEnabled;
         	return this;
         }
 

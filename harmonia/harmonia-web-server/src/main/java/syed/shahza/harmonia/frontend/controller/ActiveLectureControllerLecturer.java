@@ -84,6 +84,11 @@ public class ActiveLectureControllerLecturer {
 		return new ModelAndView("redirect:/lecturer/lecture/active/" + lectureTitle + "/feedback");
 	}
 	
+	@RequestMapping(value = "/active/{lectureTitle}/feedback", method = RequestMethod.GET)
+	public ModelAndView getActiveLectureFeedbackPage(@PathVariable("lectureTitle") String lectureTitle) {
+		return new ModelAndView("lecturer/activeLectureFeedback", "lectureDto", this.getLectureAction.get(lectureTitle));
+	}
+	
 	protected static Map<String, Integer> getMoodSummaryMap(MoodDtoList moodDtoList) {
 		Map<String, Integer> moodMap = new HashMap<String, Integer>();
 		for(EmotionDto emotionDto: EmotionDto.values()){

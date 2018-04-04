@@ -134,4 +134,24 @@ public class LectureDtoTest {
     	LectureDto lectureDto = new LectureDto();
     	assertThat(lectureDto.getEnded(), is(false));
     }
+    
+    @Test
+    public void canRetrieveFeedbackEnabledOnceSet() {
+    	LectureDto lectureDto = aValidLectureDto().build();
+    	lectureDto.setFeedbackEnabled(true);
+    	
+    	assertThat(lectureDto.getFeedbackEnabled(), is(true));
+    }
+    
+    @Test
+    public void shouldSetFeedbackEnabledToTrueByDefaultViaBuilder() {
+    	LectureDto lectureDto = aValidLectureDto().build();
+    	assertThat(lectureDto.getFeedbackEnabled(), is(true));
+    }
+    
+    @Test
+    public void shouldSetFeedbackEnabledToTrueByDefault() {
+    	LectureDto lectureDto = new LectureDto();
+    	assertThat(lectureDto.getFeedbackEnabled(), is(true));
+    }
 }

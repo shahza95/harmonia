@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
+import syed.shahza.harmonia.restapi.action.EndLectureAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
@@ -77,5 +78,10 @@ public class RestApiConfiguration {
 	@Bean
 	public ToggleFeaturesAction toggleFeaturesAction() {
 		return new ToggleFeaturesAction(restClient());
+	}
+	
+	@Bean
+	public EndLectureAction endLectureAction() {
+		return new EndLectureAction(restClient());
 	}
 }

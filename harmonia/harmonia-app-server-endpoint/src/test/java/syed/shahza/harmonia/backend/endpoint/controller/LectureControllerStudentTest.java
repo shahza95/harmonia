@@ -11,16 +11,21 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
+import syed.shahza.harmonia.backend.core.domain.Feedback;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
+import syed.shahza.harmonia.backend.core.domain.TestFeedback;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.dto.CommentDto;
+import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.backend.dto.TestCommentDto;
+import syed.shahza.harmonia.backend.dto.TestFeedbackDto;
 import syed.shahza.harmonia.backend.dto.TestMoodDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
+import syed.shahza.harmonia.backend.endpoint.adapter.FeedbackAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
 
@@ -32,6 +37,8 @@ public class LectureControllerStudentTest {
     private Comment comment;
     private MoodDto moodDto;
     private Mood mood;
+    private Feedback feedback;
+    private FeedbackDto feedbackDto;
     
     @Mock
     private LectureService mockLectureService;
@@ -44,15 +51,20 @@ public class LectureControllerStudentTest {
     
     @Mock
     private MoodAdapter mockMoodAdapter;
+    
+    @Mock
+    private FeedbackAdapter mockFeedbackAdapter;
 
     @Before
     public void before() {
-        this.lectureController = new LectureControllerStudent(this.mockLectureService, this.mockLectureAdapter, this.mockCommentAdapter, this.mockMoodAdapter);
+        this.lectureController = new LectureControllerStudent(this.mockLectureService, this.mockLectureAdapter, this.mockCommentAdapter, this.mockMoodAdapter, this.mockFeedbackAdapter);
         this.lecture = aValidLecture().build();
         this.commentDto = TestCommentDto.aValidCommentDto().build();
         this.comment = TestComment.aValidComment().build();
         this.moodDto = TestMoodDto.aValidMoodDto().build();
         this.mood = TestMood.aValidMood().build();
+        this.feedback = TestFeedback.aValidFeedback().build();
+        this.feedbackDto = TestFeedbackDto.aValidFeedbackDto().build();
     }
     
     @Test
@@ -129,5 +141,30 @@ public class LectureControllerStudentTest {
         this.lectureController.removeMoodByEmoji(lectureTitle, emoji);
 
         verify(this.mockLectureService).removeMood(lectureTitle, emoji);
+    }
+    
+    @Test
+    public void addFeedbackInvokesAdapterToDomain() {
+    	FeedbackDto feedbackDto = TestFeedbackDto.aValidFeedbackDto().build();
+    	this.lectureController.addFeedback(feedbackDto);
+    	
+    	verify(this.mockFeedbackAdapter).toDomain(feedbackDto);
+    }
+    
+    @Test
+    public void addFeedbackInvokesLectureServiceWithFeedback() {
+    	when(this.mockFeedbackAdapter.toDomain(this.feedbackDto)).thenReturn(this.feedback);
+    	this.lectureController.addFeedback(this.feedbackDto);
+    	
+    	verify(this.mockLectureService).addFeedback(this.feedback);
+    }
+    
+    @Test
+    public void addFeedbackInvokesAdapterToDto() {
+    	when(this.mockFeedbackAdapter.toDomain(this.feedbackDto)).thenReturn(this.feedback);
+    	when(this.mockLectureService.addFeedback(this.feedback)).thenReturn(this.feedback);
+    	this.lectureController.addFeedback(this.feedbackDto);
+    	
+    	verify(this.mockFeedbackAdapter).toDto(this.feedback);
     }
 }

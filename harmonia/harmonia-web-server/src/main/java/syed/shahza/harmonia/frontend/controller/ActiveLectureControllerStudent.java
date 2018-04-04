@@ -12,9 +12,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.EmotionDto;
+import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
+import syed.shahza.harmonia.restapi.action.AddFeedbackAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.RemoveMoodAction;
@@ -29,13 +31,15 @@ public class ActiveLectureControllerStudent {
 	private final AddCommentAction addCommentAction;
 	private final SendMoodAction sendMoodAction;
 	private final RemoveMoodAction removeMoodAction;
+	private final AddFeedbackAction addFeedbackAction;
 
-	public ActiveLectureControllerStudent(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction,  AddCommentAction addCommentAction, SendMoodAction sendMoodAction, RemoveMoodAction removeMoodAction) {
+	public ActiveLectureControllerStudent(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction,  AddCommentAction addCommentAction, SendMoodAction sendMoodAction, RemoveMoodAction removeMoodAction, AddFeedbackAction addFeedbackAction) {
 		this.getLectureAction = getLectureAction;
 		this.getAllCommentsAction = getAllCommentsAction;
 		this.addCommentAction = addCommentAction;
 		this.sendMoodAction = sendMoodAction;
 		this.removeMoodAction = removeMoodAction;
+		this.addFeedbackAction = addFeedbackAction;
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.GET)
@@ -75,6 +79,13 @@ public class ActiveLectureControllerStudent {
 	public ModelAndView getActiveLectureFeedbackPage(@PathVariable("lectureTitle") String lectureTitle) {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
 		return new ModelAndView("student/activeLectureFeedback", "lectureDto", lectureDto);
+	}
+	
+	@RequestMapping(value = "/active/{lectureTitle}/feedback", method = RequestMethod.POST)
+	public ModelAndView addFeedback(@PathVariable("lectureTitle") String lectureTitle, @ModelAttribute FeedbackDto feedbackDto) {
+		feedbackDto.setLectureDto(this.getLectureAction.get(lectureTitle));
+		this.addFeedbackAction.addFeedback(feedbackDto);
+		return new ModelAndView("redirect:/student/lecture/join"); 
 	}
 
 	private MoodDto constructMoodDto(String mood, String lectureTitle) {

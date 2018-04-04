@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.dto.CommentDto;
+import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
+import syed.shahza.harmonia.backend.endpoint.adapter.FeedbackAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
 
@@ -21,12 +23,14 @@ public class LectureControllerStudent {
     private final LectureAdapter lectureAdapter;
     private final CommentAdapter commentAdapter;
     private final MoodAdapter moodAdapter;
+    private final FeedbackAdapter feedbackAdapter;
 
-    public LectureControllerStudent(LectureService lectureService, LectureAdapter lectureAdapter, CommentAdapter commentAdapter, MoodAdapter moodAdapter) {
+    public LectureControllerStudent(LectureService lectureService, LectureAdapter lectureAdapter, CommentAdapter commentAdapter, MoodAdapter moodAdapter, FeedbackAdapter feedbackAdapter) {
         this.lectureService = lectureService;
         this.lectureAdapter = lectureAdapter;
         this.commentAdapter = commentAdapter;
         this.moodAdapter = moodAdapter;
+        this.feedbackAdapter = feedbackAdapter;
     }
     
     @RequestMapping(value = "/join", method = RequestMethod.POST)
@@ -47,5 +51,10 @@ public class LectureControllerStudent {
     @RequestMapping(value = "/active/{lectureTitle}/mood/{emoji}", method = RequestMethod.DELETE)
     public void removeMoodByEmoji(@PathVariable("lectureTitle") String lectureTitle, @PathVariable("emoji") String emoji) {
     	this.lectureService.removeMood(lectureTitle, emoji);
+    }
+     
+    @RequestMapping(value = "/active/feedback/add", method = RequestMethod.POST)
+    public FeedbackDto addFeedback(@RequestBody FeedbackDto feedbackDto) {
+    	return this.feedbackAdapter.toDto(this.lectureService.addFeedback(this.feedbackAdapter.toDomain(feedbackDto)));
     }
 }

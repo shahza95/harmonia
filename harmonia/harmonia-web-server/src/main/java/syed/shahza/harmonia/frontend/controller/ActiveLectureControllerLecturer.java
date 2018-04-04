@@ -100,7 +100,6 @@ public class ActiveLectureControllerLecturer {
 		return getActiveLectureFeedbackPage(lectureTitle);
 	}
 	
-	
 	protected static Map<String, Integer> getMoodSummaryMap(MoodDtoList moodDtoList) {
 		Map<String, Integer> moodMap = new HashMap<String, Integer>();
 		for(EmotionDto emotionDto: EmotionDto.values()){

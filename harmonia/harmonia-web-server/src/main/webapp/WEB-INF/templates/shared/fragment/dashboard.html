@@ -21,9 +21,18 @@
                 <h1>Harmonia</h1>
             </div>
         </div>
+        <!-- Top Menu -->
+        <ul th:if="${#httpServletRequest.requestURL.toString().contains('lecturer')}" class="nav navbar-right top-nav">          
+            <li>
+                <a href="#" >End Lecture</a>
+            </li>
+        </ul>
         <!-- Sidebar Menu -->
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav side-nav">
+                <li th:if="${#httpServletRequest.requestURL.toString().contains('lecturer')}">
+                    <a href="feedback"> Feedback </a>
+                </li>
                 <li>
                     <a href="comments"> Comments </a>
                 </li>

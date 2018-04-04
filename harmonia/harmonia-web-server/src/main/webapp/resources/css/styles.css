@@ -22,6 +22,19 @@ h1, h2 {
         top: -25px;
 }
 
+.top-nav {
+    padding: 10px 15px;
+}
+
+.top-nav>li {
+    display: inline-block;
+    float: left;
+}
+
+.top-nav>li>a {
+    color: #fff;
+}
+
 @media(min-width:768px) {
     .side-nav {
         position: fixed;

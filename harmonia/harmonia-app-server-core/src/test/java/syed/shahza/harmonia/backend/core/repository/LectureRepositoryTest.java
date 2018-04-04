@@ -14,10 +14,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Emotion;
+import syed.shahza.harmonia.backend.core.domain.Feedback;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
+import syed.shahza.harmonia.backend.core.domain.TestFeedback;
 import syed.shahza.harmonia.backend.core.domain.TestLecture;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
 
@@ -26,12 +28,14 @@ public class LectureRepositoryTest {
 	private LectureRepository lectureRepository;
 	private Lecture lecture;
 	private Comment comment;
+	private Feedback feedback;
 	
 	@Before
 	public void before() {
 		this.lectureRepository = new LectureRepository();
 		this.lecture = aValidLecture().build();
 		this.comment = TestComment.aValidComment().build();
+		this.feedback = TestFeedback.aValidFeedback().build();
 	}
 	
     @Test
@@ -128,5 +132,10 @@ public class LectureRepositoryTest {
     	assertThat(this.lectureRepository.retrieveLectureFromTitle(this.lecture.getTitle()).getCommentsEnabled(), is(true));
     	this.lectureRepository.update(aValidLecture().title(this.lecture.getTitle()).commentsEnabled(false).build());
     	assertThat(this.lectureRepository.retrieveLectureFromTitle(this.lecture.getTitle()).getCommentsEnabled(), is(false));
+    }
+    
+    @Test
+    public void addFeedbackShouldReturnTheFeedback() {
+    	assertThat(this.lectureRepository.addFeedback(this.feedback), is(this.feedback));
     }
 }

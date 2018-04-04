@@ -7,7 +7,7 @@ import java.util.List;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
-import syed.shahza.harmonia.backend.core.domain.Emotion;
+import syed.shahza.harmonia.backend.core.domain.Feedback;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
@@ -16,14 +16,8 @@ public class LectureRepository {
 	private List<Lecture> lectures = new ArrayList<>();
 	private List<Comment> comments = new ArrayList<>();
 	private List<Mood> moods = new ArrayList<>();
+	private List<Feedback> feedbacks = new ArrayList<>();
 	
-	public LectureRepository() {
-		Lecture lecture = Lecture.aLecture().title("myTitle").build();
-		this.comments.add(Comment.aComment().message("comment1").lecture(lecture).build());
-		this.comments.add(Comment.aComment().message("comment2").lecture(lecture).build());
-		this.moods.add(Mood.aMood().emoji("&#x1F642;").emotion(Emotion.HAPPY).lecture(lecture).build());
-	}
-
 	public Lecture create(Lecture lecture) {
 		lectures.add(lecture);
 		return lecture;
@@ -87,5 +81,10 @@ public class LectureRepository {
 				lectures.set(lectures.indexOf(lecture), updatedLecture);
 			}
 		}
+	}
+	
+	public Feedback addFeedback(Feedback feedback) {
+		feedbacks.add(feedback);
+		return feedback;
 	}
 }

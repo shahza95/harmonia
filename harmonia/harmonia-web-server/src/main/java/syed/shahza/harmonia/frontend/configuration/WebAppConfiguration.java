@@ -15,6 +15,7 @@ import syed.shahza.harmonia.frontend.controller.LectureControllerLecturer;
 import syed.shahza.harmonia.frontend.controller.LectureControllerStudent;
 import syed.shahza.harmonia.frontend.controller.LoginController;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
+import syed.shahza.harmonia.restapi.action.AddFeedbackAction;
 import syed.shahza.harmonia.restapi.action.EndLectureAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
@@ -65,6 +66,9 @@ public class WebAppConfiguration {
     
     @Resource(name = "endLectureAction")
     private EndLectureAction endLectureAction;
+    
+    @Resource(name = "addFeedbackAction")
+    private AddFeedbackAction addFeedbackAction;
 
     @Bean
     public LoginController loginController() {
@@ -88,7 +92,7 @@ public class WebAppConfiguration {
     
     @Bean
     public ActiveLectureControllerStudent activeLectureControllerStudent() {
-    	return new ActiveLectureControllerStudent(getLectureAction, getAllCommentsAction, addCommentAction, sendMoodAction, removeMoodAction);
+    	return new ActiveLectureControllerStudent(getLectureAction, getAllCommentsAction, addCommentAction, sendMoodAction, removeMoodAction, addFeedbackAction);
     }
 
     @Bean

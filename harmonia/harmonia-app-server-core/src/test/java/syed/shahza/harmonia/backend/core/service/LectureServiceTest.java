@@ -15,11 +15,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
+import syed.shahza.harmonia.backend.core.domain.Feedback;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
 import syed.shahza.harmonia.backend.core.domain.TestComments;
+import syed.shahza.harmonia.backend.core.domain.TestFeedback;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
 import syed.shahza.harmonia.backend.core.domain.TestMoods;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
@@ -29,6 +31,7 @@ public class LectureServiceTest {
 	private LectureService lectureService;
 	private Lecture lecture;
 	private Comment comment;
+	private Feedback feedback;
 	
 	@Mock
 	private LectureRepository mockLectureRepository;
@@ -37,6 +40,7 @@ public class LectureServiceTest {
 	public void before() {
 		this.lecture = aValidLecture().build();
 		this.comment = TestComment.aValidComment().build();
+		this.feedback = TestFeedback.aValidFeedback().build();
 		this.lectureService = new LectureService(this.mockLectureRepository);
 	}
 	
@@ -156,5 +160,19 @@ public class LectureServiceTest {
     public void updateInvokesLectureRepository() {
     	this.lectureService.update(this.lecture);
     	verify(this.mockLectureRepository).update(this.lecture);
+    }
+    
+    @Test
+    public void addFeedbackInvokesLectureRepository() {
+    	this.lectureService.addFeedback(feedback);
+    	
+    	verify(this.mockLectureRepository).addFeedback(feedback);
+    }
+    
+    @Test
+    public void addFeedbackReturnsFeedbackObject() {
+    	when(this.mockLectureRepository.addFeedback(feedback)).thenReturn(feedback);
+    	
+    	assertThat(this.lectureService.addFeedback(feedback), instanceOf(Feedback.class));
     }
 }

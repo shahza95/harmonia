@@ -30,4 +30,14 @@ public class ToggleFeaturesAction {
     	lectureDto.setMoodEnabled(true);
     	this.restClient.put(URL_ENDPOINT, lectureDto);
     }
+    
+    public void disableFeedback(LectureDto lectureDto) {
+    	lectureDto.setFeedbackEnabled(false);
+    	this.restClient.put(URL_ENDPOINT, lectureDto);
+    }
+    
+    public void enableFeedback(LectureDto lectureDto) {
+    	lectureDto.setFeedbackEnabled(true);
+    	this.restClient.put(URL_ENDPOINT, lectureDto);
+    }
 }

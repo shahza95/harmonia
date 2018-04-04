@@ -70,6 +70,12 @@ public class ActiveLectureControllerStudent {
 	    redirectAttributes.addFlashAttribute("currentEmoji", moodDto.getEmoji());
 		return new ModelAndView("redirect:/student/lecture/active/" + lectureTitle +"/mood"); 
 	}
+	
+	@RequestMapping(value = "/active/{lectureTitle}/feedback", method = RequestMethod.GET)
+	public ModelAndView getActiveLectureFeedbackPage(@PathVariable("lectureTitle") String lectureTitle) {
+		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
+		return new ModelAndView("student/activeLectureFeedback", "lectureDto", lectureDto);
+	}
 
 	private MoodDto constructMoodDto(String mood, String lectureTitle) {
 		String[] moodParts = mood.split(" ");

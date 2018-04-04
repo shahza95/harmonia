@@ -21,6 +21,12 @@
                 <h1>Harmonia</h1>
             </div>
         </div>
+        <!-- Top Menu -->
+        <ul th:if="${#httpServletRequest.requestURL.toString().contains('lecturer')}" class="nav navbar-right top-nav">          
+            <li>
+                <a href="end">End Lecture</a>
+            </li>
+        </ul>
         <!-- Sidebar Menu -->
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav side-nav">
@@ -33,9 +39,17 @@
                 <li>            
                     <a href="mood"> Mood </a>
                 </li>
+                <li th:if="${#httpServletRequest.requestURL.toString().contains('lecturer')}">
+                    <a href="feedback"> Feedback </a>
+                </li>
             </ul>
         </div>
     </nav>
 </div>
 </body>
+<script th:if="${#httpServletRequest.requestURL.toString().contains('student')}" type="text/javascript" src="/resources/javascript/CheckLectureEnded.js"></script>
+<script th:if="${#httpServletRequest.requestURL.toString().contains('student')}" th:inline="javascript">
+	var lectureTitle = /*[[${lectureDto.title}]]*/ 'default';
+	setGetLectureUrl(window.location.hostname + "/student/lecture/active/" + lectureTitle + "/json");
+</script>
 </div>

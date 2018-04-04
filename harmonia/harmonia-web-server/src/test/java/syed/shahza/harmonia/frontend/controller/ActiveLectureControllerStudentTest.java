@@ -183,4 +183,14 @@ public class ActiveLectureControllerStudentTest {
     	this.lectureController.sendMood(lectureDto.getTitle(), this.moodString, emoji, this.mockRedirectAttributes);
     	verify(this.mockRemoveMoodAction, times(0)).removeMoodByEmoji(this.title, emoji);
     }
+    
+    @Test
+    public void getActiveLectureFeedbackPageReturnsCorrectView() {
+    	assertThat(this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle()).getViewName(), is("student/activeLectureFeedback"));
+    }
+    
+    @Test
+    public void getActiveLectureFeedbackPageSendsLectureAsModel() {
+    	assertThat(this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle()).getModelMap().get("lectureDto"), is(lectureDto));
+    }
 }

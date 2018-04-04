@@ -14,7 +14,6 @@ function checkEnabled() {
 
 function enableDisable() {
 	$.getJSON(urls.getLectureUrl, function(data) {
-		console.log(data.moodEnabled);
 		if(data.moodEnabled) {
 			$('.btn').prop('disabled', false);
 			$('#Mood').prop('disabled', false);

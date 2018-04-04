@@ -9,7 +9,7 @@ import syed.shahza.harmonia.backend.core.domain.Lecture.Builder;
 
 public class TestLecture {
     public static Builder aValidLecture() {
-        return aLecture().title("title").password("password").date(new LocalDate()).startTime(new LocalTime()).endTime(new LocalTime()).commentsEnabled(true);
+        return aLecture().title("title").password("password").date(new LocalDate()).startTime(new LocalTime()).endTime(new LocalTime()).ended(false).commentsEnabled(true).moodEnabled(true).feedbackEnabled(true);
     }
     
     public static Builder anEmptyLecture() {

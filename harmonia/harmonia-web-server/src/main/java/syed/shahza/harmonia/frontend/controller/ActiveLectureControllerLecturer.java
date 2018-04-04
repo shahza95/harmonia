@@ -14,6 +14,7 @@ import syed.shahza.harmonia.backend.dto.EmotionDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
+import syed.shahza.harmonia.restapi.action.EndLectureAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
@@ -26,12 +27,14 @@ public class ActiveLectureControllerLecturer {
 	private final GetAllCommentsAction getAllCommentsAction;
 	private final GetAllMoodsAction getAllMoodsAction;
 	private final ToggleFeaturesAction toggleFeaturesAction;
+	private final EndLectureAction endLectureAction;
 
-	public ActiveLectureControllerLecturer(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction, GetAllMoodsAction getAllMoodsAction, ToggleFeaturesAction toggleFeaturesAction) {
+	public ActiveLectureControllerLecturer(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction, GetAllMoodsAction getAllMoodsAction, ToggleFeaturesAction toggleFeaturesAction, EndLectureAction endLectureAction) {
 		this.getLectureAction = getLectureAction;
 		this.getAllCommentsAction = getAllCommentsAction;
 		this.getAllMoodsAction = getAllMoodsAction;
 		this.toggleFeaturesAction = toggleFeaturesAction;
+		this.endLectureAction = endLectureAction;
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.GET)
@@ -72,6 +75,29 @@ public class ActiveLectureControllerLecturer {
 			this.toggleFeaturesAction.enableMood(lectureDto);
 		}
 		return getActiveLectureMoodPage(lectureTitle);
+	}
+	
+	@RequestMapping(value = "/active/{lectureTitle}/end", method = RequestMethod.GET)
+	public ModelAndView endLecture(@PathVariable("lectureTitle") String lectureTitle) {
+		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
+		this.endLectureAction.endLecture(lectureDto);
+		return new ModelAndView("redirect:/lecturer/lecture/active/" + lectureTitle + "/feedback");
+	}
+	
+	@RequestMapping(value = "/active/{lectureTitle}/feedback", method = RequestMethod.GET)
+	public ModelAndView getActiveLectureFeedbackPage(@PathVariable("lectureTitle") String lectureTitle) {
+		return new ModelAndView("lecturer/activeLectureFeedback", "lectureDto", this.getLectureAction.get(lectureTitle));
+	}
+	
+	@RequestMapping(value = "/active/{lectureTitle}/feedback", method = RequestMethod.POST) 
+	public ModelAndView toggleFeedback(@PathVariable("lectureTitle") String lectureTitle, @RequestParam(defaultValue="Disable") String feedbackToggle) {
+		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
+		if(feedbackToggle.equals("Disable")) {
+			this.toggleFeaturesAction.disableFeedback(lectureDto);
+		} else {
+			this.toggleFeaturesAction.enableFeedback(lectureDto);
+		}
+		return getActiveLectureFeedbackPage(lectureTitle);
 	}
 	
 	protected static Map<String, Integer> getMoodSummaryMap(MoodDtoList moodDtoList) {

@@ -2,16 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Active Lecture</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" type="text/css" media="all"
       href="../../resources/css/styles.css" th:href="@{/resources/css/styles.css}"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
 <body>
-    <div id="page-wrapper">
-        <div class="container-fluid">
-        	<br />
-            <h1 th:text="${lectureDto.title}">title</h1>                                      
-        </div>
-    </div>
+<div class="container">
+    <h1 th:text="${lectureDto.title}">title</h1>    
+    <h2>Feedback</h2>                                      
+  	<br />
+	<form class="col-sm-offset-3 form-horizontal" method="post">
+		<div class="form-group">
+			<label class="control-label col-sm-3">Rating:</label>
+			<div class="col-sm-3 rating">
+				<input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Very good">5 stars</label>
+				<input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+				<input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Alright">3 stars</label>
+				<input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Pretty bad">2 stars</label>
+				<input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Very bad">1 star</label>
+			</div>
+		</div>
+		<div class="col-sm-offset-3 form-group">
+			<label class="control-label col-sm-3" for="message">Overall Feedback:</label>
+			<div class="col-sm-5">
+				<textarea class="form-control" rows="5" id="message"></textarea>
+			</div>
+		</div>
+	    <br />
+	    <div class="form-group">
+	    	<div class="col-sm-offset-3 col-sm-4">
+	    		<input type="submit" class="btn btn-default" value="Submit" />
+	    	</div>
+	    </div>	
+	</form>
+</div>
 </body>
 </html>

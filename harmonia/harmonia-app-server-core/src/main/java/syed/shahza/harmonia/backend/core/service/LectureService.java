@@ -3,6 +3,7 @@ package syed.shahza.harmonia.backend.core.service;
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Feedback;
+import syed.shahza.harmonia.backend.core.domain.Feedbacks;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
@@ -53,5 +54,9 @@ public class LectureService {
 	
 	public Feedback addFeedback(Feedback feedback) {
 		return this.lectureRepository.addFeedback(feedback);
+	}
+	
+	public Feedbacks getAllFeedback(String lectureTitle) {
+		return this.lectureRepository.getAllFeedback(lectureTitle);
 	}
 }

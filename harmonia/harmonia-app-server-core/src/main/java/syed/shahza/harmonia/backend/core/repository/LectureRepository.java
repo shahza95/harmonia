@@ -4,10 +4,12 @@ import static syed.shahza.harmonia.backend.core.domain.Lecture.aLecture;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Feedback;
+import syed.shahza.harmonia.backend.core.domain.Feedbacks;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
@@ -86,5 +88,9 @@ public class LectureRepository {
 	public Feedback addFeedback(Feedback feedback) {
 		feedbacks.add(feedback);
 		return feedback;
+	}
+	
+	public Feedbacks getAllFeedback(String lectureTitle) {
+		return new Feedbacks(feedbacks.stream().filter(feedback -> feedback.getLecture().getTitle().equals(lectureTitle)).collect(Collectors.toList()));
 	}
 }

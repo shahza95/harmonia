@@ -53,7 +53,7 @@ public class EndpointConfiguration {
     
     @Bean
     public LectureControllerLecturer lectureControllerLecturer() {
-    	return new LectureControllerLecturer(this.lectureService, this.lectureAdapter());
+    	return new LectureControllerLecturer(this.lectureService, this.lectureAdapter(), this.feedbackAdapter());
     }
     
     @Bean

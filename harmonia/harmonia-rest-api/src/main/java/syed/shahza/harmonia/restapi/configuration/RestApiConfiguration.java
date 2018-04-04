@@ -9,6 +9,7 @@ import syed.shahza.harmonia.restapi.action.AddCommentAction;
 import syed.shahza.harmonia.restapi.action.AddFeedbackAction;
 import syed.shahza.harmonia.restapi.action.EndLectureAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
+import syed.shahza.harmonia.restapi.action.GetAllFeedbackAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
@@ -89,5 +90,10 @@ public class RestApiConfiguration {
 	@Bean
 	public AddFeedbackAction addFeedbackAction() {
 		return new AddFeedbackAction(restClient());
+	}
+	
+	@Bean
+	public GetAllFeedbackAction getAllFeedbackAction() {
+		return new GetAllFeedbackAction(restClient());
 	}
 }

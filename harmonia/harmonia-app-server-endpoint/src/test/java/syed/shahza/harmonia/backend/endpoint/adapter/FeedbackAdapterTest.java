@@ -2,7 +2,9 @@ package syed.shahza.harmonia.backend.endpoint.adapter;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static syed.shahza.harmonia.backend.core.domain.TestFeedbacks.aFilledFeedbacksList;
 import static syed.shahza.harmonia.backend.core.domain.TestFeedback.aValidFeedback;
+import static syed.shahza.harmonia.backend.dto.TestFeedbackDtoList.aFilledFeedbackDtoList;
 import static syed.shahza.harmonia.backend.dto.TestFeedbackDto.aValidFeedbackDto;
 
 import org.junit.Before;
@@ -12,7 +14,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import syed.shahza.harmonia.backend.core.domain.Feedbacks;
 import syed.shahza.harmonia.backend.core.domain.Feedback;
+import syed.shahza.harmonia.backend.dto.FeedbackDtoList;
 import syed.shahza.harmonia.backend.dto.FeedbackDto;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -59,5 +63,19 @@ public class FeedbackAdapterTest {
     @Test
     public void canAdaptFeedbackMessageToDomain() {
         assertThat(this.feedbackAdapter.toDomain(aValidFeedbackDto().message("someMessage").build()).getMessage(), is("someMessage"));
+    }
+    
+    @Test
+    public void canAdaptFeedbacksToFeedbackDtoList() {
+    	Feedbacks feedbacks = aFilledFeedbacksList(2);
+    	FeedbackDtoList feedbackDtoList = this.feedbackAdapter.toDto(feedbacks);
+        assertThat(feedbackDtoList.getFeedbackDtoList().size(), is(feedbacks.getFeedbackList().size()));
+    }
+    
+    @Test
+    public void canAdaptFeedbackDtoListToFeedbacks() {
+    	FeedbackDtoList feedbackDtoList = aFilledFeedbackDtoList(3);
+    	Feedbacks feedbacks = this.feedbackAdapter.toDomain(feedbackDtoList);
+    	assertThat(feedbacks.getFeedbackList().size(), is(feedbackDtoList.getFeedbackDtoList().size()));
     }
 }

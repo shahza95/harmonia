@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import syed.shahza.harmonia.backend.dto.EmotionDto;
+import syed.shahza.harmonia.backend.dto.FeedbackDto;
+import syed.shahza.harmonia.backend.dto.FeedbackDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
 import syed.shahza.harmonia.restapi.action.EndLectureAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
+import syed.shahza.harmonia.restapi.action.GetAllFeedbackAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.ToggleFeaturesAction;
@@ -28,13 +31,15 @@ public class ActiveLectureControllerLecturer {
 	private final GetAllMoodsAction getAllMoodsAction;
 	private final ToggleFeaturesAction toggleFeaturesAction;
 	private final EndLectureAction endLectureAction;
+	private final GetAllFeedbackAction getAllFeedbackAction;
 
-	public ActiveLectureControllerLecturer(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction, GetAllMoodsAction getAllMoodsAction, ToggleFeaturesAction toggleFeaturesAction, EndLectureAction endLectureAction) {
+	public ActiveLectureControllerLecturer(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction, GetAllMoodsAction getAllMoodsAction, ToggleFeaturesAction toggleFeaturesAction, EndLectureAction endLectureAction, GetAllFeedbackAction getAllFeedbackAction) {
 		this.getLectureAction = getLectureAction;
 		this.getAllCommentsAction = getAllCommentsAction;
 		this.getAllMoodsAction = getAllMoodsAction;
 		this.toggleFeaturesAction = toggleFeaturesAction;
 		this.endLectureAction = endLectureAction;
+		this.getAllFeedbackAction = getAllFeedbackAction;
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.GET)
@@ -86,7 +91,12 @@ public class ActiveLectureControllerLecturer {
 	
 	@RequestMapping(value = "/active/{lectureTitle}/feedback", method = RequestMethod.GET)
 	public ModelAndView getActiveLectureFeedbackPage(@PathVariable("lectureTitle") String lectureTitle) {
-		return new ModelAndView("lecturer/activeLectureFeedback", "lectureDto", this.getLectureAction.get(lectureTitle));
+		ModelAndView modelAndView = new ModelAndView("lecturer/activeLectureFeedback");
+		modelAndView.addObject("lectureDto", this.getLectureAction.get(lectureTitle));
+		FeedbackDtoList feedbackDtoList = this.getAllFeedbackAction.getAll(lectureTitle);
+		modelAndView.addObject("feedbackDtoList", feedbackDtoList);
+		modelAndView.addObject("averageRating", getLectureAverageRating(feedbackDtoList));
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/feedback", method = RequestMethod.POST) 
@@ -112,5 +122,12 @@ public class ActiveLectureControllerLecturer {
 			moodMap.put(emotionDto.toString(), moodCount);
 		}
 		return moodMap;
+	}
+	
+	protected static double getLectureAverageRating(FeedbackDtoList feedbackDtoList) {
+		if(feedbackDtoList.getFeedbackDtoList().isEmpty()) {
+			return 0.0;
+		}
+		return feedbackDtoList.getFeedbackDtoList().stream().mapToDouble(FeedbackDto::getRating).average().getAsDouble();
 	}
 }

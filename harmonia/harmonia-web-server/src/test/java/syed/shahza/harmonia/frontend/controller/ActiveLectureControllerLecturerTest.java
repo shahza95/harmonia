@@ -17,6 +17,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
+import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.FeedbackDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
@@ -36,6 +37,7 @@ public class ActiveLectureControllerLecturerTest {
     private ActiveLectureControllerLecturer lectureController;
     private LectureDto lectureDto;
     private MoodDtoList moodDtoList;
+    private FeedbackDtoList feedbackDtoList;
     private int numberOfSameMood;
     
     @Mock
@@ -63,8 +65,9 @@ public class ActiveLectureControllerLecturerTest {
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
     	this.numberOfSameMood = 3;
     	this.moodDtoList = TestMoodDtoList.aFilledMoodDtoList(numberOfSameMood);
+    	this.feedbackDtoList = TestFeedbackDtoList.aFilledFeedbackDtoList(3);
     	when(this.mockGetAllMoodsAction.getAll(lectureDto.getTitle())).thenReturn(moodDtoList);
-    	
+    	when(this.mockGetAllFeedbackAction.getAll(lectureDto.getTitle())).thenReturn(feedbackDtoList);
     }
     
     @Test
@@ -184,6 +187,19 @@ public class ActiveLectureControllerLecturerTest {
     	this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle());
     	
     	Mockito.verify(this.mockGetAllFeedbackAction).getAll(lectureDto.getTitle());
+    }
+       
+    @Test
+    public void getActiveLectureFeedbackSendsCorrectAverageRatingAsModel() {
+    	FeedbackDtoList feedbackDtoList = TestFeedbackDtoList.aFilledFeedbackDtoList(3);
+    	double averageRatingCalculated = feedbackDtoList.getFeedbackDtoList().stream().mapToDouble(FeedbackDto::getRating).average().getAsDouble();
+    	assertThat(this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle()).getModel().get("averageRating"), is(averageRatingCalculated));
+    }
+    
+    @Test
+    public void getActiveLectureFeedbackSendsZeroAverageRatingAsModelIfNoFeedback() {
+    	when(this.mockGetAllFeedbackAction.getAll(lectureDto.getTitle())).thenReturn(TestFeedbackDtoList.anEmptyFeedbackDtoList());
+    	assertThat(this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle()).getModel().get("averageRating"), is(0.0));
     }
     
     @Test

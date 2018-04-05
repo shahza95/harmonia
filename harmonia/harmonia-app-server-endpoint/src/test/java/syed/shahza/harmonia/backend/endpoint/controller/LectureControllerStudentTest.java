@@ -14,20 +14,25 @@ import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Feedback;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
+import syed.shahza.harmonia.backend.core.domain.Question;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
 import syed.shahza.harmonia.backend.core.domain.TestFeedback;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
+import syed.shahza.harmonia.backend.core.domain.TestQuestion;
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
+import syed.shahza.harmonia.backend.dto.QuestionDto;
 import syed.shahza.harmonia.backend.dto.TestCommentDto;
 import syed.shahza.harmonia.backend.dto.TestFeedbackDto;
 import syed.shahza.harmonia.backend.dto.TestMoodDto;
+import syed.shahza.harmonia.backend.dto.TestQuestionDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.FeedbackAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
+import syed.shahza.harmonia.backend.endpoint.adapter.QuestionAdapter;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LectureControllerStudentTest {
@@ -39,6 +44,8 @@ public class LectureControllerStudentTest {
     private Mood mood;
     private Feedback feedback;
     private FeedbackDto feedbackDto;
+    private Question question;
+    private QuestionDto questionDto;
     
     @Mock
     private LectureService mockLectureService;
@@ -54,10 +61,13 @@ public class LectureControllerStudentTest {
     
     @Mock
     private FeedbackAdapter mockFeedbackAdapter;
+    
+    @Mock
+    private QuestionAdapter mockQuestionAdapter;
 
     @Before
     public void before() {
-        this.lectureController = new LectureControllerStudent(this.mockLectureService, this.mockLectureAdapter, this.mockCommentAdapter, this.mockMoodAdapter, this.mockFeedbackAdapter);
+        this.lectureController = new LectureControllerStudent(this.mockLectureService, this.mockLectureAdapter, this.mockCommentAdapter, this.mockMoodAdapter, this.mockFeedbackAdapter, this.mockQuestionAdapter);
         this.lecture = aValidLecture().build();
         this.commentDto = TestCommentDto.aValidCommentDto().build();
         this.comment = TestComment.aValidComment().build();
@@ -65,6 +75,8 @@ public class LectureControllerStudentTest {
         this.mood = TestMood.aValidMood().build();
         this.feedback = TestFeedback.aValidFeedback().build();
         this.feedbackDto = TestFeedbackDto.aValidFeedbackDto().build();
+        this.question = TestQuestion.aValidQuestion().build();
+        this.questionDto = TestQuestionDto.aValidQuestionDto().build();
     }
     
     @Test
@@ -166,5 +178,30 @@ public class LectureControllerStudentTest {
     	this.lectureController.addFeedback(this.feedbackDto);
     	
     	verify(this.mockFeedbackAdapter).toDto(this.feedback);
+    }
+    
+    @Test
+    public void addQuestionInvokesAdapterToDomain() {
+    	QuestionDto questionDto = TestQuestionDto.aValidQuestionDto().build();
+    	this.lectureController.addQuestion(questionDto);
+    	
+    	verify(this.mockQuestionAdapter).toDomain(questionDto);
+    }
+    
+    @Test
+    public void addQuestionInvokesLectureServiceWithQuestion() {
+    	when(this.mockQuestionAdapter.toDomain(this.questionDto)).thenReturn(this.question);
+    	this.lectureController.addQuestion(this.questionDto);
+    	
+    	verify(this.mockLectureService).addQuestion(this.question);
+    }
+    
+    @Test
+    public void addQuestionInvokesAdapterToDto() {
+    	when(this.mockQuestionAdapter.toDomain(this.questionDto)).thenReturn(this.question);
+    	when(this.mockLectureService.addQuestion(this.question)).thenReturn(this.question);
+    	this.lectureController.addQuestion(this.questionDto);
+    	
+    	verify(this.mockQuestionAdapter).toDto(this.question);
     }
 }

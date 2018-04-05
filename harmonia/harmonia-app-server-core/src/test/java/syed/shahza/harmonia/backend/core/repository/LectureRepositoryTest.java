@@ -19,10 +19,12 @@ import syed.shahza.harmonia.backend.core.domain.Feedbacks;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
+import syed.shahza.harmonia.backend.core.domain.Question;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
 import syed.shahza.harmonia.backend.core.domain.TestFeedback;
 import syed.shahza.harmonia.backend.core.domain.TestLecture;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
+import syed.shahza.harmonia.backend.core.domain.TestQuestion;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LectureRepositoryTest {
@@ -30,6 +32,7 @@ public class LectureRepositoryTest {
 	private Lecture lecture;
 	private Comment comment;
 	private Feedback feedback;
+	private Question question;
 	
 	@Before
 	public void before() {
@@ -37,6 +40,7 @@ public class LectureRepositoryTest {
 		this.lecture = aValidLecture().build();
 		this.comment = TestComment.aValidComment().build();
 		this.feedback = TestFeedback.aValidFeedback().build();
+		this.question = TestQuestion.aValidQuestion().build();
 	}
 	
     @Test
@@ -155,5 +159,10 @@ public class LectureRepositoryTest {
     	this.lectureRepository.addFeedback(feedback);
     	
     	assertThat(this.lectureRepository.getAllFeedback(lecture.getTitle()), instanceOf(Feedbacks.class));
+    }  
+    
+    @Test
+    public void addQuestionShouldReturnTheQuestion() {
+    	assertThat(this.lectureRepository.addQuestion(this.question), is(this.question));
     }
 }

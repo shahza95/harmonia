@@ -15,8 +15,10 @@ import syed.shahza.harmonia.backend.dto.EmotionDto;
 import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
+import syed.shahza.harmonia.backend.dto.QuestionDto;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
 import syed.shahza.harmonia.restapi.action.AddFeedbackAction;
+import syed.shahza.harmonia.restapi.action.AddQuestionAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.RemoveMoodAction;
@@ -32,14 +34,16 @@ public class ActiveLectureControllerStudent {
 	private final SendMoodAction sendMoodAction;
 	private final RemoveMoodAction removeMoodAction;
 	private final AddFeedbackAction addFeedbackAction;
+	private final AddQuestionAction addQuestionAction;
 
-	public ActiveLectureControllerStudent(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction,  AddCommentAction addCommentAction, SendMoodAction sendMoodAction, RemoveMoodAction removeMoodAction, AddFeedbackAction addFeedbackAction) {
+	public ActiveLectureControllerStudent(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction,  AddCommentAction addCommentAction, SendMoodAction sendMoodAction, RemoveMoodAction removeMoodAction, AddFeedbackAction addFeedbackAction, AddQuestionAction addQuestionAction) {
 		this.getLectureAction = getLectureAction;
 		this.getAllCommentsAction = getAllCommentsAction;
 		this.addCommentAction = addCommentAction;
 		this.sendMoodAction = sendMoodAction;
 		this.removeMoodAction = removeMoodAction;
 		this.addFeedbackAction = addFeedbackAction;
+		this.addQuestionAction = addQuestionAction;
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.GET)
@@ -86,6 +90,19 @@ public class ActiveLectureControllerStudent {
 		feedbackDto.setLectureDto(this.getLectureAction.get(lectureTitle));
 		this.addFeedbackAction.addFeedback(feedbackDto);
 		return new ModelAndView("redirect:/student/lecture/join"); 
+	}
+	
+	@RequestMapping(value = "/active/{lectureTitle}/questions", method = RequestMethod.GET)
+	public ModelAndView getActiveLectureQuestionPage(@PathVariable("lectureTitle") String lectureTitle) {
+		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
+		return new ModelAndView("student/activeLectureQuestions", "lectureDto", lectureDto);
+	}
+	
+	@RequestMapping(value = "/active/{lectureTitle}/questions", method = RequestMethod.POST)
+	public ModelAndView addQuestion(@PathVariable("lectureTitle") String lectureTitle, @ModelAttribute QuestionDto questionDto) {
+		questionDto.setLectureDto(this.getLectureAction.get(lectureTitle));
+		this.addQuestionAction.addQuestion(questionDto);
+		return new ModelAndView("redirect:/student/lecture/active/" + lectureTitle +"/questions"); 
 	}
 
 	private MoodDto constructMoodDto(String mood, String lectureTitle) {

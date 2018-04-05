@@ -20,12 +20,14 @@ import syed.shahza.harmonia.backend.core.domain.Feedbacks;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
+import syed.shahza.harmonia.backend.core.domain.Question;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
 import syed.shahza.harmonia.backend.core.domain.TestComments;
 import syed.shahza.harmonia.backend.core.domain.TestFeedback;
 import syed.shahza.harmonia.backend.core.domain.TestFeedbacks;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
 import syed.shahza.harmonia.backend.core.domain.TestMoods;
+import syed.shahza.harmonia.backend.core.domain.TestQuestion;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,6 +36,7 @@ public class LectureServiceTest {
 	private Lecture lecture;
 	private Comment comment;
 	private Feedback feedback;
+	private Question question;
 	
 	@Mock
 	private LectureRepository mockLectureRepository;
@@ -43,6 +46,7 @@ public class LectureServiceTest {
 		this.lecture = aValidLecture().build();
 		this.comment = TestComment.aValidComment().build();
 		this.feedback = TestFeedback.aValidFeedback().build();
+		this.question = TestQuestion.aValidQuestion().build();
 		this.lectureService = new LectureService(this.mockLectureRepository);
 	}
 	
@@ -190,5 +194,19 @@ public class LectureServiceTest {
     	when(this.mockLectureRepository.getAllFeedback("title")).thenReturn(TestFeedbacks.aFilledFeedbacksList(1));
     	
     	assertThat(this.lectureService.getAllFeedback("title"), instanceOf(Feedbacks.class));
+    }   
+    
+    @Test
+    public void addQuestionInvokesLectureRepository() {
+    	this.lectureService.addQuestion(this.question);
+    	
+    	verify(this.mockLectureRepository).addQuestion(this.question);
+    }
+    
+    @Test
+    public void addQuestionReturnsQuestionObject() {
+    	when(this.mockLectureRepository.addQuestion(this.question)).thenReturn(this.question);
+    	
+    	assertThat(this.lectureService.addQuestion(this.question), instanceOf(Question.class));
     }
 }

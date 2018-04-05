@@ -110,6 +110,13 @@ public class ActiveLectureControllerStudent {
 		this.addQuestionAction.addQuestion(questionDto);
 		return new ModelAndView("redirect:/student/lecture/active/" + lectureTitle +"/questions"); 
 	}
+	
+	@RequestMapping(value = "/active/{lectureTitle}/questions/{questionId}", method = RequestMethod.GET)
+	public ModelAndView getActiveLectureQuestionThreadPage(@PathVariable("lectureTitle") String lectureTitle, @PathVariable String questionId) {
+		//get the question
+		// set lectureDto   questionId.setLectureDto(this.getLectureAction.get(lectureTitle));
+		return new ModelAndView("student/activeLectureQuestionThread"); 
+	}
 
 	private MoodDto constructMoodDto(String mood, String lectureTitle) {
 		String[] moodParts = mood.split(" ");

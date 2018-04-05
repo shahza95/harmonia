@@ -225,4 +225,20 @@ public class LectureServiceTest {
     	
     	assertThat(this.lectureService.getAllQuestions("title"), instanceOf(Questions.class));
     }   
+    
+    @Test
+    public void getQuestionInvokesLectureRepository() {
+    	String id = "id";
+    	lectureService.getQuestion(id);
+    	
+    	verify(this.mockLectureRepository).getQuestion(id);
+    }
+    
+    @Test
+    public void getQuestionReturnsQuestionObject() {
+    	String id = "id";
+    	when(this.mockLectureRepository.getQuestion(id)).thenReturn(question);
+    	
+    	assertThat(lectureService.getQuestion(id), instanceOf(Question.class));
+    }
 }

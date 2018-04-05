@@ -106,4 +106,8 @@ public class LectureRepository {
 		return new Questions(questions.stream().filter(question -> question.getLecture().getTitle().equals(lectureTitle)).collect(Collectors.toList()));
 	}
 	
+	public Question getQuestion(String id) {
+		return questions.stream().filter(question -> question.getId().equals(id)).findAny().orElse(new Question());
+	}
+	
 }

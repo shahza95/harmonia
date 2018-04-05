@@ -69,4 +69,8 @@ public class LectureService {
 	public Questions getAllQuestions(String lectureTitle) {
 		return this.lectureRepository.getAllQuestions(lectureTitle);
 	}
+	
+	public Question getQuestion(String id) {
+		return this.lectureRepository.getQuestion(id);
+	}
 }

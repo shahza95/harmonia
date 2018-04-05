@@ -9,6 +9,7 @@ import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
+import syed.shahza.harmonia.backend.dto.QuestionDto;
 import syed.shahza.harmonia.backend.dto.QuestionDtoList;
 import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
@@ -50,5 +51,10 @@ public class LectureController {
     @RequestMapping(value = "/active/{lectureTitle}/questions", method = RequestMethod.GET)
     public QuestionDtoList getAllQuestions(@PathVariable String lectureTitle) {
     	return this.questionAdapter.toDto(this.lectureService.getAllQuestions(lectureTitle));
+    }
+    
+    @RequestMapping(value = "/{questionId}", method = RequestMethod.GET)
+    public QuestionDto getQuestion(@PathVariable String questionId) {
+    	return this.questionAdapter.toDto(this.lectureService.getQuestion(questionId));
     }
 }

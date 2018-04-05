@@ -183,4 +183,12 @@ public class LectureRepositoryTest {
     	
     	assertThat(this.lectureRepository.getAllQuestions(lecture.getTitle()), instanceOf(Questions.class));
     }  
+    
+    @Test
+    public void getQuestionReturnsQuestionObjectIfIdValid() {
+    	Question question = TestQuestion.aValidQuestion().build();
+    	this.lectureRepository.addQuestion(question);
+    	
+    	assertThat(lectureRepository.getQuestion(question.getId()), is(question));
+    }
 }

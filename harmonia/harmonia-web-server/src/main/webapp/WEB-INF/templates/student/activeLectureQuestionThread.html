@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Active Lecture</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+	<div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
+	<div id="container">
+		<h1 th:text="${lectureDto.title}">title</h1>                                      
+	</div>
+</body>
+</html>

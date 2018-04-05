@@ -32,7 +32,7 @@
 				<td th:each="questionDto, stat : ${questionDtoList.questionDtoList}">
 					<div class="talk-bubble tri-right round btm-left">
 					    <div class="bubbletext">
-					    	<a href="#" th:text="${questionDto.getQuestion()}"></a>
+					    	<a href="$(questionDto.getId()}" th:text="${questionDto.getQuestion()}"></a>
 						</div>
 					</div>
 				</td>

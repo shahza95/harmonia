@@ -13,12 +13,14 @@ import syed.shahza.harmonia.backend.core.domain.Feedbacks;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
+import syed.shahza.harmonia.backend.core.domain.Question;
 
 public class LectureRepository {
 	private List<Lecture> lectures = new ArrayList<>();
 	private List<Comment> comments = new ArrayList<>();
 	private List<Mood> moods = new ArrayList<>();
 	private List<Feedback> feedbacks = new ArrayList<>();
+	private List<Question> questions = new ArrayList<>();
 	
 	public Lecture create(Lecture lecture) {
 		lectures.add(lecture);
@@ -92,5 +94,10 @@ public class LectureRepository {
 	
 	public Feedbacks getAllFeedback(String lectureTitle) {
 		return new Feedbacks(feedbacks.stream().filter(feedback -> feedback.getLecture().getTitle().equals(lectureTitle)).collect(Collectors.toList()));
+	}
+	
+	public Question addQuestion(Question question) {
+		questions.add(question);
+		return question;
 	}
 }

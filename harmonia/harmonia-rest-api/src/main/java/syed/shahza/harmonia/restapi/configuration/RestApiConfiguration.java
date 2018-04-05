@@ -7,6 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
 import syed.shahza.harmonia.restapi.action.AddFeedbackAction;
+import syed.shahza.harmonia.restapi.action.AddQuestionAction;
 import syed.shahza.harmonia.restapi.action.EndLectureAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllFeedbackAction;
@@ -95,5 +96,10 @@ public class RestApiConfiguration {
 	@Bean
 	public GetAllFeedbackAction getAllFeedbackAction() {
 		return new GetAllFeedbackAction(restClient());
+	}
+	
+	@Bean
+	public AddQuestionAction addQuestionAction() {
+		return new AddQuestionAction(restClient());
 	}
 }

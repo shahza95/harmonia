@@ -12,6 +12,7 @@ import syed.shahza.harmonia.backend.endpoint.adapter.FeedbackAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LecturerAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
+import syed.shahza.harmonia.backend.endpoint.adapter.QuestionAdapter;
 import syed.shahza.harmonia.backend.endpoint.controller.LectureController;
 import syed.shahza.harmonia.backend.endpoint.controller.LectureControllerLecturer;
 import syed.shahza.harmonia.backend.endpoint.controller.LectureControllerStudent;
@@ -47,6 +48,11 @@ public class EndpointConfiguration {
     }
     
     @Bean
+    public QuestionAdapter questionAdapter() {
+    	return new QuestionAdapter(this.lectureAdapter());
+    }
+    
+    @Bean
     public LoginController loginController() {
         return new LoginController(this.loginService, new LecturerAdapter());
     }
@@ -58,7 +64,7 @@ public class EndpointConfiguration {
     
     @Bean
     public LectureControllerStudent lectureControllerStudent() {
-    	return new LectureControllerStudent(this.lectureService, this.lectureAdapter(), this.commentAdapter(), this.moodAdapter(), this.feedbackAdapter());
+    	return new LectureControllerStudent(this.lectureService, this.lectureAdapter(), this.commentAdapter(), this.moodAdapter(), this.feedbackAdapter(), this.questionAdapter());
     }
     
     @Bean

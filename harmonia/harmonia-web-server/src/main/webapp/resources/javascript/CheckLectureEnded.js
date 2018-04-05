@@ -1,21 +1,25 @@
-$(document).ready(checkEnded);
+$(document).ready(startChecking);
 var urls = {};
 
 function setGetLectureUrl(getUrl) {
     urls.getLectureUrl = getUrl;
 }
 
-function checkEnded() {
+function startChecking() {
+	checkEnded();
 	setInterval(function(){
-		$.getJSON(urls.getLectureUrl, function(data) {
-		console.log(data)
-			if(data.ended) {
-				if(data.feedbackEnabled) {
-					window.location.replace("feedback");
-				} else {
-					window.location.pathname = "/student/lecture/join";
-				}
-			}
-		});
+		checkEnded();
 	}, 5000);
+}
+
+function checkEnded() {
+	$.getJSON(urls.getLectureUrl, function(data) {
+		if(data.ended) {
+			if(data.feedbackEnabled) {
+				window.location.replace("feedback");
+			} else {
+				window.location.pathname = "/student/lecture/join";
+			}
+		}
+	});
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Active Lecture Questions</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+<div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+        	<br />
+		    <form class="col-sm-offset-2 form-horizontal" method="post">
+		        <div class="form-group">
+			    	<div class="col-sm-4">
+			    		<input id="featureToggleButton" type="submit" class="btn btn-default" name="questionsToggle" th:value="${lectureDto.questionsEnabled} ? 'Disable' : 'Enable' " />
+			    	</div>
+		    	</div>
+		    </form>
+            <h1 th:text="${lectureDto.title}">title</h1>                                      
+            <div class="col-sm-offset-4 col-sm-4 well" id="content">
+                <table>
+				    <tr>
+				   <!-- TO DO cannot dynamically set text for a tag??? change to input?-->
+					    <td>
+					      <div class="talk-bubble tri-right round btm-left">
+					        <div class="bubbletext">
+					          <a href="test" >test</a>
+					        </div>
+					      </div>
+					    <td>
+				    
+				     th:each="commentDto, stat : ${commentDtoList.commentDtoList}"> 
+				    	<td th:text="${commentDto.getMessage()}"></td>
+				    </tr>      		
+				</table>
+        	</div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="/resources/javascript/UpdateComments.js"></script>
+<script th:inline="javascript">
+	setGetCommentsUrl(window.location.href + "/json");
+</script>
+</html>

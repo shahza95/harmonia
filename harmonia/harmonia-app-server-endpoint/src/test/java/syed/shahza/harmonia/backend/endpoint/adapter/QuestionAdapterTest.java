@@ -2,7 +2,9 @@ package syed.shahza.harmonia.backend.endpoint.adapter;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static syed.shahza.harmonia.backend.core.domain.TestQuestions.aFilledQuestionsList;
 import static syed.shahza.harmonia.backend.core.domain.TestQuestion.aValidQuestion;
+import static syed.shahza.harmonia.backend.dto.TestQuestionDtoList.aFilledQuestionDtoList;
 import static syed.shahza.harmonia.backend.dto.TestQuestionDto.aValidQuestionDto;
 
 import org.junit.Before;
@@ -12,7 +14,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import syed.shahza.harmonia.backend.core.domain.Questions;
 import syed.shahza.harmonia.backend.core.domain.Question;
+import syed.shahza.harmonia.backend.dto.QuestionDtoList;
 import syed.shahza.harmonia.backend.dto.QuestionDto;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -59,5 +63,19 @@ public class QuestionAdapterTest {
     	QuestionDto questionDto = aValidQuestionDto().build();
     	this.questionAdapter.toDomain(questionDto);
     	Mockito.verify(this.mockLectureAdapter).toDomain(questionDto.getLectureDto());
+    }
+    
+    @Test
+    public void canAdaptQuestionsToQuestionDtoList() {
+    	Questions questions = aFilledQuestionsList(2);
+    	QuestionDtoList questionDtoList = this.questionAdapter.toDto(questions);
+        assertThat(questionDtoList.getQuestionDtoList().size(), is(questions.getQuestionList().size()));
+    }
+    
+    @Test
+    public void canAdaptQuestionDtoListToQuestions() {
+    	QuestionDtoList questionDtoList = aFilledQuestionDtoList(3);
+    	Questions questions = this.questionAdapter.toDomain(questionDtoList);
+    	assertThat(questions.getQuestionList().size(), is(questionDtoList.getQuestionDtoList().size()));
     }
 }

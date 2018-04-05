@@ -37,6 +37,7 @@ import syed.shahza.harmonia.restapi.action.AddQuestionAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
+import syed.shahza.harmonia.restapi.action.GetQuestionAction;
 import syed.shahza.harmonia.restapi.action.RemoveMoodAction;
 import syed.shahza.harmonia.restapi.action.SendMoodAction;
 
@@ -72,9 +73,11 @@ public class ActiveLectureControllerStudentTest {
     @Mock
     private AddQuestionAction mockAddQuestionAction;
     
-    
     @Mock
     private GetAllQuestionsAction mockGetAllQuestionsAction;
+    
+    @Mock
+    private GetQuestionAction mockGetQuestionAction;
     
     @Mock
     private RedirectAttributes mockRedirectAttributes;
@@ -91,7 +94,7 @@ public class ActiveLectureControllerStudentTest {
     	this.questionDto = TestQuestionDto.aValidQuestionDto().build();
     	this.moodString = moodDto.getEmotionDto().toString() + " " + moodDto.getEmoji();
     	this.title = "title";
-        this.lectureController = new ActiveLectureControllerStudent(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockAddCommentAction, this.mockSendMoodAction, this.mockRemoveMoodAction, this.mockAddFeedbackAction, this.mockAddQuestionAction, this.mockGetAllQuestionsAction);
+        this.lectureController = new ActiveLectureControllerStudent(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockAddCommentAction, this.mockSendMoodAction, this.mockRemoveMoodAction, this.mockAddFeedbackAction, this.mockAddQuestionAction, this.mockGetAllQuestionsAction, this.mockGetQuestionAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
     }
     
@@ -289,4 +292,26 @@ public class ActiveLectureControllerStudentTest {
     	
     	assertThat(this.lectureController.getActiveLectureQuestionsPage(lectureDto.getTitle()).getModel().get("questionDtoList"), is(questionDtoList));
     } 
+    
+    @Test
+    public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureQuestionThread() {
+    	QuestionDto questionDto = TestQuestionDto.aValidQuestionDto().build();
+    	assertThat(this.lectureController.getActiveLectureQuestionThreadPage(questionDto.getLectureDto().getTitle(), questionDto.getId()).getViewName(), is("student/activeLectureQuestionThread"));
+    }
+    
+    @Test
+    public void getActiveLectureQuestionThreadSendsLectureDtoAsModel() {
+    	when(this.mockGetQuestionAction.get(questionDto.getId())).thenReturn(questionDto);
+    	when(this.mockGetLectureAction.get(questionDto.getLectureDto().getTitle())).thenReturn(lectureDto);
+    	
+    	assertThat(this.lectureController.getActiveLectureQuestionThreadPage(questionDto.getLectureDto().getTitle(), questionDto.getId()).getModel().get("lectureDto"), is(lectureDto));
+    }
+    
+    @Test
+    public void getActiveLectureQuestionThreadSendsQuestionDtoAsModel() {
+    	when(this.mockGetQuestionAction.get(questionDto.getId())).thenReturn(questionDto);
+    
+    	assertThat(this.lectureController.getActiveLectureQuestionThreadPage(questionDto.getLectureDto().getTitle(), questionDto.getId()).getModel().get("questionDto"), is(questionDto));
+    }
+    
 }

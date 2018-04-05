@@ -7,7 +7,7 @@
 <body>
 	<div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
 	<div id="page-wrapper">
-		<div id="container">
+		<div class="container-fluid">
 			<h1 th:text="${lectureDto.title}">title</h1>     
 			<div class="col-sm-offset-4 col-sm-4" id="question">
 				<div class="talk-bubble tri-right round btm-left">
@@ -22,8 +22,18 @@
 						<p th:text="${questionDto.getAnswer()}"></p>
 					</div>
 				</div>
-			</div>                                 
-		</div>
+			</div> 
+		</div> 
+			<form class="col-sm-offset-5" method="post">
+				<div class="form-group">
+					<div class="col-sm-3">
+						<textarea class="form-control" rows="4" id="Answer" placeholder="Enter your answer here" name="answer" />
+					</div>
+					<div class="col-sm-3">
+			    		<input type="submit" class="btn btn-default" value="Answer" name="Answer" />
+			    	</div>
+				</div>
+			</form>   
 	</div>
 </body>
 </html>

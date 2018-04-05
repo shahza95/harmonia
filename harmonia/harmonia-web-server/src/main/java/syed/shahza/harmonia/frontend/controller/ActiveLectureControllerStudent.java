@@ -22,6 +22,7 @@ import syed.shahza.harmonia.restapi.action.AddQuestionAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
+import syed.shahza.harmonia.restapi.action.GetQuestionAction;
 import syed.shahza.harmonia.restapi.action.RemoveMoodAction;
 import syed.shahza.harmonia.restapi.action.SendMoodAction;
 
@@ -37,8 +38,9 @@ public class ActiveLectureControllerStudent {
 	private final AddFeedbackAction addFeedbackAction;
 	private final AddQuestionAction addQuestionAction;
 	private final GetAllQuestionsAction getAllQuestionsAction;
+	private final GetQuestionAction getQuestionAction;
 
-	public ActiveLectureControllerStudent(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction,  AddCommentAction addCommentAction, SendMoodAction sendMoodAction, RemoveMoodAction removeMoodAction, AddFeedbackAction addFeedbackAction, AddQuestionAction addQuestionAction, GetAllQuestionsAction getAllQuestionsAction) {
+	public ActiveLectureControllerStudent(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction,  AddCommentAction addCommentAction, SendMoodAction sendMoodAction, RemoveMoodAction removeMoodAction, AddFeedbackAction addFeedbackAction, AddQuestionAction addQuestionAction, GetAllQuestionsAction getAllQuestionsAction, GetQuestionAction getQuestionAction) {
 		this.getLectureAction = getLectureAction;
 		this.getAllCommentsAction = getAllCommentsAction;
 		this.addCommentAction = addCommentAction;
@@ -47,6 +49,7 @@ public class ActiveLectureControllerStudent {
 		this.addFeedbackAction = addFeedbackAction;
 		this.addQuestionAction = addQuestionAction;
 		this.getAllQuestionsAction = getAllQuestionsAction;
+		this.getQuestionAction = getQuestionAction;
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.GET)
@@ -111,11 +114,12 @@ public class ActiveLectureControllerStudent {
 		return new ModelAndView("redirect:/student/lecture/active/" + lectureTitle +"/questions"); 
 	}
 	
-	@RequestMapping(value = "/active/{lectureTitle}/questions/{questionId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/active/{lectureTitle}/{questionId}", method = RequestMethod.GET)
 	public ModelAndView getActiveLectureQuestionThreadPage(@PathVariable("lectureTitle") String lectureTitle, @PathVariable String questionId) {
-		//get the question
-		// set lectureDto   questionId.setLectureDto(this.getLectureAction.get(lectureTitle));
-		return new ModelAndView("student/activeLectureQuestionThread"); 
+		ModelAndView modelAndView = new ModelAndView("student/activeLectureQuestionThread");
+		modelAndView.addObject("lectureDto", this.getLectureAction.get(lectureTitle)); 
+		modelAndView.addObject("questionDto", this.getQuestionAction.get(questionId)); 
+		return modelAndView;
 	}
 
 	private MoodDto constructMoodDto(String mood, String lectureTitle) {

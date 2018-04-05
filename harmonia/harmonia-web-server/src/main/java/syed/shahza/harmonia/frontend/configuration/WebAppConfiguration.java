@@ -23,12 +23,14 @@ import syed.shahza.harmonia.restapi.action.GetAllFeedbackAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
+import syed.shahza.harmonia.restapi.action.GetQuestionAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 import syed.shahza.harmonia.restapi.action.LoginAction;
 import syed.shahza.harmonia.restapi.action.RemoveMoodAction;
 import syed.shahza.harmonia.restapi.action.SendMoodAction;
 import syed.shahza.harmonia.restapi.action.ToggleFeaturesAction;
+import syed.shahza.harmonia.restapi.action.UpdateQuestionAction;
 import syed.shahza.harmonia.restapi.configuration.RestApiConfiguration;
 
 @Configuration
@@ -81,6 +83,12 @@ public class WebAppConfiguration {
     
     @Resource(name = "getAllQuestionsAction")
     private GetAllQuestionsAction getAllQuestionsAction;
+    
+    @Resource(name = "getQuestionAction")
+    private GetQuestionAction getQuestionAction;
+    
+    @Resource(name = "updateQuestionAction")
+    private UpdateQuestionAction updateQuestionAction;
 
     @Bean
     public LoginController loginController() {
@@ -99,12 +107,12 @@ public class WebAppConfiguration {
     
     @Bean
     public ActiveLectureControllerLecturer activeLectureControllerLecturer() {
-    	return new ActiveLectureControllerLecturer(getLectureAction, getAllCommentsAction, getAllMoodsAction, toggleFeaturesAction, endLectureAction, getAllFeedbackAction, getAllQuestionsAction);
+    	return new ActiveLectureControllerLecturer(getLectureAction, getAllCommentsAction, getAllMoodsAction, toggleFeaturesAction, endLectureAction, getAllFeedbackAction, getAllQuestionsAction, getQuestionAction, updateQuestionAction);
     }
     
     @Bean
     public ActiveLectureControllerStudent activeLectureControllerStudent() {
-    	return new ActiveLectureControllerStudent(getLectureAction, getAllCommentsAction, addCommentAction, sendMoodAction, removeMoodAction, addFeedbackAction, addQuestionAction, getAllQuestionsAction);
+    	return new ActiveLectureControllerStudent(getLectureAction, getAllCommentsAction, addCommentAction, sendMoodAction, removeMoodAction, addFeedbackAction, addQuestionAction, getAllQuestionsAction, getQuestionAction);
     }
 
     @Bean

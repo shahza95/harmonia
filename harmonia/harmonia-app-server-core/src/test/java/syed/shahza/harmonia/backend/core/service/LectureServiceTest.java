@@ -241,4 +241,10 @@ public class LectureServiceTest {
     	
     	assertThat(lectureService.getQuestion(id), instanceOf(Question.class));
     }
+    
+    @Test
+    public void updateQuestionInvokesLectureRepository() {
+    	this.lectureService.updateQuestion(this.question);
+    	verify(this.mockLectureRepository).updateQuestion(this.question);
+    }
 }

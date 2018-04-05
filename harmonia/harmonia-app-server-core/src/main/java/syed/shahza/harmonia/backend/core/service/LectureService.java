@@ -73,4 +73,8 @@ public class LectureService {
 	public Question getQuestion(String id) {
 		return this.lectureRepository.getQuestion(id);
 	}
+	
+	public void updateQuestion(Question question) {
+		this.lectureRepository.updateQuestion(question);
+	}
 }

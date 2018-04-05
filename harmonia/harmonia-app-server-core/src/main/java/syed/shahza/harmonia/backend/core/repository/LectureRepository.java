@@ -110,4 +110,11 @@ public class LectureRepository {
 		return questions.stream().filter(question -> question.getId().equals(id)).findAny().orElse(new Question());
 	}
 	
+	public void updateQuestion(Question updatedQuestion) {
+		for(Question question: questions) {
+			if(question.getId().equals(updatedQuestion.getId())) {
+				questions.set(questions.indexOf(question), updatedQuestion);
+			}
+		}
+	}
 }

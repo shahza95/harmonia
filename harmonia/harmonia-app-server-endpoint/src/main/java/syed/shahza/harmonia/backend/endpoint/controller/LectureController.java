@@ -53,7 +53,7 @@ public class LectureController {
     	return this.questionAdapter.toDto(this.lectureService.getAllQuestions(lectureTitle));
     }
     
-    @RequestMapping(value = "/{questionId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/active/questions/{questionId}", method = RequestMethod.GET)
     public QuestionDto getQuestion(@PathVariable String questionId) {
     	return this.questionAdapter.toDto(this.lectureService.getQuestion(questionId));
     }

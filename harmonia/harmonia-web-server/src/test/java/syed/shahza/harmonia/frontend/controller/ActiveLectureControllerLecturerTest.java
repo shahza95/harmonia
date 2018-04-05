@@ -21,11 +21,13 @@ import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.FeedbackDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
+import syed.shahza.harmonia.backend.dto.QuestionDto;
 import syed.shahza.harmonia.backend.dto.QuestionDtoList;
 import syed.shahza.harmonia.backend.dto.TestCommentDtoList;
 import syed.shahza.harmonia.backend.dto.TestFeedbackDtoList;
 import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.backend.dto.TestMoodDtoList;
+import syed.shahza.harmonia.backend.dto.TestQuestionDto;
 import syed.shahza.harmonia.backend.dto.TestQuestionDtoList;
 import syed.shahza.harmonia.restapi.action.EndLectureAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
@@ -33,14 +35,18 @@ import syed.shahza.harmonia.restapi.action.GetAllFeedbackAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
+import syed.shahza.harmonia.restapi.action.GetQuestionAction;
 import syed.shahza.harmonia.restapi.action.ToggleFeaturesAction;
+import syed.shahza.harmonia.restapi.action.UpdateQuestionAction;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ActiveLectureControllerLecturerTest {
     private ActiveLectureControllerLecturer lectureController;
     private LectureDto lectureDto;
+    private QuestionDto questionDto;
     private MoodDtoList moodDtoList;
     private FeedbackDtoList feedbackDtoList;
+    private QuestionDtoList questionDtoList;
     private int numberOfSameMood;
     
     @Mock
@@ -64,16 +70,26 @@ public class ActiveLectureControllerLecturerTest {
     @Mock
     private GetAllQuestionsAction mockGetAllQuestionsAction;
     
+    @Mock
+    private GetQuestionAction mockGetQuestionAction;
+    
+    @Mock
+    private UpdateQuestionAction mockUpdateQuestionAction;
+    
     @Before
     public void before() {
     	this.lectureDto = aValidLectureDto().build();
-        this.lectureController = new ActiveLectureControllerLecturer(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction, this.mockToggleFeaturesAction, this.mockEndLectureAction, this.mockGetAllFeedbackAction, this.mockGetAllQuestionsAction);
+    	this.questionDto = TestQuestionDto.aValidQuestionDto().build();
+        this.lectureController = new ActiveLectureControllerLecturer(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction, this.mockToggleFeaturesAction, this.mockEndLectureAction, this.mockGetAllFeedbackAction, this.mockGetAllQuestionsAction, this.mockGetQuestionAction, this.mockUpdateQuestionAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
+        when(this.mockGetQuestionAction.get(questionDto.getId())).thenReturn(questionDto);
     	this.numberOfSameMood = 3;
     	this.moodDtoList = TestMoodDtoList.aFilledMoodDtoList(numberOfSameMood);
     	this.feedbackDtoList = TestFeedbackDtoList.aFilledFeedbackDtoList(3);
+    	this.questionDtoList = TestQuestionDtoList.aFilledQuestionDtoList(3);
     	when(this.mockGetAllMoodsAction.getAll(lectureDto.getTitle())).thenReturn(moodDtoList);
     	when(this.mockGetAllFeedbackAction.getAll(lectureDto.getTitle())).thenReturn(feedbackDtoList);
+    	when(this.mockGetAllQuestionsAction.getAll(lectureDto.getTitle())).thenReturn(questionDtoList);
     }
     
     @Test
@@ -257,5 +273,53 @@ public class ActiveLectureControllerLecturerTest {
     	when(this.mockGetAllQuestionsAction.getAll(lectureDto.getTitle())).thenReturn(questionDtoList);
     	
     	assertThat(this.lectureController.getActiveLectureQuestionsPage(lectureDto.getTitle()).getModel().get("questionDtoList"), is(questionDtoList));
+    }
+    
+    @Test
+    public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureQuestionThread() {
+    	QuestionDto questionDto = TestQuestionDto.aValidQuestionDto().build();
+    	assertThat(this.lectureController.getActiveLectureQuestionThreadPage(questionDto.getLectureDto().getTitle(), questionDto.getId()).getViewName(), is("lecturer/activeLectureQuestionThread"));
+    }
+    
+    @Test
+    public void getActiveLectureQuestionThreadSendsLectureDtoAsModel() {
+    	when(this.mockGetQuestionAction.get(questionDto.getId())).thenReturn(questionDto);
+    	when(this.mockGetLectureAction.get(questionDto.getLectureDto().getTitle())).thenReturn(lectureDto);
+    	
+    	assertThat(this.lectureController.getActiveLectureQuestionThreadPage(questionDto.getLectureDto().getTitle(), questionDto.getId()).getModel().get("lectureDto"), is(lectureDto));
+    }
+    
+    @Test
+    public void getActiveLectureQuestionThreadSendsQuestionDtoAsModel() {
+    	when(this.mockGetQuestionAction.get(questionDto.getId())).thenReturn(questionDto);
+    
+    	assertThat(this.lectureController.getActiveLectureQuestionThreadPage(questionDto.getLectureDto().getTitle(), questionDto.getId()).getModel().get("questionDto"), is(questionDto));
+    }
+    
+    @Test
+    public void answerQuestionInvokesGetQuestionAction() {
+    	when(this.mockGetQuestionAction.get("1")).thenReturn(questionDto);
+
+    	this.lectureController.answerQuestion("title", "1", "some answer");
+    	// invoked twice: once through answerQuestion method which calls getActiveLectureQuestionThreadPage therefore once more
+    	verify(this.mockGetQuestionAction, Mockito.times(2)).get("1");
+    }
+    
+    @Test
+    public void answerQuestionInvokesUpdateQuestionActionWithCorrectQuestionDto() {
+    	when(this.mockGetQuestionAction.get("1")).thenReturn(questionDto);
+    	
+    	String answer = "some answer";
+    	this.lectureController.answerQuestion("title", "1", answer);
+    	questionDto.setAnswer(answer);
+    	verify(this.mockUpdateQuestionAction).update(questionDto);
+    }
+    
+    @Test
+    public void answerQuestionRedirectsToOwnPage() {
+    	when(this.mockGetQuestionAction.get("1")).thenReturn(questionDto);
+
+    	String answer = "some answer";
+    	assertThat(this.lectureController.answerQuestion("title", "1", answer).getViewName(), is("lecturer/activeLectureQuestionThread"));
     }
 }

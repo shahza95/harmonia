@@ -191,4 +191,13 @@ public class LectureRepositoryTest {
     	
     	assertThat(lectureRepository.getQuestion(question.getId()), is(question));
     }
+    
+    @Test
+    public void updateQuestionReplacesOldQuestionObject() {
+    	Question question = TestQuestion.aValidQuestion().answer("").build();
+    	this.lectureRepository.addQuestion(question);
+    	assertThat(this.lectureRepository.getQuestion(question.getId()).getAnswer(), is(""));
+    	this.lectureRepository.updateQuestion(TestQuestion.aValidQuestion().id(question.getId()).answer("some answer").build());
+    	assertThat(this.lectureRepository.getQuestion(question.getId()).getAnswer(), is("some answer"));
+    }
 }

@@ -32,7 +32,7 @@
 				<td th:each="questionDto, stat : ${questionDtoList.questionDtoList}">
 					<div class="talk-bubble tri-right round btm-left">
 					    <div class="bubbletext">
-					    	<a href="$(questionDto.getId()}" th:text="${questionDto.getQuestion()}"></a>
+					    	<a th:href="@{'/student/lecture/active/' + ${lectureDto.title} + '/' + ${questionDto.id}}" th:text="${questionDto.getQuestion()}"></a>
 						</div>
 					</div>
 				</td>
@@ -41,8 +41,8 @@
 	</div>
 </div>
 </body>
-<script type="text/javascript" src="/resources/javascript/UpdateQuestions.js"></script>
+<!-- <script type="text/javascript" src="/resources/javascript/UpdateQuestions.js"></script>
 <script th:inline="javascript">
 	setGetQuestionsUrl(window.location.href + "/json");
-</script>
+</script> -->
 </html>

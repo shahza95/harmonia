@@ -21,11 +21,11 @@ public class QuestionAdapter {
 	}
 
     public QuestionDto toDto(Question question) {
-        return aQuestionDto().question(question.getQuestion()).answer(question.getAnswer()).lectureDto(this.lectureAdapter.toDto(question.getLecture())).build();
+        return aQuestionDto().id(question.getId()).question(question.getQuestion()).answer(question.getAnswer()).lectureDto(this.lectureAdapter.toDto(question.getLecture())).build();
     }
     
     public Question toDomain(QuestionDto questionDto) {
-    	return aQuestion().question(questionDto.getQuestion()).answer(questionDto.getAnswer()).lecture(this.lectureAdapter.toDomain(questionDto.getLectureDto())).build();
+    	return aQuestion().id(questionDto.getId()).question(questionDto.getQuestion()).answer(questionDto.getAnswer()).lecture(this.lectureAdapter.toDomain(questionDto.getLectureDto())).build();
     }
     
     public QuestionDtoList toDto(Questions questions) {

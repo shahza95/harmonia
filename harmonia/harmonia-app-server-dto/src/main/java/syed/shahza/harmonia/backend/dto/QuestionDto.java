@@ -1,6 +1,9 @@
 package syed.shahza.harmonia.backend.dto;
 
+import java.util.UUID;
+
 public class QuestionDto {
+	private String id = UUID.randomUUID().toString();
 	private LectureDto lectureDto;
     private String question;
     private String answer;
@@ -11,11 +14,20 @@ public class QuestionDto {
 
     private QuestionDto(Builder builder) {
         this();
+        this.id = builder.id;
         this.question = builder.question;
         this.answer = builder.answer;
         this.lectureDto = builder.lectureDto;
     }
 
+    public String getId() {
+    	return this.id;
+    }
+    
+    public void setId(String id) {
+    	this.id = id;
+    }
+    
     public String getQuestion() {
         return this.question;
     }
@@ -45,9 +57,15 @@ public class QuestionDto {
     }
 
     public static class Builder {
+    	private String id = UUID.randomUUID().toString();
         private String question;
         private String answer;
         private LectureDto lectureDto;
+        
+        public Builder id(String id) {
+        	this.id = id;
+        	return this;
+        }        
 
         public Builder question(String question) {
             this.question = question;

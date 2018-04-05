@@ -16,6 +16,7 @@ import syed.shahza.harmonia.backend.dto.FeedbackDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
+import syed.shahza.harmonia.backend.dto.QuestionDto;
 import syed.shahza.harmonia.backend.dto.QuestionDtoList;
 import syed.shahza.harmonia.restapi.action.EndLectureAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
@@ -23,7 +24,9 @@ import syed.shahza.harmonia.restapi.action.GetAllFeedbackAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
+import syed.shahza.harmonia.restapi.action.GetQuestionAction;
 import syed.shahza.harmonia.restapi.action.ToggleFeaturesAction;
+import syed.shahza.harmonia.restapi.action.UpdateQuestionAction;
 
 @Controller
 @RequestMapping("/lecturer/lecture")
@@ -35,8 +38,10 @@ public class ActiveLectureControllerLecturer {
 	private final EndLectureAction endLectureAction;
 	private final GetAllFeedbackAction getAllFeedbackAction;
 	private final GetAllQuestionsAction getAllQuestionsAction;
+	private final GetQuestionAction getQuestionAction;
+	private final UpdateQuestionAction updateQuestionAction;
 
-	public ActiveLectureControllerLecturer(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction, GetAllMoodsAction getAllMoodsAction, ToggleFeaturesAction toggleFeaturesAction, EndLectureAction endLectureAction, GetAllFeedbackAction getAllFeedbackAction, GetAllQuestionsAction getAllQuestionsAction) {
+	public ActiveLectureControllerLecturer(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction, GetAllMoodsAction getAllMoodsAction, ToggleFeaturesAction toggleFeaturesAction, EndLectureAction endLectureAction, GetAllFeedbackAction getAllFeedbackAction, GetAllQuestionsAction getAllQuestionsAction, GetQuestionAction getQuestionAction, UpdateQuestionAction updateQuestionAction) {
 		this.getLectureAction = getLectureAction;
 		this.getAllCommentsAction = getAllCommentsAction;
 		this.getAllMoodsAction = getAllMoodsAction;
@@ -44,6 +49,8 @@ public class ActiveLectureControllerLecturer {
 		this.endLectureAction = endLectureAction;
 		this.getAllFeedbackAction = getAllFeedbackAction;
 		this.getAllQuestionsAction = getAllQuestionsAction;
+		this.getQuestionAction = getQuestionAction;
+		this.updateQuestionAction = updateQuestionAction;
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.GET)
@@ -121,6 +128,22 @@ public class ActiveLectureControllerLecturer {
 		QuestionDtoList questionDtoList = this.getAllQuestionsAction.getAll(lectureTitle);
 		modelAndView.addObject("questionDtoList", questionDtoList);
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/active/{lectureTitle}/{questionId}", method = RequestMethod.GET)
+	public ModelAndView getActiveLectureQuestionThreadPage(@PathVariable("lectureTitle") String lectureTitle, @PathVariable String questionId) {
+		ModelAndView modelAndView = new ModelAndView("lecturer/activeLectureQuestionThread");
+		modelAndView.addObject("lectureDto", this.getLectureAction.get(lectureTitle)); 
+		modelAndView.addObject("questionDto", this.getQuestionAction.get(questionId)); 
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/active/{lectureTitle}/{questionId}", method = RequestMethod.POST)
+	public ModelAndView answerQuestion(@PathVariable("lectureTitle") String lectureTitle, @PathVariable String questionId, @RequestParam String answer) {
+		QuestionDto questionDto = this.getQuestionAction.get(questionId); 
+		questionDto.setAnswer(answer);
+		this.updateQuestionAction.update(questionDto);
+		return getActiveLectureQuestionThreadPage(lectureTitle, questionId);
 	}
 	
 	protected static Map<String, Integer> getMoodSummaryMap(MoodDtoList moodDtoList) {

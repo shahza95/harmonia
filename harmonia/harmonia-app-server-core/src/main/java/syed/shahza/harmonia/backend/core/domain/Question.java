@@ -1,6 +1,8 @@
 package syed.shahza.harmonia.backend.core.domain;
 
+
 public class Question {
+	private String id;
 	private String question;
     private String answer;
     private Lecture lecture;
@@ -11,9 +13,14 @@ public class Question {
 
     private Question(Builder builder) {
         this();
+        this.id = builder.id;  
         this.question = builder.question;  
         this.answer = builder.answer;  
         this.lecture = builder.lecture;  
+    }
+    
+    public String getId() {
+    	return this.id;
     }
     
     public String getQuestion() {
@@ -33,9 +40,15 @@ public class Question {
     }
 
     public static class Builder {
+    	private String id;
     	private String question;
         private String answer;
         private Lecture lecture;
+        
+        public Builder id(String id) {
+        	this.id = id;
+        	return this;
+        }      
         
         public Builder question(String question) {
         	this.question = question;

@@ -13,10 +13,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Moods;
+import syed.shahza.harmonia.backend.core.domain.Question;
 import syed.shahza.harmonia.backend.core.domain.Questions;
 import syed.shahza.harmonia.backend.core.domain.TestComments;
 import syed.shahza.harmonia.backend.core.domain.TestLecture;
 import syed.shahza.harmonia.backend.core.domain.TestMoods;
+import syed.shahza.harmonia.backend.core.domain.TestQuestion;
 import syed.shahza.harmonia.backend.core.domain.TestQuestions;
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.dto.LectureDto;
@@ -117,5 +119,23 @@ public class LectureControllerTest {
     	this.lectureController.getAllQuestions(lectureDto.getTitle());
     	
     	verify(this.mockQuestionAdapter).toDto(questions);
+    }
+    
+    
+    @Test
+    public void getQuestionInvokesServiceWithQuestionIdString() {
+    	String id = "id";
+    	this.lectureController.getQuestion(id);
+    	
+    	verify(this.mockLectureService).getQuestion(id);
+    }
+    
+    @Test
+    public void getQuestionInvokesAdapterToDtoForReturn() {
+    	Question question = TestQuestion.aValidQuestion().build();
+    	when(mockLectureService.getQuestion(question.getId())).thenReturn(question);
+    	this.lectureController.getQuestion(question.getId());
+    	
+    	verify(this.mockQuestionAdapter).toDto(question);
     }
 }

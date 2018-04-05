@@ -15,11 +15,16 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.core.domain.Feedbacks;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
+import syed.shahza.harmonia.backend.core.domain.Question;
 import syed.shahza.harmonia.backend.core.domain.TestFeedbacks;
+import syed.shahza.harmonia.backend.core.domain.TestQuestion;
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.backend.dto.QuestionDto;
+import syed.shahza.harmonia.backend.dto.TestQuestionDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.FeedbackAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
+import syed.shahza.harmonia.backend.endpoint.adapter.QuestionAdapter;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LectureControllerLecturerTest {
@@ -35,10 +40,13 @@ public class LectureControllerLecturerTest {
     
     @Mock
     private FeedbackAdapter mockFeedbackAdapter;
+    
+    @Mock
+    private QuestionAdapter mockQuestionAdapter;
 
     @Before
     public void before() {
-        this.lectureController = new LectureControllerLecturer(this.mockLectureService, this.mockLectureAdapter, this.mockFeedbackAdapter);
+        this.lectureController = new LectureControllerLecturer(this.mockLectureService, this.mockLectureAdapter, this.mockFeedbackAdapter, this.mockQuestionAdapter);
         lectureDto = aValidLectureDto().build();
         lecture = aValidLecture().build();
     }
@@ -103,5 +111,38 @@ public class LectureControllerLecturerTest {
 
     	this.lectureController.getAllFeedback(lectureDto.getTitle());
     	verify(this.mockFeedbackAdapter).toDto(feedbacks);
+    }
+    
+    @Test
+    public void updateLectureInvokesAdapterToDomain() {
+    	this.lectureController.updateLecture(this.lectureDto);
+    	
+    	verify(this.mockLectureAdapter).toDomain(this.lectureDto);
+    }
+    
+    @Test
+    public void updateLectureInvokesLectureServiceUpdate() {
+    	when(mockLectureAdapter.toDomain(lectureDto)).thenReturn(this.lecture);
+    	this.lectureController.updateLecture(this.lectureDto);
+    	
+    	verify(this.mockLectureService).update(this.lecture);
+    }
+    
+    @Test
+    public void updateQuestionInvokesAdapterToDomain() {
+    	QuestionDto questionDto = TestQuestionDto.aValidQuestionDto().build();
+    	this.lectureController.updateQuestion(questionDto);
+    	
+    	verify(this.mockQuestionAdapter).toDomain(questionDto);
+    }
+    
+    @Test
+    public void updateQuestionInvokesLectureServiceUpdateQuestion() {
+    	QuestionDto questionDto = TestQuestionDto.aValidQuestionDto().build();
+    	Question question = TestQuestion.aValidQuestion().build();
+    	when(mockQuestionAdapter.toDomain(questionDto)).thenReturn(question);
+    	this.lectureController.updateQuestion(questionDto);
+    	
+    	verify(this.mockLectureService).updateQuestion(question);
     }
 }

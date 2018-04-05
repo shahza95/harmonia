@@ -14,12 +14,14 @@ import syed.shahza.harmonia.restapi.action.GetAllFeedbackAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
+import syed.shahza.harmonia.restapi.action.GetQuestionAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
 import syed.shahza.harmonia.restapi.action.LoginAction;
 import syed.shahza.harmonia.restapi.action.RemoveMoodAction;
 import syed.shahza.harmonia.restapi.action.SendMoodAction;
 import syed.shahza.harmonia.restapi.action.ToggleFeaturesAction;
+import syed.shahza.harmonia.restapi.action.UpdateQuestionAction;
 import syed.shahza.harmonia.restapi.client.RestClient;
 
 @Configuration
@@ -107,5 +109,15 @@ public class RestApiConfiguration {
 	@Bean
 	public GetAllQuestionsAction getAllQuestionsAction() {
 		return new GetAllQuestionsAction(restClient());
+	}
+	
+	@Bean
+	public GetQuestionAction getQuestionAction() {
+		return new GetQuestionAction(restClient());
+	}
+	
+	@Bean
+	public UpdateQuestionAction updateQuestionAction() {
+		return new UpdateQuestionAction(restClient());
 	}
 }

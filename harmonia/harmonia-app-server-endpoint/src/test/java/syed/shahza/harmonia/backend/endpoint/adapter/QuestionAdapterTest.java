@@ -7,6 +7,8 @@ import static syed.shahza.harmonia.backend.core.domain.TestQuestion.aValidQuesti
 import static syed.shahza.harmonia.backend.dto.TestQuestionDtoList.aFilledQuestionDtoList;
 import static syed.shahza.harmonia.backend.dto.TestQuestionDto.aValidQuestionDto;
 
+import java.util.UUID;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -77,5 +79,18 @@ public class QuestionAdapterTest {
     	QuestionDtoList questionDtoList = aFilledQuestionDtoList(3);
     	Questions questions = this.questionAdapter.toDomain(questionDtoList);
     	assertThat(questions.getQuestionList().size(), is(questionDtoList.getQuestionDtoList().size()));
+    }
+    
+    @Test
+    public void canAdaptIdAnswerToDto() {
+    	String id = UUID.randomUUID().toString();
+    	assertThat(this.questionAdapter.toDto(aValidQuestion().id(id).build()).getId(), is(id));
+    }
+    
+    
+    @Test
+    public void canAdaptQuestionIdToDomain() {
+    	String id = UUID.randomUUID().toString();
+    	assertThat(this.questionAdapter.toDomain(aValidQuestionDto().id(id).build()).getId(), is(id));
     }
 }

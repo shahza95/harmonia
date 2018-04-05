@@ -21,14 +21,17 @@ import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.FeedbackDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
+import syed.shahza.harmonia.backend.dto.QuestionDtoList;
 import syed.shahza.harmonia.backend.dto.TestCommentDtoList;
 import syed.shahza.harmonia.backend.dto.TestFeedbackDtoList;
 import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.backend.dto.TestMoodDtoList;
+import syed.shahza.harmonia.backend.dto.TestQuestionDtoList;
 import syed.shahza.harmonia.restapi.action.EndLectureAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllFeedbackAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
+import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.ToggleFeaturesAction;
 
@@ -58,10 +61,13 @@ public class ActiveLectureControllerLecturerTest {
     @Mock
     private GetAllFeedbackAction mockGetAllFeedbackAction;
     
+    @Mock
+    private GetAllQuestionsAction mockGetAllQuestionsAction;
+    
     @Before
     public void before() {
     	this.lectureDto = aValidLectureDto().build();
-        this.lectureController = new ActiveLectureControllerLecturer(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction, this.mockToggleFeaturesAction, this.mockEndLectureAction, this.mockGetAllFeedbackAction);
+        this.lectureController = new ActiveLectureControllerLecturer(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction, this.mockToggleFeaturesAction, this.mockEndLectureAction, this.mockGetAllFeedbackAction, this.mockGetAllQuestionsAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
     	this.numberOfSameMood = 3;
     	this.moodDtoList = TestMoodDtoList.aFilledMoodDtoList(numberOfSameMood);
@@ -225,5 +231,31 @@ public class ActiveLectureControllerLecturerTest {
     public void toggleFeedbackInvokesEnableFeedbackIfToggleIsEnable() {
     	this.lectureController.toggleFeedback(lectureDto.getTitle(), "Enable");
     	verify(this.mockToggleFeaturesAction).enableFeedback(lectureDto);
+    }
+    
+    @Test
+    public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureQuestions() {
+    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
+    	assertThat(this.lectureController.getActiveLectureQuestionsPage(lectureDto.getTitle()).getViewName(), is("lecturer/activeLectureQuestions"));
+    }
+    
+    @Test
+    public void getActiveLectureQuestionsSendsLectureDtoAsModel() {
+    	assertThat(this.lectureController.getActiveLectureQuestionsPage(lectureDto.getTitle()).getModel().get("lectureDto"), is(lectureDto));
+    }
+    
+    @Test
+    public void getActiveLectureQuestionsInvokesGetAllQuestionsAction() {
+    	this.lectureController.getActiveLectureQuestionsPage(lectureDto.getTitle());
+    	
+    	Mockito.verify(this.mockGetAllQuestionsAction).getAll(lectureDto.getTitle());
+    }
+    
+    @Test
+    public void getActiveLectureQuestionsSendsQuestionDtoListAsModel() {
+    	QuestionDtoList questionDtoList = TestQuestionDtoList.aFilledQuestionDtoList(3);
+    	when(this.mockGetAllQuestionsAction.getAll(lectureDto.getTitle())).thenReturn(questionDtoList);
+    	
+    	assertThat(this.lectureController.getActiveLectureQuestionsPage(lectureDto.getTitle()).getModel().get("questionDtoList"), is(questionDtoList));
     }
 }

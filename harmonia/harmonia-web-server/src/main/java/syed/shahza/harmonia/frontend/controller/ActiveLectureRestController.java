@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.backend.dto.QuestionDtoList;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
+import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 
 @RestController
@@ -21,11 +23,13 @@ public class ActiveLectureRestController {
 	private final GetLectureAction getLectureAction;
 	private final GetAllCommentsAction getAllCommentsAction;
 	private final GetAllMoodsAction getAllMoodsAction;
+	private final GetAllQuestionsAction getAllQuestionsAction;
 
-	public ActiveLectureRestController(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction, GetAllMoodsAction getAllMoodsAction) {
+	public ActiveLectureRestController(GetLectureAction getLectureAction, GetAllCommentsAction getAllCommentsAction, GetAllMoodsAction getAllMoodsAction, GetAllQuestionsAction getAllQuestionsAction) {
 		this.getLectureAction = getLectureAction;
 		this.getAllCommentsAction = getAllCommentsAction;
 		this.getAllMoodsAction = getAllMoodsAction;
+		this.getAllQuestionsAction = getAllQuestionsAction;
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/json", method = RequestMethod.GET)
@@ -41,5 +45,10 @@ public class ActiveLectureRestController {
     @RequestMapping(value = "/active/{lectureTitle}/mood/json", method = RequestMethod.GET)
     public Map<String, Integer> getMoodSummary(@PathVariable String lectureTitle) {
     	return getMoodSummaryMap(this.getAllMoodsAction.getAll(lectureTitle));
+    }
+    
+    @RequestMapping(value = "/active/{lectureTitle}/questions/json", method = RequestMethod.GET)
+    public QuestionDtoList getAllQuestions(@PathVariable String lectureTitle) {
+    	return this.getAllQuestionsAction.getAll(lectureTitle);
     }
 }

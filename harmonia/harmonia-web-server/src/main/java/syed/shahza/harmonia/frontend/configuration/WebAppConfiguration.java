@@ -21,6 +21,7 @@ import syed.shahza.harmonia.restapi.action.EndLectureAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllFeedbackAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
+import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
@@ -77,6 +78,9 @@ public class WebAppConfiguration {
     
     @Resource(name = "addQuestionAction")
     private AddQuestionAction addQuestionAction;
+    
+    @Resource(name = "getAllQuestionsAction")
+    private GetAllQuestionsAction getAllQuestionsAction;
 
     @Bean
     public LoginController loginController() {
@@ -95,16 +99,16 @@ public class WebAppConfiguration {
     
     @Bean
     public ActiveLectureControllerLecturer activeLectureControllerLecturer() {
-    	return new ActiveLectureControllerLecturer(getLectureAction, getAllCommentsAction, getAllMoodsAction, toggleFeaturesAction, endLectureAction, getAllFeedbackAction);
+    	return new ActiveLectureControllerLecturer(getLectureAction, getAllCommentsAction, getAllMoodsAction, toggleFeaturesAction, endLectureAction, getAllFeedbackAction, getAllQuestionsAction);
     }
     
     @Bean
     public ActiveLectureControllerStudent activeLectureControllerStudent() {
-    	return new ActiveLectureControllerStudent(getLectureAction, getAllCommentsAction, addCommentAction, sendMoodAction, removeMoodAction, addFeedbackAction, addQuestionAction);
+    	return new ActiveLectureControllerStudent(getLectureAction, getAllCommentsAction, addCommentAction, sendMoodAction, removeMoodAction, addFeedbackAction, addQuestionAction, getAllQuestionsAction);
     }
 
     @Bean
     public ActiveLectureRestController activeLectureRestController() {
-    	return new ActiveLectureRestController(getLectureAction, getAllCommentsAction, getAllMoodsAction);
+    	return new ActiveLectureRestController(getLectureAction, getAllCommentsAction, getAllMoodsAction, getAllQuestionsAction);
     }
 }

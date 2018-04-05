@@ -5,8 +5,8 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
-	<div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
-	<div class="container">
+<div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
+<div class="container">
     <br />
 	<form class="col-sm-offset-2 form-horizontal" method="post">
 		<div class="form-group">
@@ -15,17 +15,7 @@
 			</div>
 		</div>
 	</form>
-    <h1 th:text="${lectureDto.title}">title</h1> 
-    <form class="col-sm-offset-4" method="post">
-		<div class="form-group">
-			<div class="col-sm-6">
-				<textarea class="form-control" rows="3" id="question" placeholder="Enter your question" name="question" />
-			</div>
-			<div class="col-sm-3">
-	    		<input type="submit" class="btn btn-default" value="Ask" name="Ask" />
-	    	</div>
-		</div>
-	</form>                                     
+    <h1 th:text="${lectureDto.title}">title</h1>                                      
     <div class="col-sm-offset-1 col-sm-12 table-responsive" id="questions">
        <table class="table" id="questionsTable">
 			<tr>

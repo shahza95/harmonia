@@ -18,20 +18,20 @@ import com.connect_group.thymesheet.css.selectors.NodeSelectorException;
 import com.connect_group.thymesheet.query.HtmlElements;
 
 
-public class ActiveLectureQuestionsPageStudentTest extends ThymeleafTemplateTest {
+public class ActiveLectureQuestionsPageLecturerTest extends ThymeleafTemplateTest {
     private HtmlElements tags;
     private LectureDto lectureDto;
     private QuestionDtoList questionDtoList;
     
-    public ActiveLectureQuestionsPageStudentTest() {
-        super("/student/activeLectureQuestions");
+    public ActiveLectureQuestionsPageLecturerTest() {
+        super("/lecturer/activeLectureQuestions");
     }
     
     @Before
     public void setUp() {
         Map<String, Object> model = new HashMap<>();
-        this.lectureDto = TestLectureDto.anActiveLectureDto().build();
         this.questionDtoList = TestQuestionDtoList.aFilledQuestionDtoList(2);
+        this.lectureDto = TestLectureDto.anActiveLectureDto().build();
         model.put("lectureDto", this.lectureDto);
         model.put("questionDtoList", this.questionDtoList);
         this.tags = process(model);
@@ -40,16 +40,6 @@ public class ActiveLectureQuestionsPageStudentTest extends ThymeleafTemplateTest
     @Test
     public void dashboardShouldBeInjected() throws NodeSelectorException {
     	assertThat(this.tags.matching("h1").get(0).text(), is("Harmonia"));
-    }
-    
-    @Test
-    public void only1ButtonShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("input").size(), is(1));
-    }
-    
-    @Test
-    public void only1TextareaShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("textarea").size(), is(1));
     }
     
     @Test
@@ -65,5 +55,11 @@ public class ActiveLectureQuestionsPageStudentTest extends ThymeleafTemplateTest
     @Test
     public void tableShouldHaveCorrectNumberOfCells() throws NodeSelectorException {
     	assertThat(this.tags.matching("td").size(), is(questionDtoList.getQuestionDtoList().size()));
+    }
+    
+    @Test
+    public void shouldHaveAsManyLinksAsThereAreQuestions() throws NodeSelectorException {
+    	// Have to add on dashboard's shared links
+    	assertThat(this.tags.matching("a").size(), is(questionDtoList.getQuestionDtoList().size() + 3));
     }
 }

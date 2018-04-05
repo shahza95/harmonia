@@ -23,16 +23,19 @@ import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.backend.dto.QuestionDto;
+import syed.shahza.harmonia.backend.dto.QuestionDtoList;
 import syed.shahza.harmonia.backend.dto.TestCommentDto;
 import syed.shahza.harmonia.backend.dto.TestCommentDtoList;
 import syed.shahza.harmonia.backend.dto.TestFeedbackDto;
 import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.backend.dto.TestMoodDto;
 import syed.shahza.harmonia.backend.dto.TestQuestionDto;
+import syed.shahza.harmonia.backend.dto.TestQuestionDtoList;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
 import syed.shahza.harmonia.restapi.action.AddFeedbackAction;
 import syed.shahza.harmonia.restapi.action.AddQuestionAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
+import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.RemoveMoodAction;
 import syed.shahza.harmonia.restapi.action.SendMoodAction;
@@ -69,6 +72,10 @@ public class ActiveLectureControllerStudentTest {
     @Mock
     private AddQuestionAction mockAddQuestionAction;
     
+    
+    @Mock
+    private GetAllQuestionsAction mockGetAllQuestionsAction;
+    
     @Mock
     private RedirectAttributes mockRedirectAttributes;
     
@@ -84,7 +91,7 @@ public class ActiveLectureControllerStudentTest {
     	this.questionDto = TestQuestionDto.aValidQuestionDto().build();
     	this.moodString = moodDto.getEmotionDto().toString() + " " + moodDto.getEmoji();
     	this.title = "title";
-        this.lectureController = new ActiveLectureControllerStudent(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockAddCommentAction, this.mockSendMoodAction, this.mockRemoveMoodAction, this.mockAddFeedbackAction, this.mockAddQuestionAction);
+        this.lectureController = new ActiveLectureControllerStudent(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockAddCommentAction, this.mockSendMoodAction, this.mockRemoveMoodAction, this.mockAddFeedbackAction, this.mockAddQuestionAction, this.mockGetAllQuestionsAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
     }
     
@@ -253,4 +260,33 @@ public class ActiveLectureControllerStudentTest {
     	
     	assertThat(this.lectureController.addQuestion(title, this.questionDto).getViewName(), is("redirect:/student/lecture/active/" + title + "/questions"));
     }
+    
+    @Test
+    public void getActiveLectureQuestionInvokesGetLectureAction() {
+    	this.lectureController.getActiveLectureQuestionsPage(lectureDto.getTitle());
+    	
+    	Mockito.verify(this.mockGetLectureAction).get(lectureDto.getTitle());
+    }
+        
+    @Test
+    public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureQuestions() {
+    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
+    	assertThat(this.lectureController.getActiveLectureQuestionsPage(lectureDto.getTitle()).getViewName(), is("student/activeLectureQuestions"));
+    }
+    
+    @Test
+    public void getActiveLectureQuestionsSendsLectureDtoAsModel() {
+    	QuestionDtoList questionDtoList = TestQuestionDtoList.aFilledQuestionDtoList(3);
+    	when(this.mockGetAllQuestionsAction.getAll(lectureDto.getTitle())).thenReturn(questionDtoList);
+    
+    	assertThat(this.lectureController.getActiveLectureQuestionsPage(lectureDto.getTitle()).getModel().get("lectureDto"), is(lectureDto));
+    }
+    
+    @Test
+    public void getActiveLectureQuestionsSendsQuestionDtoListAsModel() {
+    	QuestionDtoList questionDtoList = TestQuestionDtoList.aFilledQuestionDtoList(3);
+    	when(this.mockGetAllQuestionsAction.getAll(lectureDto.getTitle())).thenReturn(questionDtoList);
+    	
+    	assertThat(this.lectureController.getActiveLectureQuestionsPage(lectureDto.getTitle()).getModel().get("questionDtoList"), is(questionDtoList));
+    } 
 }

@@ -70,13 +70,13 @@ public class ActiveLectureMoodPageLecturerTest extends ThymeleafTemplateTest {
     }
     
     @Test
-    public void buttonShouldDisplayDisableIfCommentsEnabledIsTrue() throws NodeSelectorException {
+    public void buttonShouldDisplayDisableIfMoodEnabledIsTrue() throws NodeSelectorException {
     	assertThat(this.lectureDto.getMoodEnabled(), is(true));
     	assertThat(this.tags.matching("input").get(0).attr("value"), is("Disable"));
     }
     
     @Test
-    public void buttonShouldDisplayEnableIfCommentsEnabledIsFalse() throws NodeSelectorException {
+    public void buttonShouldDisplayEnableIfMoodEnabledIsFalse() throws NodeSelectorException {
     	this.lectureDto.setMoodEnabled(false);
     	this.model.put("lectureDto", this.lectureDto);
     	this.tags = process(this.model);

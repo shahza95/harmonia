@@ -13,15 +13,18 @@ import org.mockito.runners.MockitoJUnitRunner;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Moods;
+import syed.shahza.harmonia.backend.core.domain.Questions;
 import syed.shahza.harmonia.backend.core.domain.TestComments;
 import syed.shahza.harmonia.backend.core.domain.TestLecture;
 import syed.shahza.harmonia.backend.core.domain.TestMoods;
+import syed.shahza.harmonia.backend.core.domain.TestQuestions;
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
+import syed.shahza.harmonia.backend.endpoint.adapter.QuestionAdapter;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LectureControllerTest {
@@ -35,6 +38,9 @@ public class LectureControllerTest {
     private CommentAdapter mockCommentAdapter;
     
     @Mock
+    private QuestionAdapter mockQuestionAdapter;
+    
+    @Mock
     private LectureAdapter mockLectureAdapter;
 
     @Mock
@@ -43,7 +49,7 @@ public class LectureControllerTest {
     @Before
     public void before() {
     	this.lectureTitle = "title";
-        this.lectureController = new LectureController(this.mockLectureService, this.mockLectureAdapter, this.mockCommentAdapter, this.mockMoodAdapter);
+        this.lectureController = new LectureController(this.mockLectureService, this.mockLectureAdapter, this.mockCommentAdapter, this.mockMoodAdapter, this.mockQuestionAdapter);
     }
     
     @Test
@@ -94,5 +100,22 @@ public class LectureControllerTest {
     	this.lectureController.getAllMoods(lectureDto.getTitle());
     	
     	verify(this.mockMoodAdapter).toDto(moods);
+    }
+
+    @Test
+    public void getAllQuestionsInvokesServiceWithLectureTitleString() {
+    	this.lectureController.getAllQuestions(this.lectureTitle);
+    	
+    	verify(this.mockLectureService).getAllQuestions(this.lectureTitle);
+    }
+    
+    @Test
+    public void getAllQuestionsInvokesAdapterToDtoForReturn() {
+    	LectureDto lectureDto = TestLectureDto.anActiveLectureDto().build();
+    	Questions questions = TestQuestions.aFilledQuestionsList(3);
+    	when(mockLectureService.getAllQuestions(lectureDto.getTitle())).thenReturn(questions);
+    	this.lectureController.getAllQuestions(lectureDto.getTitle());
+    	
+    	verify(this.mockQuestionAdapter).toDto(questions);
     }
 }

@@ -21,6 +21,7 @@ import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.Question;
+import syed.shahza.harmonia.backend.core.domain.Questions;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
 import syed.shahza.harmonia.backend.core.domain.TestComments;
 import syed.shahza.harmonia.backend.core.domain.TestFeedback;
@@ -28,6 +29,7 @@ import syed.shahza.harmonia.backend.core.domain.TestFeedbacks;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
 import syed.shahza.harmonia.backend.core.domain.TestMoods;
 import syed.shahza.harmonia.backend.core.domain.TestQuestion;
+import syed.shahza.harmonia.backend.core.domain.TestQuestions;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -209,4 +211,18 @@ public class LectureServiceTest {
     	
     	assertThat(this.lectureService.addQuestion(this.question), instanceOf(Question.class));
     }
+
+    @Test
+    public void getAllQuestionsInvokesLectureRepository() {
+    	this.lectureService.getAllQuestions("someTitle");
+    	
+    	verify(this.mockLectureRepository).getAllQuestions("someTitle");
+    }
+    
+    @Test
+    public void getAllQuestionsReturnsQuestionsObject() {
+    	when(this.mockLectureRepository.getAllQuestions("title")).thenReturn(TestQuestions.aFilledQuestionsList(1));
+    	
+    	assertThat(this.lectureService.getAllQuestions("title"), instanceOf(Questions.class));
+    }   
 }

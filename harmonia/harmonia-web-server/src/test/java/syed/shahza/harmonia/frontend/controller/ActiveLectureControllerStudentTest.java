@@ -22,13 +22,16 @@ import syed.shahza.harmonia.backend.dto.CommentDtoList;
 import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
+import syed.shahza.harmonia.backend.dto.QuestionDto;
 import syed.shahza.harmonia.backend.dto.TestCommentDto;
 import syed.shahza.harmonia.backend.dto.TestCommentDtoList;
 import syed.shahza.harmonia.backend.dto.TestFeedbackDto;
 import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.backend.dto.TestMoodDto;
+import syed.shahza.harmonia.backend.dto.TestQuestionDto;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
 import syed.shahza.harmonia.restapi.action.AddFeedbackAction;
+import syed.shahza.harmonia.restapi.action.AddQuestionAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.RemoveMoodAction;
@@ -41,6 +44,7 @@ public class ActiveLectureControllerStudentTest {
     private CommentDto commentDto;
     private MoodDto moodDto;
     private FeedbackDto feedbackDto;
+    private QuestionDto questionDto;
     private String moodString;
     private String title;
     
@@ -63,6 +67,9 @@ public class ActiveLectureControllerStudentTest {
     private AddFeedbackAction mockAddFeedbackAction;
     
     @Mock
+    private AddQuestionAction mockAddQuestionAction;
+    
+    @Mock
     private RedirectAttributes mockRedirectAttributes;
     
     @Captor
@@ -74,9 +81,10 @@ public class ActiveLectureControllerStudentTest {
     	this.commentDto = TestCommentDto.aValidCommentDto().build();
     	this.moodDto = TestMoodDto.aValidMoodDto().build();
     	this.feedbackDto = TestFeedbackDto.aValidFeedbackDto().build();
+    	this.questionDto = TestQuestionDto.aValidQuestionDto().build();
     	this.moodString = moodDto.getEmotionDto().toString() + " " + moodDto.getEmoji();
     	this.title = "title";
-        this.lectureController = new ActiveLectureControllerStudent(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockAddCommentAction, this.mockSendMoodAction, this.mockRemoveMoodAction, this.mockAddFeedbackAction);
+        this.lectureController = new ActiveLectureControllerStudent(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockAddCommentAction, this.mockSendMoodAction, this.mockRemoveMoodAction, this.mockAddFeedbackAction, this.mockAddQuestionAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
     }
     
@@ -222,5 +230,27 @@ public class ActiveLectureControllerStudentTest {
     	when(this.mockAddFeedbackAction.addFeedback(this.feedbackDto)).thenReturn(this.feedbackDto);
     	
     	assertThat(this.lectureController.addFeedback(title, this.feedbackDto).getViewName(), is("redirect:/student/lecture/join"));
+    }
+    
+    @Test
+    public void addQuestionInvokesGetLectureAction() {
+    	this.lectureController.addQuestion(title, questionDto);
+    	
+    	verify(this.mockGetLectureAction).get(title);
+    }
+    
+    @Test
+    public void addQuestionInvokesAddQuestionAction() {
+    	this.lectureController.addQuestion(title, this.questionDto);
+    	
+    	verify(this.mockAddQuestionAction).addQuestion(this.questionDto);
+    }
+    
+    @Test
+    public void addQuestionRedirectsToActiveLectureQuestionsPageSoItself() {
+    	when(this.mockGetLectureAction.get(title)).thenReturn(this.lectureDto);
+    	when(this.mockAddQuestionAction.addQuestion(this.questionDto)).thenReturn(this.questionDto);
+    	
+    	assertThat(this.lectureController.addQuestion(title, this.questionDto).getViewName(), is("redirect:/student/lecture/active/" + title + "/questions"));
     }
 }

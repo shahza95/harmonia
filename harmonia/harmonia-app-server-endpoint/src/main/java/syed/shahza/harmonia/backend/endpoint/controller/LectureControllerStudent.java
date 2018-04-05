@@ -11,10 +11,12 @@ import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
+import syed.shahza.harmonia.backend.dto.QuestionDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.FeedbackAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
+import syed.shahza.harmonia.backend.endpoint.adapter.QuestionAdapter;
 
 @RestController
 @RequestMapping("/student/lecture")
@@ -24,13 +26,15 @@ public class LectureControllerStudent {
     private final CommentAdapter commentAdapter;
     private final MoodAdapter moodAdapter;
     private final FeedbackAdapter feedbackAdapter;
+    private final QuestionAdapter questionAdapter;
 
-    public LectureControllerStudent(LectureService lectureService, LectureAdapter lectureAdapter, CommentAdapter commentAdapter, MoodAdapter moodAdapter, FeedbackAdapter feedbackAdapter) {
+    public LectureControllerStudent(LectureService lectureService, LectureAdapter lectureAdapter, CommentAdapter commentAdapter, MoodAdapter moodAdapter, FeedbackAdapter feedbackAdapter, QuestionAdapter questionAdapter) {
         this.lectureService = lectureService;
         this.lectureAdapter = lectureAdapter;
         this.commentAdapter = commentAdapter;
         this.moodAdapter = moodAdapter;
         this.feedbackAdapter = feedbackAdapter;
+        this.questionAdapter = questionAdapter;
     }
     
     @RequestMapping(value = "/join", method = RequestMethod.POST)
@@ -56,5 +60,10 @@ public class LectureControllerStudent {
     @RequestMapping(value = "/active/feedback/add", method = RequestMethod.POST)
     public FeedbackDto addFeedback(@RequestBody FeedbackDto feedbackDto) {
     	return this.feedbackAdapter.toDto(this.lectureService.addFeedback(this.feedbackAdapter.toDomain(feedbackDto)));
+    }
+    
+    @RequestMapping(value = "/active/question/add", method = RequestMethod.POST)
+    public QuestionDto addQuestion(@RequestBody QuestionDto questionDto) {
+    	return this.questionAdapter.toDto(this.lectureService.addQuestion(this.questionAdapter.toDomain(questionDto)));
     }
 }

@@ -9,9 +9,11 @@ import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
+import syed.shahza.harmonia.backend.dto.QuestionDtoList;
 import syed.shahza.harmonia.backend.endpoint.adapter.CommentAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
+import syed.shahza.harmonia.backend.endpoint.adapter.QuestionAdapter;
 
 @RestController
 @RequestMapping("/lecture")
@@ -20,12 +22,14 @@ public class LectureController {
     private final LectureAdapter lectureAdapter; 
     private final CommentAdapter commentAdapter; 
     private final MoodAdapter moodAdapter; 
+    private final QuestionAdapter questionAdapter; 
 
-    public LectureController(LectureService lectureService, LectureAdapter lectureAdapter, CommentAdapter commentAdapter, MoodAdapter moodAdapter) {
+    public LectureController(LectureService lectureService, LectureAdapter lectureAdapter, CommentAdapter commentAdapter, MoodAdapter moodAdapter, QuestionAdapter questionAdapter) {
         this.lectureService = lectureService;
         this.lectureAdapter = lectureAdapter;
         this.commentAdapter = commentAdapter;
         this.moodAdapter = moodAdapter;
+        this.questionAdapter = questionAdapter;
     }
     
     @RequestMapping(value = "/{lectureTitle}", method = RequestMethod.GET)
@@ -41,5 +45,10 @@ public class LectureController {
     @RequestMapping(value = "/active/{lectureTitle}/moods", method = RequestMethod.GET)
     public MoodDtoList getAllMoods(@PathVariable String lectureTitle) {
     	return this.moodAdapter.toDto(this.lectureService.getAllMoods(lectureTitle));
+    }
+    
+    @RequestMapping(value = "/active/{lectureTitle}/questions", method = RequestMethod.GET)
+    public QuestionDtoList getAllQuestions(@PathVariable String lectureTitle) {
+    	return this.questionAdapter.toDto(this.lectureService.getAllQuestions(lectureTitle));
     }
 }

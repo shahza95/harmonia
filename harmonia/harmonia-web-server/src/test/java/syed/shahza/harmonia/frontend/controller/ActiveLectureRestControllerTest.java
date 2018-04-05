@@ -16,11 +16,14 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
 import syed.shahza.harmonia.backend.dto.LectureDto;
+import syed.shahza.harmonia.backend.dto.QuestionDtoList;
 import syed.shahza.harmonia.backend.dto.TestCommentDtoList;
 import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.backend.dto.TestMoodDtoList;
+import syed.shahza.harmonia.backend.dto.TestQuestionDtoList;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
+import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -36,12 +39,15 @@ public class ActiveLectureRestControllerTest {
     
     @Mock
     private GetAllMoodsAction mockGetAllMoodsAction;
+    
+    @Mock
+    private GetAllQuestionsAction mockGetAllQuestionsAction;
 
     
     @Before
     public void before() {
     	this.lectureTitle = "someTitle";
-        this.lectureController = new ActiveLectureRestController(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction);
+        this.lectureController = new ActiveLectureRestController(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockGetAllMoodsAction, this.mockGetAllQuestionsAction);
     }
     
     @Test
@@ -93,4 +99,20 @@ public class ActiveLectureRestControllerTest {
     
     	assertThat(this.lectureController.getLecture(this.lectureTitle), is(lectureDto));
     }
+    
+    @Test
+    public void getAllQuestionsInvokesGetAllQuestionsAction() {
+    	this.lectureController.getAllQuestions(this.lectureTitle);
+    	
+    	Mockito.verify(this.mockGetAllQuestionsAction).getAll(this.lectureTitle);
+    }
+    
+    @Test
+    public void getAllQuestionsReturnsAQuestionDtoList() {
+    	QuestionDtoList questionDtoList = TestQuestionDtoList.aFilledQuestionDtoList(3);
+    	when(this.mockGetAllQuestionsAction.getAll(lectureTitle)).thenReturn(questionDtoList);
+    
+    	assertThat(this.lectureController.getAllQuestions(this.lectureTitle), is(questionDtoList));
+    }
+    
 }

@@ -69,6 +69,6 @@ public class EndpointConfiguration {
     
     @Bean
     public LectureController lectureController() {
-    	return new LectureController(this.lectureService, this.lectureAdapter(), this.commentAdapter(), this.moodAdapter());
+    	return new LectureController(this.lectureService, this.lectureAdapter(), this.commentAdapter(), this.moodAdapter(), this.questionAdapter());
     }
 }

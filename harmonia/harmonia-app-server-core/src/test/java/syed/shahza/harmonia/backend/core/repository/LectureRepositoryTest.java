@@ -20,6 +20,7 @@ import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.Question;
+import syed.shahza.harmonia.backend.core.domain.Questions;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
 import syed.shahza.harmonia.backend.core.domain.TestFeedback;
 import syed.shahza.harmonia.backend.core.domain.TestLecture;
@@ -165,4 +166,21 @@ public class LectureRepositoryTest {
     public void addQuestionShouldReturnTheQuestion() {
     	assertThat(this.lectureRepository.addQuestion(this.question), is(this.question));
     }
+    
+    @Test
+    public void getAllQuestionsShouldReturnAllQuestionsForParticularLecture() {
+    	String lectureTitle = "otherTitle";
+    	this.lectureRepository.addQuestion(TestQuestion.aValidQuestion().build());
+    	this.lectureRepository.addQuestion(TestQuestion.aValidQuestion().lecture(aValidLecture().title(lectureTitle).build()).build());
+    	
+    	assertThat(this.lectureRepository.getAllQuestions(lectureTitle).getQuestionList().size(), is(1));
+    }
+    
+    @Test
+    public void getAllQuestionsShouldReturnQuestionsObject() {
+    	Question question = TestQuestion.aValidQuestion().build();
+    	this.lectureRepository.addQuestion(question);
+    	
+    	assertThat(this.lectureRepository.getAllQuestions(lecture.getTitle()), instanceOf(Questions.class));
+    }  
 }

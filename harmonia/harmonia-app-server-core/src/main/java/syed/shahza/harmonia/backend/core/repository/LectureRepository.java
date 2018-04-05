@@ -14,6 +14,7 @@ import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.Question;
+import syed.shahza.harmonia.backend.core.domain.Questions;
 
 public class LectureRepository {
 	private List<Lecture> lectures = new ArrayList<>();
@@ -100,4 +101,9 @@ public class LectureRepository {
 		questions.add(question);
 		return question;
 	}
+	
+	public Questions getAllQuestions(String lectureTitle) {
+		return new Questions(questions.stream().filter(question -> question.getLecture().getTitle().equals(lectureTitle)).collect(Collectors.toList()));
+	}
+	
 }

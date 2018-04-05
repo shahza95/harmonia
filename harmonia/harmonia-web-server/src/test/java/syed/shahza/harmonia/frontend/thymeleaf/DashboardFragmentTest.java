@@ -37,6 +37,11 @@ public class DashboardFragmentTest extends ThymeleafTemplateTest {
 	}
 	
 	@Test
+	public void questionsButtonShouldRedirectToActiveLectureQuestionsPage() throws NodeSelectorException {
+		assertThat(this.tags.matching("a").get(1).attr("href"), is("questions"));
+	}
+	
+	@Test
 	public void projectNameShouldAppear() throws NodeSelectorException {
 		assertThat(this.tags.matching("h1").get(0).text(), is("Harmonia"));
 	}

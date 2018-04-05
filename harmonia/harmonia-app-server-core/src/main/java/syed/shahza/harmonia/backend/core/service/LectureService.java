@@ -8,6 +8,7 @@ import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.Question;
+import syed.shahza.harmonia.backend.core.domain.Questions;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 
 public class LectureService {
@@ -63,5 +64,9 @@ public class LectureService {
 	
 	public Question addQuestion(Question question) {
 		return this.lectureRepository.addQuestion(question);
+	}
+	
+	public Questions getAllQuestions(String lectureTitle) {
+		return this.lectureRepository.getAllQuestions(lectureTitle);
 	}
 }

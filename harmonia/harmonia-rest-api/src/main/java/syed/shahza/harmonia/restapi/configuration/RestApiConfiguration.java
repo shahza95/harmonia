@@ -12,6 +12,7 @@ import syed.shahza.harmonia.restapi.action.EndLectureAction;
 import syed.shahza.harmonia.restapi.action.GetAllCommentsAction;
 import syed.shahza.harmonia.restapi.action.GetAllFeedbackAction;
 import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
+import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 import syed.shahza.harmonia.restapi.action.LectureCreationAction;
@@ -101,5 +102,10 @@ public class RestApiConfiguration {
 	@Bean
 	public AddQuestionAction addQuestionAction() {
 		return new AddQuestionAction(restClient());
+	}
+	
+	@Bean
+	public GetAllQuestionsAction getAllQuestionsAction() {
+		return new GetAllQuestionsAction(restClient());
 	}
 }

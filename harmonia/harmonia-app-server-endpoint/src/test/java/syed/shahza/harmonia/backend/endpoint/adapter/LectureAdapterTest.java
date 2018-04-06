@@ -69,6 +69,12 @@ public class LectureAdapterTest {
     	boolean enabled = true;
     	assertThat(this.lectureAdapter.toDto(aValidLecture().feedbackEnabled(enabled).build()).getFeedbackEnabled(), is(enabled));
     }
+    
+    @Test
+    public void canAdaptQuestionsEnabledToDto() {
+    	boolean enabled = true;
+    	assertThat(this.lectureAdapter.toDto(aValidLecture().questionsEnabled(enabled).build()).getQuestionsEnabled(), is(enabled));
+    }
 
     @Test
     public void canAdaptUsernameToDomain() {
@@ -120,5 +126,11 @@ public class LectureAdapterTest {
     public void canAdaptFeedbackEnabledToDomain() {
     	boolean enabled = false;
     	assertThat(this.lectureAdapter.toDomain(aValidLectureDto().feedbackEnabled(enabled).build()).getFeedbackEnabled(), is(enabled));
+    }
+    
+    @Test
+    public void canAdaptQuestionsEnabledToDomain() {
+    	boolean enabled = false;
+    	assertThat(this.lectureAdapter.toDomain(aValidLectureDto().questionsEnabled(enabled).build()).getQuestionsEnabled(), is(enabled));
     }
 }

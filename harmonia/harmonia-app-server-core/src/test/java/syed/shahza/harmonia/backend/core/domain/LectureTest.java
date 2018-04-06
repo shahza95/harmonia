@@ -62,4 +62,10 @@ public class LectureTest {
     	boolean feedbackEnabled = false;
     	assertThat(aValidLecture().feedbackEnabled(feedbackEnabled).build().getFeedbackEnabled(), is(feedbackEnabled));
     }
+    
+    @Test
+    public void canGetAndSetQuestionsEnabled() {
+    	boolean questionsEnabled = false;
+    	assertThat(aValidLecture().feedbackEnabled(questionsEnabled).build().getFeedbackEnabled(), is(questionsEnabled));
+    }
 }

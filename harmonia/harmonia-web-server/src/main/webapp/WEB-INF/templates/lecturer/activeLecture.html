@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Active Lecture</title>
+<title>Active Lecture Comments</title>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
@@ -17,6 +17,7 @@
 		    	</div>
 		    </form>
             <h1 th:text="${lectureDto.title}">title</h1>                                      
+            <h3>Comments</h3>                                      
             <div class="col-sm-offset-4 col-sm-4 well" id="content">
                 <table>
 				    <tr th:each="commentDto, stat : ${commentDtoList.commentDtoList}"> 

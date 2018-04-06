@@ -1,14 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Active Lecture</title>
+<title>Active Lecture Question Thread</title>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
 	<div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
 	<div id="page-wrapper">
 		<div class="container-fluid">
-			<h1 th:text="${lectureDto.title}">title</h1>     
+			<h1 th:text="${lectureDto.title}">title</h1>  
+			<h3>Question Thread</h3>     
 			<div class="col-sm-offset-4 col-sm-4" id="question">
 				<div class="talk-bubble tri-right round btm-left">
 					<div class="bubbletext">

@@ -1,14 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Active Lecture</title>
+<title>Active Lecture Mood</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	<div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
 	<div id="page-wrapper">
 		<div class="container-fluid">
-	        <h1 th:text="${lectureDto.title}+ ' : Mood'">title</h1> 
+	        <h1 th:text="${lectureDto.title}">title</h1> 
+	        <h3>Mood</h3>  
 	    </div>
     
 		<form class="col-sm-offset-5  form-horizontal"  method="post">

@@ -18,7 +18,7 @@ function checkEnded() {
 			if(data.feedbackEnabled) {
 				window.location.replace("feedback");
 			} else {
-				window.location.pathname = "/student/lecture/join";
+				window.location.pathname = "/home";
 			}
 		}
 	});

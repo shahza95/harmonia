@@ -4,12 +4,15 @@ import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
+import syed.shahza.harmonia.backend.dto.QuestionDto;
 import syed.shahza.harmonia.endtoend.test.api.Result;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureFeedbackLecturerPage;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureFeedbackStudentPage;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureLecturerPage;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureMoodLecturerPage;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureMoodStudentPage;
+import syed.shahza.harmonia.endtoend.test.page.ActiveLectureQuestionLecturerPage;
+import syed.shahza.harmonia.endtoend.test.page.ActiveLectureQuestionStudentPage;
 import syed.shahza.harmonia.endtoend.test.page.ActiveLectureStudentPage;
 import syed.shahza.harmonia.endtoend.test.page.JoinLecturePage;
 import syed.shahza.harmonia.endtoend.test.page.LectureCreationPage;
@@ -25,8 +28,10 @@ public class PageBasedLectureService implements LectureService {
     private final ActiveLectureMoodLecturerPage activeLectureMoodLecturerPage;
     private final ActiveLectureFeedbackStudentPage activeLectureFeedbackStudentPage;
     private final ActiveLectureFeedbackLecturerPage activeLectureFeedbackLecturerPage;
+    private final ActiveLectureQuestionStudentPage activeLectureQuestionStudentPage;
+    private final ActiveLectureQuestionLecturerPage activeLectureQuestionLecturerPage;
 
-    public PageBasedLectureService(LectureCreationPage lectureCreationPage, JoinLecturePage joinLecturePage, ActiveLectureLecturerPage activeLectureLecturerPage, ActiveLectureStudentPage activeLectureStudentPage, ActiveLectureMoodStudentPage activeLectureMoodStudentPage, ActiveLectureMoodLecturerPage activeLectureMoodLecturerPage, ActiveLectureFeedbackStudentPage activeLectureFeedbackStudentPage, ActiveLectureFeedbackLecturerPage activeLectureFeedbackLecturerPage) {
+    public PageBasedLectureService(LectureCreationPage lectureCreationPage, JoinLecturePage joinLecturePage, ActiveLectureLecturerPage activeLectureLecturerPage, ActiveLectureStudentPage activeLectureStudentPage, ActiveLectureMoodStudentPage activeLectureMoodStudentPage, ActiveLectureMoodLecturerPage activeLectureMoodLecturerPage, ActiveLectureFeedbackStudentPage activeLectureFeedbackStudentPage, ActiveLectureFeedbackLecturerPage activeLectureFeedbackLecturerPage, ActiveLectureQuestionStudentPage activeLectureQuestionStudentPage,  ActiveLectureQuestionLecturerPage activeLectureQuestionLecturerPage) {
         this.lectureCreationPage = lectureCreationPage;
         this.joinLecturePage = joinLecturePage;
         this.activeLectureLecturerPage = activeLectureLecturerPage;
@@ -35,6 +40,8 @@ public class PageBasedLectureService implements LectureService {
         this.activeLectureMoodLecturerPage = activeLectureMoodLecturerPage;
         this.activeLectureFeedbackStudentPage = activeLectureFeedbackStudentPage;
         this.activeLectureFeedbackLecturerPage = activeLectureFeedbackLecturerPage;
+        this.activeLectureQuestionStudentPage = activeLectureQuestionStudentPage;
+        this.activeLectureQuestionLecturerPage = activeLectureQuestionLecturerPage;
     }
 
     @Override
@@ -105,5 +112,27 @@ public class PageBasedLectureService implements LectureService {
 	@Override
 	public Result checkFeedbackReceived(FeedbackDto feedbackDto) {
 		return this.activeLectureFeedbackLecturerPage.checkFeedbackReceived(feedbackDto);
+	}
+	
+	@Override
+	public void addQuestion(QuestionDto questionDto) {
+		this.activeLectureQuestionStudentPage.navigateTo(questionDto.getLectureDto().getTitle());
+		this.activeLectureQuestionStudentPage.enterQuestion(questionDto);
+		this.activeLectureQuestionStudentPage.clickAskButton();
+	}
+	
+	@Override
+	public void answerQuestion(QuestionDto questionDto, String answer) {
+		this.activeLectureQuestionLecturerPage.navigateToAllQuestions(questionDto.getLectureDto().getTitle());
+		this.activeLectureQuestionLecturerPage.clickQuestion(questionDto.getQuestion());
+		this.activeLectureQuestionLecturerPage.enterAnswer(answer);
+		this.activeLectureQuestionLecturerPage.clickAnswerButton();
+	}
+
+	@Override
+	public Result checkQuestionAnswered(QuestionDto questionDto, String answer) {
+		this.activeLectureQuestionStudentPage.navigateTo(questionDto.getLectureDto().getTitle());
+		this.activeLectureQuestionStudentPage.clickQuestion(questionDto.getQuestion());
+		return this.activeLectureQuestionStudentPage.checkAnswerVisible(answer);
 	}
 }

@@ -7,6 +7,7 @@ import syed.shahza.harmonia.endtoend.test.component.Input;
 import syed.shahza.harmonia.endtoend.test.component.RadioButton;
 import syed.shahza.harmonia.endtoend.test.component.Select;
 import syed.shahza.harmonia.endtoend.test.component.Text;
+import syed.shahza.harmonia.endtoend.test.component.Textarea;
 
 public interface Page {
     void navigateTo(String url);
@@ -22,4 +23,6 @@ public interface Page {
 	Optional<Select> findSelectByName(String name);
 
 	Optional<RadioButton> findRadioButtonById(String id);
+	
+	Optional<Textarea> findTextareaByName(String name);
 }

@@ -4,6 +4,7 @@ import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
+import syed.shahza.harmonia.backend.dto.QuestionDto;
 import syed.shahza.harmonia.endtoend.test.api.Result;
 
 public interface LectureService {
@@ -31,4 +32,10 @@ public interface LectureService {
 	public void viewAllFeedback(String lectureTitle);
 	
 	public Result checkFeedbackReceived(FeedbackDto feedbackDto);
+
+	public void addQuestion(QuestionDto questionDto);
+	
+	public void answerQuestion(QuestionDto questionDto, String answer);
+
+	public Result checkQuestionAnswered(QuestionDto questionDto, String answer);
 }

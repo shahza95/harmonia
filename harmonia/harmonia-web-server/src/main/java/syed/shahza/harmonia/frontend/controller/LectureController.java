@@ -25,7 +25,7 @@ public class LectureController {
 		return new ModelAndView("shared/home"); 
 	}
 	
-	@RequestMapping(params="join", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView join(@RequestParam("password") String password) {
 		LectureDto lectureDto = this.joinLectureAction.join(password);
 		if(!lectureDto.isEmpty() && lectureIsActive(lectureDto)) {
@@ -34,7 +34,7 @@ public class LectureController {
 		return new ModelAndView("shared/home");
 	}
 	
-	@RequestMapping(params="login", method = RequestMethod.POST)
+	@RequestMapping(params="login", method = RequestMethod.GET)
 	public ModelAndView lecturerLogin() {
 		return new ModelAndView("redirect:/lecturer/login");
 	}

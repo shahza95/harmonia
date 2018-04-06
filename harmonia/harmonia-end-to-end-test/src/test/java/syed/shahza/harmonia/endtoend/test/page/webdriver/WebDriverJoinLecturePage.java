@@ -6,7 +6,7 @@ import syed.shahza.harmonia.endtoend.test.api.Result;
 import syed.shahza.harmonia.endtoend.test.page.JoinLecturePage;
 
 public class WebDriverJoinLecturePage extends WebDriverPage implements JoinLecturePage {
-    private final static String JOIN_LECTURE_URL = "student/lecture/join";
+    private final static String JOIN_LECTURE_URL = "home";
 
     public WebDriverJoinLecturePage(WebDriver webDriver, String baseUrl) {
         super(webDriver, baseUrl);
@@ -24,7 +24,7 @@ public class WebDriverJoinLecturePage extends WebDriverPage implements JoinLectu
 
     @Override
     public Result clickJoinButton() {
-        this.findButtonByClass("btn").ifPresent(button -> button.submit());
-        return findTextByString("Active").isPresent() ? Result.SUCCESS : Result.FAILURE;
+        this.findButtonByName("join").ifPresent(button -> button.submit());
+        return findTextByString("Comments").isPresent() ? Result.SUCCESS : Result.FAILURE;
     }
 }

@@ -55,7 +55,7 @@ public class ActiveLectureMoodPageStudentTest extends ThymeleafTemplateTest {
     
     @Test
     public void scriptForButtonEnablingShouldExist() throws NodeSelectorException {
-    	assertThat(this.tags.matching("script").size(), is(4));
+    	assertThat(this.tags.matching("script").size(), is(5));
     }
     
     @Test
@@ -65,6 +65,6 @@ public class ActiveLectureMoodPageStudentTest extends ThymeleafTemplateTest {
     
     @Test
     public void shouldCallCheckMoodEnabledJavascript() throws NodeSelectorException {
-    	assertThat(this.tags.matching("script").get(2).attr("src"), is("/resources/javascript/CheckMoodEnabled.js"));
+    	assertThat(this.tags.matching("script").get(3).attr("src"), is("/resources/javascript/CheckMoodEnabled.js"));
     }
 }

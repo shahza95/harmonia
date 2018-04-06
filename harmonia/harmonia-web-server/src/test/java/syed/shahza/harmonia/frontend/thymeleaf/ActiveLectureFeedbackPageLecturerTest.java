@@ -54,7 +54,7 @@ public class ActiveLectureFeedbackPageLecturerTest extends ThymeleafTemplateTest
     
     @Test
     public void correctModelShouldFillRating() throws NodeSelectorException {
-    	assertThat(this.tags.matching("h3").get(0).text(), is(String.valueOf(averageRating)));
+    	assertThat(this.tags.matching("h3").get(1).text(), is(String.valueOf(averageRating)));
     }
     
     @Test

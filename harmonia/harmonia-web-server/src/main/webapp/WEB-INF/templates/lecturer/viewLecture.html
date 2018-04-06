@@ -10,7 +10,8 @@
 </head>
 <body>
   	<div class="container">
-  	<h1 th:text="'Lecture Details : ' + ${lectureDto.title}">title</h1>
+  	<h1 th:text="${lectureDto.title}">title</h1>
+  	<h3>Lecture Details</h3>  
   	<br />
   	<div class="col-sm-offset-4 form-horizontal" >
 	    <div class="form-group">

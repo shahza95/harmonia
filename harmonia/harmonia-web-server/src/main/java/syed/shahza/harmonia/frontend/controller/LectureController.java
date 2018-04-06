@@ -12,26 +12,31 @@ import syed.shahza.harmonia.backend.dto.LectureDto;
 import syed.shahza.harmonia.restapi.action.JoinLectureAction;
 
 @Controller
-@RequestMapping("/student/lecture")
-public class LectureControllerStudent {
+@RequestMapping("/home")
+public class LectureController {
 	private final JoinLectureAction joinLectureAction;
 
-	public LectureControllerStudent(JoinLectureAction joinLectureAction) {
+	public LectureController(JoinLectureAction joinLectureAction) {
 		this.joinLectureAction = joinLectureAction;
 	}
 
-	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getJoinLecturePage() {
-		return new ModelAndView("student/joinLecture"); 
+		return new ModelAndView("shared/home"); 
 	}
 	
-	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView join(@RequestParam("password") String password) {
 		LectureDto lectureDto = this.joinLectureAction.join(password);
 		if(!lectureDto.isEmpty() && lectureIsActive(lectureDto)) {
 			return new ModelAndView("redirect:/student/lecture/active/" + lectureDto.getTitle() + "/comments"); 			
 		}
-		return new ModelAndView("student/joinLecture");
+		return new ModelAndView("shared/home");
+	}
+	
+	@RequestMapping(params="login", method = RequestMethod.GET)
+	public ModelAndView lecturerLogin() {
+		return new ModelAndView("redirect:/lecturer/login");
 	}
 	
 	private Boolean lectureIsActive(LectureDto lectureDto) {

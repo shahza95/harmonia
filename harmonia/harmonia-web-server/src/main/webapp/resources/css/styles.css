@@ -1,10 +1,12 @@
-h1, h2, .feedbackTopSection {
+h1, h2, h3, .feedbackTopSection {
   text-align: center;
 }
 
 #currentEmoji {
 	border: 0;
-	font-size: 50px;
+	width: 100%;
+	font-size: 60px;
+	text-align: center;
 }
 
 @media(min-width:768px) {

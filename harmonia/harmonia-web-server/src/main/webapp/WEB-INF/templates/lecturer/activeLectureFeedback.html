@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Active Lecture</title>
+<title>Active Lecture Feedback</title>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
@@ -16,7 +16,8 @@
 			    	</div>
 		    	</div>
 		    </form>
-            <h1 th:text="${lectureDto.title}">title</h1>   
+            <h1 th:text="${lectureDto.title}">title</h1>  
+            <h3>Feedback</h3>   
             <br />                                   
             <div class="feedbackTopSection" id="rating">
                 <label> Average Rating: </label>

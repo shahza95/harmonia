@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Active Lecture</title>
+<title>Active Lecture Mood</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
 <body>
@@ -16,7 +16,8 @@
 			    </div>
 		    </div>
 		</form>
-        <h1 th:text="${lectureDto.title} + ': Mood'">title</h1>                                      
+        <h1 th:text="${lectureDto.title}">title</h1>     
+        <h3>Mood</h3>                                   
         <div class="col-sm-offset-4 col-sm-4 well" id="content">
 			<div class="chart-container">
 			    <canvas id="moodPieChart"></canvas>

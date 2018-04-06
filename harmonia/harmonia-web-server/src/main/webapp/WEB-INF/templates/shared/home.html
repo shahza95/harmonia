@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Join Lecture</title>
+<title>Homepage</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" type="text/css" media="all"
@@ -11,7 +11,15 @@
 <body>
   <div class="container">
   <h1>Harmonia</h1>
-  <h2>Join a Lecture</h2>
+    <form class="col-sm-offset-8" method="get">
+     <div class="form-group">
+    	<div class="col-sm-offset-2 col-sm-4">
+    		<input type="submit" class="btn btn-default" name="login" value="Lecturer Login" />
+    	</div>
+    </div>
+    </form>
+  <br />
+  <h3>Join a Lecture</h3>
   <br />
   <form class="col-sm-offset-4 form-horizontal" method="post">
     <div class="form-group">
@@ -22,7 +30,7 @@
     </div>
     <div class="form-group">
     	<div class="col-sm-offset-2 col-sm-4">
-    		<input type="submit" class="btn btn-default" value="Join" />
+    		<input type="submit" class="btn btn-default" name="join" value="Join" />
     	</div>
     </div>
   </form>

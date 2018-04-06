@@ -12,7 +12,7 @@ import syed.shahza.harmonia.frontend.controller.ActiveLectureControllerLecturer;
 import syed.shahza.harmonia.frontend.controller.ActiveLectureControllerStudent;
 import syed.shahza.harmonia.frontend.controller.ActiveLectureRestController;
 import syed.shahza.harmonia.frontend.controller.LectureControllerLecturer;
-import syed.shahza.harmonia.frontend.controller.LectureControllerStudent;
+import syed.shahza.harmonia.frontend.controller.LectureController;
 import syed.shahza.harmonia.frontend.controller.LoginController;
 import syed.shahza.harmonia.restapi.action.AddCommentAction;
 import syed.shahza.harmonia.restapi.action.AddFeedbackAction;
@@ -101,8 +101,8 @@ public class WebAppConfiguration {
     }
     
     @Bean
-    public LectureControllerStudent lectureControllerStudent() {
-    	return new LectureControllerStudent(joinLectureAction);
+    public LectureController lectureController() {
+    	return new LectureController(joinLectureAction);
     }
     
     @Bean

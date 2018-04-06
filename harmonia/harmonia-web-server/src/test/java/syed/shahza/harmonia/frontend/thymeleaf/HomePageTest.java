@@ -49,7 +49,7 @@ public class HomePageTest extends ThymeleafTemplateTest {
     }
     
     @Test
-    public void loginButtonShouldUsePostRequest() throws NodeSelectorException {
-    	assertThat(this.tags.matching("form").get(0).attr("method"), is("post"));
+    public void loginButtonShouldUseGetRequest() throws NodeSelectorException {
+    	assertThat(this.tags.matching("form").get(0).attr("method"), is("get"));
     }
 }

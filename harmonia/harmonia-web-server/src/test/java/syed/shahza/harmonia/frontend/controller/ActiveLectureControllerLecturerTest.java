@@ -322,4 +322,21 @@ public class ActiveLectureControllerLecturerTest {
     	String answer = "some answer";
     	assertThat(this.lectureController.answerQuestion("title", "1", answer).getViewName(), is("lecturer/activeLectureQuestionThread"));
     }
+    
+    @Test
+    public void toggleQuestionsReturnsActiveLectureQuestionsPage() {
+    	assertThat(this.lectureController.toggleQuestions(lectureDto.getTitle(), "").getViewName(), is("lecturer/activeLectureQuestions"));
+    }
+    
+    @Test
+    public void toggleQuestionsInvokesDisableFeedbackIfToggleIsDisable() {
+    	this.lectureController.toggleQuestions(lectureDto.getTitle(), "Disable");
+    	verify(this.mockToggleFeaturesAction).disableQuestions(lectureDto);
+    }
+    
+    @Test
+    public void toggleQuestionsInvokesEnableQuestionsIfToggleIsEnable() {
+    	this.lectureController.toggleQuestions(lectureDto.getTitle(), "Enable");
+    	verify(this.mockToggleFeaturesAction).enableQuestions(lectureDto);
+    }
 }

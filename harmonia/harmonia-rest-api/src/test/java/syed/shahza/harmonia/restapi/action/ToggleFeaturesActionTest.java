@@ -134,4 +134,38 @@ public class ToggleFeaturesActionTest {
     	
     	assertThat(this.lectureDtoCaptor.getValue().getFeedbackEnabled(), is(true));
     }
+    
+    @Test
+    public void disableQuestionsShouldInvokeMockRestClientPutMethodWithCorrectParameters() {
+    	this.toggleFeaturesAction.disableQuestions(this.lectureDto);
+    	
+    	verify(this.mockRestClient).put("/lecturer/lecture/active", this.lectureDto);
+    }
+    
+    @Test
+    public void enableQuestionsShouldInvokeMockRestClientPutMethodWithCorrectParameters() {
+    	this.toggleFeaturesAction.enableQuestions(this.lectureDto);
+    	
+    	verify(this.mockRestClient).put("/lecturer/lecture/active", this.lectureDto);
+    }
+    
+    @Test
+    public void disableQuestionsEditsLectureDtoToFalseMoodEnabled() {
+    	this.toggleFeaturesAction.disableQuestions(this.lectureDto);
+    	
+    	this.lectureDtoCaptor = ArgumentCaptor.forClass(LectureDto.class); 
+    	verify(this.mockRestClient).put(eq("/lecturer/lecture/active"), this.lectureDtoCaptor.capture());
+    	
+    	assertThat(this.lectureDtoCaptor.getValue().getQuestionsEnabled(), is(false));
+    }
+    
+    @Test
+    public void enableQuestionsEditsLectureDtoToTrueMoodEnabled() {
+    	this.toggleFeaturesAction.enableQuestions(this.lectureDto);
+    	
+    	this.lectureDtoCaptor = ArgumentCaptor.forClass(LectureDto.class); 
+    	verify(this.mockRestClient).put(eq("/lecturer/lecture/active"), this.lectureDtoCaptor.capture());
+    	
+    	assertThat(this.lectureDtoCaptor.getValue().getQuestionsEnabled(), is(true));
+    }
 }

@@ -40,4 +40,14 @@ public class ToggleFeaturesAction {
     	lectureDto.setFeedbackEnabled(true);
     	this.restClient.put(URL_ENDPOINT, lectureDto);
     }
+    
+    public void disableQuestions(LectureDto lectureDto) {
+    	lectureDto.setQuestionsEnabled(false);
+    	this.restClient.put(URL_ENDPOINT, lectureDto);
+    }
+    
+    public void enableQuestions(LectureDto lectureDto) {
+    	lectureDto.setQuestionsEnabled(true);
+    	this.restClient.put(URL_ENDPOINT, lectureDto);
+    }
 }

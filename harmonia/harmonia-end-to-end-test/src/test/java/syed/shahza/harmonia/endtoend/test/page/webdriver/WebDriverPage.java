@@ -14,6 +14,7 @@ import syed.shahza.harmonia.endtoend.test.component.Input;
 import syed.shahza.harmonia.endtoend.test.component.RadioButton;
 import syed.shahza.harmonia.endtoend.test.component.Select;
 import syed.shahza.harmonia.endtoend.test.component.Text;
+import syed.shahza.harmonia.endtoend.test.component.Textarea;
 import syed.shahza.harmonia.endtoend.test.service.page.Page;
 
 import com.google.common.base.Predicate;
@@ -60,6 +61,11 @@ public class WebDriverPage implements Page {
     @Override
     public Optional<Input> findInputByName(String name) {
         return Input.wrap(this.find(By.name(name)));
+    }
+    
+    @Override
+    public Optional<Textarea> findTextareaByName(String name) {
+    	return Textarea.wrap(this.find(By.name(name)));
     }
     
     @Override

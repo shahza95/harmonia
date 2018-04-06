@@ -66,4 +66,9 @@ public class ActiveLectureQuestionsPageStudentTest extends ThymeleafTemplateTest
     public void tableShouldHaveCorrectNumberOfCells() throws NodeSelectorException {
     	assertThat(this.tags.matching("td").size(), is(questionDtoList.getQuestionDtoList().size()));
     }
+    
+    @Test
+    public void shouldCallCheckQuestionsEnabledJavascript() throws NodeSelectorException {
+    	assertThat(this.tags.matching("script").get(3).attr("src"), is("/resources/javascript/CheckQuestionsEnabled.js"));
+    }
 }

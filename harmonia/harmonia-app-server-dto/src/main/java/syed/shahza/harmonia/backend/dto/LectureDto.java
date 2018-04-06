@@ -13,6 +13,7 @@ public class LectureDto {
     private boolean commentsEnabled = true;
     private boolean moodEnabled = true;
     private boolean feedbackEnabled = true;
+    private boolean questionsEnabled = true;
 
     public LectureDto() {
         super();
@@ -29,6 +30,7 @@ public class LectureDto {
         this.commentsEnabled = builder.commentsEnabled;      
         this.moodEnabled = builder.moodEnabled;      
         this.feedbackEnabled = builder.feedbackEnabled;      
+        this.questionsEnabled = builder.questionsEnabled;      
     }
 
     public String getTitle() {
@@ -103,6 +105,14 @@ public class LectureDto {
     	this.feedbackEnabled = feedbackEnabled;
     }
     
+    public boolean getQuestionsEnabled() {
+    	return this.questionsEnabled;
+    }
+    
+    public void setQuestionsEnabled(boolean questionsEnabled) {
+    	this.questionsEnabled = questionsEnabled;
+    }
+    
     public Boolean isEmpty() {
     	return this.title == null && this.password == null && this.date == null && this.startTime == null && this.endTime == null;
     }
@@ -121,6 +131,7 @@ public class LectureDto {
         private boolean commentsEnabled = true;
         private boolean moodEnabled = true;
         private boolean feedbackEnabled = true;
+        private boolean questionsEnabled = true;
 
         public Builder title(String title) {
             this.title = title;
@@ -164,6 +175,11 @@ public class LectureDto {
         
         public Builder feedbackEnabled(boolean feedbackEnabled) {
         	this.feedbackEnabled = feedbackEnabled;
+        	return this;
+        }
+        
+        public Builder questionsEnabled(boolean questionsEnabled) {
+        	this.questionsEnabled = questionsEnabled;
         	return this;
         }
 

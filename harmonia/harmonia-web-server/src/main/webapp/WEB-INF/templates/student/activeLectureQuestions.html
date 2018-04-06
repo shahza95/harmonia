@@ -7,14 +7,6 @@
 <body>
 	<div lang="en" th:replace="shared/fragment/dashboard :: dashboard"> </div>
 	<div class="container">
-    <br />
-	<form class="col-sm-offset-2 form-horizontal" method="post">
-		<div class="form-group">
-			<div class="col-sm-4">
-			    <!-- <input id="featureToggleButton" type="submit" class="btn btn-default" name="questionsToggle" th:value="${lectureDto.questionsEnabled} ? 'Disable' : 'Enable' " /> -->
-			</div>
-		</div>
-	</form>
     <h1 th:text="${lectureDto.title}">title</h1> 
     <form class="col-sm-offset-4" method="post">
 		<div class="form-group">
@@ -41,8 +33,9 @@
 	</div>
 </div>
 </body>
-<!-- <script type="text/javascript" src="/resources/javascript/UpdateQuestions.js"></script>
+<script type="text/javascript" src="/resources/javascript/CheckQuestionsEnabled.js"></script>
 <script th:inline="javascript">
-	setGetQuestionsUrl(window.location.href + "/json");
-</script> -->
+	var lectureTitle = /*[[${lectureDto.title}]]*/ 'default';
+	setGetLectureUrl(window.location.hostname + "/student/lecture/active/" + lectureTitle + "/json");
+</script>
 </html>

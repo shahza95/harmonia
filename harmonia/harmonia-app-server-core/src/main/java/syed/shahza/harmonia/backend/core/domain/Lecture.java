@@ -13,6 +13,7 @@ public class Lecture {
     private boolean commentsEnabled;
     private boolean moodEnabled;
     private boolean feedbackEnabled;
+    private boolean questionsEnabled;
 
     public Lecture() {
         super();
@@ -29,6 +30,7 @@ public class Lecture {
         this.commentsEnabled = builder.commentsEnabled;      
         this.moodEnabled = builder.moodEnabled;      
         this.feedbackEnabled = builder.feedbackEnabled;      
+        this.questionsEnabled = builder.questionsEnabled;      
     }
 
     public String getTitle() {
@@ -66,6 +68,10 @@ public class Lecture {
     public boolean getFeedbackEnabled() {
     	return this.feedbackEnabled;
     }
+    
+    public boolean getQuestionsEnabled() {
+    	return this.questionsEnabled;
+    }
 
     public Boolean isEmpty() {
     	return this.title == null && this.password == null && this.date == null && this.startTime == null && this.endTime == null;
@@ -85,6 +91,7 @@ public class Lecture {
         private boolean commentsEnabled;
         private boolean moodEnabled;
         private boolean feedbackEnabled;
+        private boolean questionsEnabled;
 
         public Builder title(String title) {
             this.title = title;
@@ -128,6 +135,11 @@ public class Lecture {
         
         public Builder feedbackEnabled(boolean feedbackEnabled) {
         	this.feedbackEnabled = feedbackEnabled;
+        	return this;
+        }
+        
+        public Builder questionsEnabled(boolean questionsEnabled) {
+        	this.questionsEnabled = questionsEnabled;
         	return this;
         }
 

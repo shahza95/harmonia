@@ -146,6 +146,17 @@ public class ActiveLectureControllerLecturer {
 		return getActiveLectureQuestionThreadPage(lectureTitle, questionId);
 	}
 	
+	@RequestMapping(value = "/active/{lectureTitle}/questions", method = RequestMethod.POST) 
+	public ModelAndView toggleQuestions(@PathVariable("lectureTitle") String lectureTitle, @RequestParam(defaultValue="Disable") String questionsToggle) {
+		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
+		if(questionsToggle.equals("Disable")) {
+			this.toggleFeaturesAction.disableQuestions(lectureDto);
+		} else {
+			this.toggleFeaturesAction.enableQuestions(lectureDto);
+		}
+		return getActiveLectureQuestionsPage(lectureTitle);
+	}
+	
 	protected static Map<String, Integer> getMoodSummaryMap(MoodDtoList moodDtoList) {
 		Map<String, Integer> moodMap = new HashMap<String, Integer>();
 		for(EmotionDto emotionDto: EmotionDto.values()){

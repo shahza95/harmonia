@@ -154,4 +154,24 @@ public class LectureDtoTest {
     	LectureDto lectureDto = new LectureDto();
     	assertThat(lectureDto.getFeedbackEnabled(), is(true));
     }
+    
+    @Test
+    public void canRetrieveQuestionsEnabledOnceSet() {
+    	LectureDto lectureDto = aValidLectureDto().build();
+    	lectureDto.setQuestionsEnabled(true);
+    	
+    	assertThat(lectureDto.getQuestionsEnabled(), is(true));
+    }
+    
+    @Test
+    public void shouldSetQuestionsEnabledToTrueByDefaultViaBuilder() {
+    	LectureDto lectureDto = aValidLectureDto().build();
+    	assertThat(lectureDto.getQuestionsEnabled(), is(true));
+    }
+    
+    @Test
+    public void shouldSetQuestionsEnabledToTrueByDefault() {
+    	LectureDto lectureDto = new LectureDto();
+    	assertThat(lectureDto.getQuestionsEnabled(), is(true));
+    }
 }

@@ -239,7 +239,7 @@ public class ActiveLectureControllerStudentTest {
        	when(this.mockGetLectureAction.get(title)).thenReturn(this.lectureDto);
     	when(this.mockAddFeedbackAction.addFeedback(this.feedbackDto)).thenReturn(this.feedbackDto);
     	
-    	assertThat(this.lectureController.addFeedback(title, this.feedbackDto).getViewName(), is("redirect:/student/lecture/join"));
+    	assertThat(this.lectureController.addFeedback(title, this.feedbackDto).getViewName(), is("redirect:/home"));
     }
     
     @Test

@@ -46,7 +46,7 @@ public class ActiveLectureMoodPageLecturerTest extends ThymeleafTemplateTest {
     
     @Test
     public void correctModelShouldFillTitle() throws NodeSelectorException {
-    	assertThat(this.tags.matching("h1").get(1).text(), is(lectureDto.getTitle() + ": Mood"));
+    	assertThat(this.tags.matching("h1").get(1).text(), is(lectureDto.getTitle()));
     }
     
     @Test

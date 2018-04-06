@@ -95,7 +95,7 @@ public class ActiveLectureControllerStudent {
 	public ModelAndView addFeedback(@PathVariable("lectureTitle") String lectureTitle, @ModelAttribute FeedbackDto feedbackDto) {
 		feedbackDto.setLectureDto(this.getLectureAction.get(lectureTitle));
 		this.addFeedbackAction.addFeedback(feedbackDto);
-		return new ModelAndView("redirect:/student/lecture/join"); 
+		return new ModelAndView("redirect:/home"); 
 	}
 	
 	@RequestMapping(value = "/active/{lectureTitle}/questions", method = RequestMethod.GET)

@@ -1,5 +1,7 @@
 package syed.shahza.harmonia.backend.core.configuration;
 
+import javax.annotation.Resource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,10 +13,8 @@ import syed.shahza.harmonia.backend.core.service.LoginService;
 @Configuration
 public class CoreConfiguration {
 	
-	@Bean
-	public LecturerRepository lecturerRepository() {
-		return new LecturerRepository();
-	}
+    @Resource(name = "lecturerRepository")
+    private LecturerRepository lecturerRepository;
 	
 	@Bean
 	public LectureRepository lectureRepository() {
@@ -23,7 +23,7 @@ public class CoreConfiguration {
 
 	@Bean
     public LoginService loginService() {
-        return new LoginService(lecturerRepository());
+        return new LoginService(this.lecturerRepository);
     }
 	
 	@Bean

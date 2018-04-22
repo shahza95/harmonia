@@ -11,14 +11,17 @@ import syed.shahza.harmonia.backend.core.domain.Question;
 import syed.shahza.harmonia.backend.core.domain.Questions;
 import syed.shahza.harmonia.backend.core.repository.CommentRepository;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
+import syed.shahza.harmonia.backend.core.repository.MoodRepository;
 
 public class LectureService {
 	private final LectureRepository lectureRepository;
 	private final CommentRepository commentRepository;
+	private final MoodRepository moodRepository;
 	
-	public LectureService(LectureRepository lectureRepository, CommentRepository commentRepository) {
+	public LectureService(LectureRepository lectureRepository, CommentRepository commentRepository, MoodRepository moodRepository) {
 		this.lectureRepository = lectureRepository;
 		this.commentRepository = commentRepository;
+		this.moodRepository = moodRepository;
 	}
 
 	public Lecture create(Lecture lecture) {
@@ -42,17 +45,15 @@ public class LectureService {
 	}
 	
 	public Mood addMood(Mood mood) {
-//		return this.lectureRepository.addMood(mood);
-		return null;
+		return this.moodRepository.addMood(mood);
 	}
 	
 	public Moods getAllMoods(String lectureTitle) {
-//		return this.lectureRepository.getAllMoods(lectureTitle);
-		return null;
+		return this.moodRepository.getAllMoods(lectureTitle);
 	}
 	
 	public void removeMood(String lectureTitle, String emoji) {
-//		this.lectureRepository.removeMood(lectureTitle, emoji);
+		this.moodRepository.removeMood(lectureTitle, emoji);
 	}
 	
 	public void update(Lecture lecture) {

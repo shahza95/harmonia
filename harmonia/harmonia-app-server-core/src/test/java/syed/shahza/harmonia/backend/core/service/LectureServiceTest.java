@@ -17,13 +17,18 @@ import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.core.domain.Feedback;
 import syed.shahza.harmonia.backend.core.domain.Lecture;
+import syed.shahza.harmonia.backend.core.domain.Mood;
+import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.Question;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
 import syed.shahza.harmonia.backend.core.domain.TestComments;
 import syed.shahza.harmonia.backend.core.domain.TestFeedback;
+import syed.shahza.harmonia.backend.core.domain.TestMood;
+import syed.shahza.harmonia.backend.core.domain.TestMoods;
 import syed.shahza.harmonia.backend.core.domain.TestQuestion;
 import syed.shahza.harmonia.backend.core.repository.CommentRepository;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
+import syed.shahza.harmonia.backend.core.repository.MoodRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LectureServiceTest {
@@ -39,13 +44,16 @@ public class LectureServiceTest {
 	@Mock
 	private CommentRepository mockCommentRepository;
 	
+	@Mock
+	private MoodRepository mockMoodRepository;
+	
 	@Before
 	public void before() {
 		this.lecture = aValidLecture().build();
 		this.comment = TestComment.aValidComment().build();
 		this.feedback = TestFeedback.aValidFeedback().build();
 		this.question = TestQuestion.aValidQuestion().build();
-		this.lectureService = new LectureService(this.mockLectureRepository, this.mockCommentRepository);
+		this.lectureService = new LectureService(this.mockLectureRepository, this.mockCommentRepository, this.mockMoodRepository);
 	}
 	
     @Test
@@ -120,45 +128,46 @@ public class LectureServiceTest {
     	
     	assertThat(this.lectureService.getAllComments("title"), instanceOf(Comments.class));
     }
-//    
-//    @Test
-//    public void addMoodInvokesLectureRepository() {
-//    	Mood mood = TestMood.aValidMood().build();
-//    	this.lectureService.addMood(mood);
-//    	
-//    	verify(this.mockLectureRepository).addMood(mood);
-//    }
-//    
-//    @Test
-//    public void addMoodReturnsMoodObject() {
-//    	Mood mood = TestMood.aValidMood().build();
-//    	when(this.mockLectureRepository.addMood(mood)).thenReturn(mood);
-//    	
-//    	assertThat(this.lectureService.addMood(mood), instanceOf(Mood.class));
-//    }
-//    
-//    @Test
-//    public void getAllMoodsInvokesLectureRepository() {
-//    	this.lectureService.getAllMoods("someTitle");
-//    	
-//    	verify(this.mockLectureRepository).getAllMoods("someTitle");
-//    }
-//    
-//    @Test
-//    public void getAllMoodsReturnsMoodsObject() {
-//    	when(this.mockLectureRepository.getAllMoods("title")).thenReturn(TestMoods.aFilledMoodsList(1));
-//    	
-//    	assertThat(this.lectureService.getAllMoods("title"), instanceOf(Moods.class));
-//    }
-//    
-//    @Test
-//    public void removeMoodInvokesLectureRepository() {
-//    	String lectureTitle = "title";
-//    	String emoji = ":)";
-//    	this.lectureService.removeMood(lectureTitle, emoji);
-//    	
-//    	verify(this.mockLectureRepository).removeMood(lectureTitle, emoji);
-//    }
+    
+    @Test
+    public void addMoodInvokesMoodRepository() {
+    	Mood mood = TestMood.aValidMood().build();
+    	this.lectureService.addMood(mood);
+    	
+    	verify(this.mockMoodRepository).addMood(mood);
+    }
+    
+    @Test
+    public void addMoodReturnsMoodObject() {
+    	Mood mood = TestMood.aValidMood().build();
+    	when(this.mockMoodRepository.addMood(mood)).thenReturn(mood);
+    	
+    	assertThat(this.lectureService.addMood(mood), instanceOf(Mood.class));
+    }
+    
+    @Test
+    public void getAllMoodsInvokesMoodRepository() {
+    	this.lectureService.getAllMoods("someTitle");
+    	
+    	verify(this.mockMoodRepository).getAllMoods("someTitle");
+    }
+    
+    @Test
+    public void getAllMoodsReturnsMoodsObject() {
+    	when(this.mockMoodRepository.getAllMoods("title")).thenReturn(TestMoods.aFilledMoodsList(1));
+    	
+    	assertThat(this.lectureService.getAllMoods("title"), instanceOf(Moods.class));
+    }
+    
+    @Test
+    public void removeMoodInvokesMoodRepository() {
+    	String lectureTitle = "title";
+    	String emoji = ":)";
+    	this.lectureService.removeMood(lectureTitle, emoji);
+    	
+    	//FIX
+    	verify(this.mockMoodRepository).removeMood(lectureTitle, emoji);
+    }
 //    
 //    @Test
 //    public void updateInvokesLectureRepository() {

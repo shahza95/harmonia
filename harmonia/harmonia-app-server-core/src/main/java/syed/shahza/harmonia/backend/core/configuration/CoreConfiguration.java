@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import syed.shahza.harmonia.backend.core.repository.CommentRepository;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.LecturerRepository;
+import syed.shahza.harmonia.backend.core.repository.MoodRepository;
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.core.service.LoginService;
 
@@ -22,6 +23,9 @@ public class CoreConfiguration {
     
     @Resource(name = "commentRepository")
     private CommentRepository commentRepository;
+    
+    @Resource(name = "moodRepository")
+    private MoodRepository moodRepository;
 
 	@Bean
     public LoginService loginService() {
@@ -30,6 +34,6 @@ public class CoreConfiguration {
 	
 	@Bean
 	public LectureService lectureService() {
-		return new LectureService(this.lectureRepository, this.commentRepository);
+		return new LectureService(this.lectureRepository, this.commentRepository, this.moodRepository);
 	}
 }

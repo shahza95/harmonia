@@ -11,14 +11,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import syed.shahza.harmonia.backend.core.repository.CommentRepository;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.LecturerRepository;
+import syed.shahza.harmonia.backend.core.repository.MoodRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.CommentEntityAdapter;
 import syed.shahza.harmonia.backend.core.repository.jpa.JpaCommentRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.JpaLectureRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.JpaLecturerRepository;
+import syed.shahza.harmonia.backend.core.repository.jpa.JpaMoodRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.LectureEntityAdapter;
+import syed.shahza.harmonia.backend.core.repository.jpa.MoodEntityAdapter;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2CommentRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2LecturerRepository;
+import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2MoodRepository;
 
 @Configuration
 @EnableJpaRepositories("syed.shahza.harmonia.backend.core.repository.jpa.h2")
@@ -36,6 +40,9 @@ public class CoreJpaRepositoryConfiguration {
 	
 	@Resource(name = "h2CommentRepository")
 	private H2CommentRepository h2CommentRepository;
+	
+	@Resource(name = "h2MoodRepository")
+	private H2MoodRepository h2MoodRepository;
 
     @Bean
     public LecturerRepository lecturerRepository() {
@@ -53,7 +60,17 @@ public class CoreJpaRepositoryConfiguration {
     }
     
     @Bean
+    public MoodEntityAdapter moodEntityAdapter() {
+    	return new MoodEntityAdapter(new LectureEntityAdapter());
+    }
+    
+    @Bean
     public CommentRepository commentRepository() {
     	return new JpaCommentRepository(this.h2CommentRepository, commentEntityAdapter(), this.h2LectureRepository);
+    }
+    
+    @Bean
+    public MoodRepository moodRepository() {
+    	return new JpaMoodRepository(this.h2MoodRepository, moodEntityAdapter(), this.h2LectureRepository);
     }
 }

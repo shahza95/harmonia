@@ -122,15 +122,13 @@ public class JavaLectureRepositoryTest {
     @Test
     public void removeMoodShouldRemoveForCorrectLectureAndEmoji() {
     	//first ensure the mood for the lecture exists
-    	String lectureTitle = "titleForLectureWithMood";
-    	Lecture lecture = TestLecture.aValidLecture().title(lectureTitle).build();
-    	String emoji = ":S";
-    	Mood mood = TestMood.aValidMood().emotion(Emotion.CONFUSED).emoji(emoji).lecture(lecture).build();
+    	Lecture lecture = TestLecture.aValidLecture().build();
+    	Mood mood = TestMood.aValidMood().emotion(Emotion.CONFUSED).lecture(lecture).build();
     	
     	this.lectureRepository.addMood(mood);
     	
     	//now remove
-    	assertThat(this.lectureRepository.removeMood(lectureTitle, emoji), is(true));
+    	assertThat(this.lectureRepository.removeMood(mood), is(true));
     }
     
     @Test

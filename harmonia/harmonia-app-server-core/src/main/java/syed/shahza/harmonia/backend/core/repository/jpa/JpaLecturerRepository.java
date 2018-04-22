@@ -7,8 +7,8 @@ import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2LecturerRepository;
 public class JpaLecturerRepository implements LecturerRepository {
 	private final H2LecturerRepository lecturerRepository;
 	
-    public JpaLecturerRepository(H2LecturerRepository sqliteLecturerRepository) {
-        this.lecturerRepository = sqliteLecturerRepository;
+    public JpaLecturerRepository(H2LecturerRepository lecturerRepository) {
+        this.lecturerRepository = lecturerRepository;
     }
 	
 	@Override

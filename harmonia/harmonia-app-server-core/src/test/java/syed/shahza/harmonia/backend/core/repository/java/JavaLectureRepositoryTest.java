@@ -1,4 +1,4 @@
-package syed.shahza.harmonia.backend.core.repository;
+package syed.shahza.harmonia.backend.core.repository.java;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
@@ -26,10 +26,11 @@ import syed.shahza.harmonia.backend.core.domain.TestFeedback;
 import syed.shahza.harmonia.backend.core.domain.TestLecture;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
 import syed.shahza.harmonia.backend.core.domain.TestQuestion;
+import syed.shahza.harmonia.backend.core.repository.java.JavaLectureRepository;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LectureRepositoryTest {
-	private LectureRepository lectureRepository;
+public class JavaLectureRepositoryTest {
+	private JavaLectureRepository lectureRepository;
 	private Lecture lecture;
 	private Comment comment;
 	private Feedback feedback;
@@ -37,7 +38,7 @@ public class LectureRepositoryTest {
 	
 	@Before
 	public void before() {
-		this.lectureRepository = new LectureRepository();
+		this.lectureRepository = new JavaLectureRepository();
 		this.lecture = aValidLecture().build();
 		this.comment = TestComment.aValidComment().build();
 		this.feedback = TestFeedback.aValidFeedback().build();

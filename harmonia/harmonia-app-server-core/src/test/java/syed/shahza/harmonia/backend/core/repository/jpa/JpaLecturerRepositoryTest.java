@@ -28,7 +28,7 @@ public class JpaLecturerRepositoryTest {
 	}
 	
 	@Test
-	public void isAuthenticatedShouldInvokeSqliteLecturerRepository() {
+	public void isAuthenticatedShouldInvokeLecturerRepository() {
 		Lecturer lecturer = TestLecturer.aValidLecturer().build();
 		this.repository.isAuthenticated(lecturer);
 		

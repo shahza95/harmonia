@@ -39,6 +39,7 @@ public class JpaCommentRepositoryTest {
 	
 	@Test
 	public void addCommentShouldInvokeEntityAdapter() {
+		when(this.mockCommentEntityAdapter.toEntity(comment)).thenReturn(TestCommentEntity.aCommentEntity());
 		this.repository.addComment(comment);
 		
 		verify(this.mockCommentEntityAdapter).toEntity(comment);

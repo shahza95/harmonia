@@ -44,7 +44,7 @@ public class EndpointIntegrationTest {
     }
     
     @Test
-    public void postRequestToJoinLectureWithFieldsReturns200Ok() {
-    	given().contentType("application/json").body("aPassword").when().post("/student/lecture/join").then().statusCode(200);
+    public void postRequestToJoinLectureWithFieldsReturns500ServerError() {
+    	given().contentType("application/json").body("aPassword").when().post("/student/lecture/join").then().statusCode(500);
     }
 }

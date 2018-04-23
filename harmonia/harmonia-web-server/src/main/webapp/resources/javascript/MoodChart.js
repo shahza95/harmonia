@@ -1,3 +1,5 @@
+// uses Chart.js
+// render chart as soon as page loads
 $(document).ready(renderChart);
 
 var urls = {};
@@ -51,9 +53,11 @@ function renderChart() {
 	    options: options
 	});
 	
+	// after initial rendering done, go into update loop
 	updateChart(myPieChart);
 }
 
+// poll every 5s for mood data changes & update chart
 function updateChart(myPieChart) {
 	setInterval(function(){
 			$.getJSON(urls.getUrl, function(data) {

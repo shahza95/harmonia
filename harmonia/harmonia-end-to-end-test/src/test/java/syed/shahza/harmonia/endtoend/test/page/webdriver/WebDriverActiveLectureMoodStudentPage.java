@@ -18,7 +18,7 @@ public class WebDriverActiveLectureMoodStudentPage extends WebDriverPage impleme
 
     @Override
     public void enterEmoji(MoodDto moodDto) {
-    	this.findSelectByName("mood").ifPresent(select -> select.choose(moodDto.getEmotionDto().toString() + " " + moodDto.getEmoji()));
+    	this.findSelectByName("mood").ifPresent(select -> select.choose(moodDto.getEmotionDto().toString()));
     }
 
     @Override

@@ -50,7 +50,7 @@ public class MoodAdapterTest {
     
     @Test
     public void canAdaptMoodEmotionDtoToDomain() {
-    	assertThat(this.moodAdapter.toDomain(aValidMoodDto().emotionDto(EmotionDto.SAD).build()).getEmotion(), is(Emotion.SAD));
+    	assertThat(this.moodAdapter.toDomain(aValidMoodDto().emotionDto(EmotionDto.ANXIOUS).build()).getEmotion(), is(Emotion.ANXIOUS));
     }
     
     @Test

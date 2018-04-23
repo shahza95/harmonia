@@ -17,10 +17,10 @@ public class Select {
         return webElement.isPresent() ? Optional.of(new Select(webElement.get())) : Optional.empty();
     }
 
-	public void choose(String emoji) {
-		List<WebElement> list = this.webElement.findElements(By.cssSelector("option"));//.get(1).click();
+	public void choose(String emotion) {
+		List<WebElement> list = this.webElement.findElements(By.cssSelector("option"));
 		for(WebElement element: list) {
-			if(element.getAttribute("text").contains("Happy")){
+			if(element.getAttribute("text").contains(emotion.toLowerCase().subSequence(1, emotion.length()))){
 				element.click();
 			};
 		}

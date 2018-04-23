@@ -139,10 +139,12 @@ public class ActiveLectureControllerLecturerTest {
     @Test
     public void getActiveLectureMoodSendsCorrectMoodMapAsModel() {
     	Map<String, Integer> moodMap = new HashMap<String, Integer>();
-    	moodMap.put("HAPPY", numberOfSameMood);
-    	moodMap.put("SAD", 0);
     	moodMap.put("CONFUSED", 0);
-    	
+    	moodMap.put("ANXIOUS", numberOfSameMood);
+    	moodMap.put("CURIOUS", 0);
+    	moodMap.put("FRUSTRATED", 0);
+    	moodMap.put("CONTEMPT", 0);
+    	moodMap.put("EUREKA", 0);
     	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getModel().get("moodMap"), is(moodMap));
     }
 

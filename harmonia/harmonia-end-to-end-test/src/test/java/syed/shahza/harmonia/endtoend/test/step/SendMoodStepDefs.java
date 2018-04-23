@@ -22,7 +22,7 @@ import cucumber.api.java.en.When;
 @ContextConfiguration(locations = { "classpath:cucumber.xml" })
 public class SendMoodStepDefs {
 	private LectureDto lectureDto = anActiveLectureDto().title(RandomStringUtils.randomAlphabetic(10)).password(RandomStringUtils.randomAlphanumeric(6)).build();
-	private MoodDto moodDto = aValidMoodDto().emoji("&#x1F642;").emotionDto(EmotionDto.HAPPY).lectureDto(this.lectureDto).build();
+	private MoodDto moodDto = aValidMoodDto().emoji("&#x1F630;").emotionDto(EmotionDto.ANXIOUS).lectureDto(this.lectureDto).build();
 
     @Autowired
     private LectureService lectureService;

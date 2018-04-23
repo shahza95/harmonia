@@ -49,8 +49,9 @@ public class ActiveLectureMoodPageStudentTest extends ThymeleafTemplateTest {
     }
     
     @Test
-    public void fourOptionsShouldExistForDropDown() throws NodeSelectorException {
-    	assertThat(this.tags.matching("option").size(), is(4));
+    public void sevenOptionsShouldExistForDropDown() throws NodeSelectorException {
+    	//Includes 'choose your mood' placeholder
+    	assertThat(this.tags.matching("option").size(), is(7));
     }
     
     @Test

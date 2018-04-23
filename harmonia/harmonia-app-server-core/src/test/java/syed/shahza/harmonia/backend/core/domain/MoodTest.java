@@ -14,7 +14,7 @@ public class MoodTest {
     }
     @Test
     public void canGetAndSetEmotion() {
-    	Emotion randomEmotion = Emotion.HAPPY;
+    	Emotion randomEmotion = Emotion.ANXIOUS;
     	assertThat(aValidMood().emotion(randomEmotion).build().getEmotion(), is(randomEmotion));
     }
     

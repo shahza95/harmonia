@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 import static syed.shahza.harmonia.backend.dto.TestLectureDto.anActiveLectureDto;
 import static syed.shahza.harmonia.backend.dto.TestCommentDto.aValidCommentDto;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -20,7 +21,7 @@ import cucumber.api.java.en.When;
 
 @ContextConfiguration(locations = { "classpath:cucumber.xml" })
 public class PostCommentStepDefs {
-	private LectureDto lectureDto = anActiveLectureDto().password("thePassword").build();
+	private LectureDto lectureDto = anActiveLectureDto().title(RandomStringUtils.randomAlphabetic(10)).password(RandomStringUtils.randomAlphabetic(10)).build();
 	private CommentDto commentDto = aValidCommentDto().message("theMessage").lectureDto(this.lectureDto).build();
 
     @Autowired

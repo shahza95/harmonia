@@ -29,7 +29,7 @@ public class LectureEntity implements Serializable {
     @Column(name = "TITLE", nullable = false, unique=true)
     private String title;
 
-    @Column(name = "PASSWORD", nullable = false)
+    @Column(name = "PASSWORD", nullable = false, unique=true)
     private String password;
     
     @Column(name = "DATE", nullable = false)

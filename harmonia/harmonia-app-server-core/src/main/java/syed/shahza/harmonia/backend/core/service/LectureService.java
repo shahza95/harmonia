@@ -13,18 +13,21 @@ import syed.shahza.harmonia.backend.core.repository.CommentRepository;
 import syed.shahza.harmonia.backend.core.repository.FeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.MoodRepository;
+import syed.shahza.harmonia.backend.core.repository.QuestionRepository;
 
 public class LectureService {
 	private final LectureRepository lectureRepository;
 	private final CommentRepository commentRepository;
 	private final MoodRepository moodRepository;
 	private final FeedbackRepository feedbackRepository;
+	private final QuestionRepository questionRepository;
 	
-	public LectureService(LectureRepository lectureRepository, CommentRepository commentRepository, MoodRepository moodRepository, FeedbackRepository feedbackRepository) {
+	public LectureService(LectureRepository lectureRepository, CommentRepository commentRepository, MoodRepository moodRepository, FeedbackRepository feedbackRepository, QuestionRepository questionRepository) {
 		this.lectureRepository = lectureRepository;
 		this.commentRepository = commentRepository;
 		this.moodRepository = moodRepository;
 		this.feedbackRepository = feedbackRepository;
+		this.questionRepository = questionRepository;
 	}
 
 	public Lecture create(Lecture lecture) {
@@ -72,21 +75,18 @@ public class LectureService {
 	}
 	
 	public Question addQuestion(Question question) {
-//		return this.lectureRepository.addQuestion(question);
-		return null;
+		return this.questionRepository.addQuestion(question);
 	}
 	
 	public Questions getAllQuestions(String lectureTitle) {
-//		return this.lectureRepository.getAllQuestions(lectureTitle);
-		return null;
+		return this.questionRepository.getAllQuestions(lectureTitle);
 	}
 	
 	public Question getQuestion(String id) {
-//		return this.lectureRepository.getQuestion(id);
-		return null;
+		return this.questionRepository.getQuestion(id);
 	}
 	
 	public void updateQuestion(Question question) {
-//		this.lectureRepository.updateQuestion(question);
+		this.questionRepository.updateQuestion(question);
 	}
 }

@@ -10,6 +10,7 @@ import syed.shahza.harmonia.backend.core.repository.FeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.LecturerRepository;
 import syed.shahza.harmonia.backend.core.repository.MoodRepository;
+import syed.shahza.harmonia.backend.core.repository.QuestionRepository;
 import syed.shahza.harmonia.backend.core.service.LectureService;
 import syed.shahza.harmonia.backend.core.service.LoginService;
 
@@ -30,6 +31,9 @@ public class CoreConfiguration {
     
     @Resource(name = "feedbackRepository")
     private FeedbackRepository feedbackRepository;
+    
+    @Resource(name = "questionRepository")
+    private QuestionRepository questionRepository;
 
 	@Bean
     public LoginService loginService() {
@@ -38,6 +42,6 @@ public class CoreConfiguration {
 	
 	@Bean
 	public LectureService lectureService() {
-		return new LectureService(this.lectureRepository, this.commentRepository, this.moodRepository, this.feedbackRepository);
+		return new LectureService(this.lectureRepository, this.commentRepository, this.moodRepository, this.feedbackRepository, this.questionRepository);
 	}
 }

@@ -17,6 +17,6 @@ public class TestLectureDto {
     }
     
     public static Builder anActiveLectureDto() {
-    	return aValidLectureDto().date(new LocalDate()).startTime(new LocalTime()).endTime(new LocalTime().plusHours(1));
+    	return aValidLectureDto().date(new LocalDate()).startTime(new LocalTime().minusHours(1)).endTime(new LocalTime().plusHours(1));
     }
 }

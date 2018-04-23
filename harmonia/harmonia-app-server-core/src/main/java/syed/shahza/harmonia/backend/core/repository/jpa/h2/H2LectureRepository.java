@@ -1,6 +1,5 @@
 package syed.shahza.harmonia.backend.core.repository.jpa.h2;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import syed.shahza.harmonia.backend.core.repository.jpa.LectureEntity;

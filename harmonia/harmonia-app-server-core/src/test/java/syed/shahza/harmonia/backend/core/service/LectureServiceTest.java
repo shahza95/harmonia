@@ -21,6 +21,7 @@ import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.Question;
+import syed.shahza.harmonia.backend.core.domain.Questions;
 import syed.shahza.harmonia.backend.core.domain.TestComment;
 import syed.shahza.harmonia.backend.core.domain.TestComments;
 import syed.shahza.harmonia.backend.core.domain.TestFeedback;
@@ -28,10 +29,12 @@ import syed.shahza.harmonia.backend.core.domain.TestFeedbacks;
 import syed.shahza.harmonia.backend.core.domain.TestMood;
 import syed.shahza.harmonia.backend.core.domain.TestMoods;
 import syed.shahza.harmonia.backend.core.domain.TestQuestion;
+import syed.shahza.harmonia.backend.core.domain.TestQuestions;
 import syed.shahza.harmonia.backend.core.repository.CommentRepository;
 import syed.shahza.harmonia.backend.core.repository.FeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.MoodRepository;
+import syed.shahza.harmonia.backend.core.repository.QuestionRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LectureServiceTest {
@@ -53,13 +56,16 @@ public class LectureServiceTest {
 	@Mock
 	private FeedbackRepository mockFeedbackRepository;
 	
+	@Mock
+	private QuestionRepository mockQuestionRepository;
+	
 	@Before
 	public void before() {
 		this.lecture = aValidLecture().build();
 		this.comment = TestComment.aValidComment().build();
 		this.feedback = TestFeedback.aValidFeedback().build();
 		this.question = TestQuestion.aValidQuestion().build();
-		this.lectureService = new LectureService(this.mockLectureRepository, this.mockCommentRepository, this.mockMoodRepository, this.mockFeedbackRepository);
+		this.lectureService = new LectureService(this.mockLectureRepository, this.mockCommentRepository, this.mockMoodRepository, this.mockFeedbackRepository, this.mockQuestionRepository);
 	}
 	
     @Test
@@ -207,54 +213,54 @@ public class LectureServiceTest {
     	
     	assertThat(this.lectureService.getAllFeedback("title"), instanceOf(Feedbacks.class));
     }   
-//    
-//    @Test
-//    public void addQuestionInvokesLectureRepository() {
-//    	this.lectureService.addQuestion(this.question);
-//    	
-//    	verify(this.mockLectureRepository).addQuestion(this.question);
-//    }
-//    
-//    @Test
-//    public void addQuestionReturnsQuestionObject() {
-//    	when(this.mockLectureRepository.addQuestion(this.question)).thenReturn(this.question);
-//    	
-//    	assertThat(this.lectureService.addQuestion(this.question), instanceOf(Question.class));
-//    }
-//
-//    @Test
-//    public void getAllQuestionsInvokesLectureRepository() {
-//    	this.lectureService.getAllQuestions("someTitle");
-//    	
-//    	verify(this.mockLectureRepository).getAllQuestions("someTitle");
-//    }
-//    
-//    @Test
-//    public void getAllQuestionsReturnsQuestionsObject() {
-//    	when(this.mockLectureRepository.getAllQuestions("title")).thenReturn(TestQuestions.aFilledQuestionsList(1));
-//    	
-//    	assertThat(this.lectureService.getAllQuestions("title"), instanceOf(Questions.class));
-//    }   
-//    
-//    @Test
-//    public void getQuestionInvokesLectureRepository() {
-//    	String id = "id";
-//    	lectureService.getQuestion(id);
-//    	
-//    	verify(this.mockLectureRepository).getQuestion(id);
-//    }
-//    
-//    @Test
-//    public void getQuestionReturnsQuestionObject() {
-//    	String id = "id";
-//    	when(this.mockLectureRepository.getQuestion(id)).thenReturn(question);
-//    	
-//    	assertThat(lectureService.getQuestion(id), instanceOf(Question.class));
-//    }
-//    
-//    @Test
-//    public void updateQuestionInvokesLectureRepository() {
-//    	this.lectureService.updateQuestion(this.question);
-//    	verify(this.mockLectureRepository).updateQuestion(this.question);
-//    }
+    
+    @Test
+    public void addQuestionInvokesQuestionRepository() {
+    	this.lectureService.addQuestion(this.question);
+    	
+    	verify(this.mockQuestionRepository).addQuestion(this.question);
+    }
+    
+    @Test
+    public void addQuestionReturnsQuestionObject() {
+    	when(this.mockQuestionRepository.addQuestion(this.question)).thenReturn(this.question);
+    	
+    	assertThat(this.lectureService.addQuestion(this.question), instanceOf(Question.class));
+    }
+
+    @Test
+    public void getAllQuestionsInvokesQuestionRepository() {
+    	this.lectureService.getAllQuestions("someTitle");
+    	
+    	verify(this.mockQuestionRepository).getAllQuestions("someTitle");
+    }
+    
+    @Test
+    public void getAllQuestionsReturnsQuestionsObject() {
+    	when(this.mockQuestionRepository.getAllQuestions("title")).thenReturn(TestQuestions.aFilledQuestionsList(1));
+    	
+    	assertThat(this.lectureService.getAllQuestions("title"), instanceOf(Questions.class));
+    }   
+    
+    @Test
+    public void getQuestionInvokesQuestionRepository() {
+    	String id = "id";
+    	lectureService.getQuestion(id);
+    	
+    	verify(this.mockQuestionRepository).getQuestion(id);
+    }
+    
+    @Test
+    public void getQuestionReturnsQuestionObject() {
+    	String id = "id";
+    	when(this.mockQuestionRepository.getQuestion(id)).thenReturn(question);
+    	
+    	assertThat(lectureService.getQuestion(id), instanceOf(Question.class));
+    }
+    
+    @Test
+    public void updateQuestionInvokesQuestionRepository() {
+    	this.lectureService.updateQuestion(this.question);
+    	verify(this.mockQuestionRepository).updateQuestion(this.question);
+    }
 }

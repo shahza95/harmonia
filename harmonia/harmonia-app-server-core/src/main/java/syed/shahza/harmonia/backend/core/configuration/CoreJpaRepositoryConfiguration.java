@@ -13,6 +13,7 @@ import syed.shahza.harmonia.backend.core.repository.FeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.LecturerRepository;
 import syed.shahza.harmonia.backend.core.repository.MoodRepository;
+import syed.shahza.harmonia.backend.core.repository.QuestionRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.CommentEntityAdapter;
 import syed.shahza.harmonia.backend.core.repository.jpa.FeedbackEntityAdapter;
 import syed.shahza.harmonia.backend.core.repository.jpa.JpaCommentRepository;
@@ -20,13 +21,16 @@ import syed.shahza.harmonia.backend.core.repository.jpa.JpaFeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.JpaLectureRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.JpaLecturerRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.JpaMoodRepository;
+import syed.shahza.harmonia.backend.core.repository.jpa.JpaQuestionRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.LectureEntityAdapter;
 import syed.shahza.harmonia.backend.core.repository.jpa.MoodEntityAdapter;
+import syed.shahza.harmonia.backend.core.repository.jpa.QuestionEntityAdapter;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2CommentRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2FeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2LecturerRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2MoodRepository;
+import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2QuestionRepository;
 
 @Configuration
 @EnableJpaRepositories("syed.shahza.harmonia.backend.core.repository.jpa.h2")
@@ -50,6 +54,9 @@ public class CoreJpaRepositoryConfiguration {
 	
 	@Resource(name = "h2FeedbackRepository")
 	private H2FeedbackRepository h2FeedbackRepository;
+	
+	@Resource(name = "h2QuestionRepository")
+	private H2QuestionRepository h2QuestionRepository;
 
     @Bean
     public LecturerRepository lecturerRepository() {
@@ -77,6 +84,11 @@ public class CoreJpaRepositoryConfiguration {
     }
     
     @Bean
+    public QuestionEntityAdapter questionEntityAdapter() {
+    	return new QuestionEntityAdapter(new LectureEntityAdapter());
+    }
+    
+    @Bean
     public CommentRepository commentRepository() {
     	return new JpaCommentRepository(this.h2CommentRepository, commentEntityAdapter(), this.h2LectureRepository);
     }
@@ -89,5 +101,10 @@ public class CoreJpaRepositoryConfiguration {
     @Bean
     public FeedbackRepository feedbackRepository() {
     	return new JpaFeedbackRepository(this.h2FeedbackRepository, feedbackEntityAdapter(), this.h2LectureRepository);
+    }
+    
+    @Bean
+    public QuestionRepository questionRepository() {
+    	return new JpaQuestionRepository(this.h2QuestionRepository, questionEntityAdapter(), this.h2LectureRepository);
     }
 }

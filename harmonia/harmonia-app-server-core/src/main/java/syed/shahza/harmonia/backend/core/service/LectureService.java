@@ -10,6 +10,7 @@ import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.Question;
 import syed.shahza.harmonia.backend.core.domain.Questions;
 import syed.shahza.harmonia.backend.core.repository.CommentRepository;
+import syed.shahza.harmonia.backend.core.repository.FeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.MoodRepository;
 
@@ -17,11 +18,13 @@ public class LectureService {
 	private final LectureRepository lectureRepository;
 	private final CommentRepository commentRepository;
 	private final MoodRepository moodRepository;
+	private final FeedbackRepository feedbackRepository;
 	
-	public LectureService(LectureRepository lectureRepository, CommentRepository commentRepository, MoodRepository moodRepository) {
+	public LectureService(LectureRepository lectureRepository, CommentRepository commentRepository, MoodRepository moodRepository, FeedbackRepository feedbackRepository) {
 		this.lectureRepository = lectureRepository;
 		this.commentRepository = commentRepository;
 		this.moodRepository = moodRepository;
+		this.feedbackRepository = feedbackRepository;
 	}
 
 	public Lecture create(Lecture lecture) {
@@ -57,17 +60,15 @@ public class LectureService {
 	}
 	
 	public void update(Lecture lecture) {
-//		this.lectureRepository.update(lecture);	
+		this.lectureRepository.update(lecture);	
 	}
 	
 	public Feedback addFeedback(Feedback feedback) {
-//		return this.lectureRepository.addFeedback(feedback);
-		return null;
+		return this.feedbackRepository.addFeedback(feedback);
 	}
 	
 	public Feedbacks getAllFeedback(String lectureTitle) {
-//		return this.lectureRepository.getAllFeedback(lectureTitle);
-		return null;
+		return this.feedbackRepository.getAllFeedback(lectureTitle);
 	}
 	
 	public Question addQuestion(Question question) {

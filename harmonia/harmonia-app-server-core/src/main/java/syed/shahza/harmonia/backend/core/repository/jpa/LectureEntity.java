@@ -26,7 +26,7 @@ public class LectureEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "TITLE", nullable = false)
+    @Column(name = "TITLE", nullable = false, unique=true)
     private String title;
 
     @Column(name = "PASSWORD", nullable = false)

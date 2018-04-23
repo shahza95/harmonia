@@ -28,4 +28,15 @@ public class JpaLectureRepository implements LectureRepository {
 	public Lecture retrieveLectureFromTitle(String lectureTitle) {
 		return this.lectureEntityAdapter.toDomain(this.lectureRepository.findByTitle(lectureTitle));
 	}
+
+	@Override
+	public void update(Lecture lecture) {
+		LectureEntity lectureEntity = this.lectureRepository.findByTitle(lecture.getTitle());
+		lectureEntity.setEnded(lecture.getEnded());
+		lectureEntity.setCommentsEnabled(lecture.getCommentsEnabled());
+		lectureEntity.setMoodEnabled(lecture.getMoodEnabled());
+		lectureEntity.setFeedbackEnabled(lecture.getFeedbackEnabled());
+		lectureEntity.setQuestionsEnabled(lecture.getQuestionsEnabled());
+		this.lectureRepository.save(lectureEntity);
+	}
 }

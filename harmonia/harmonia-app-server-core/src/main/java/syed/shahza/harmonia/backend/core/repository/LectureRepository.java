@@ -9,4 +9,6 @@ public interface LectureRepository {
 	Lecture retrieveLectureFromPassword(String password);
 
 	Lecture retrieveLectureFromTitle(String lectureTitle);
+
+	void update(Lecture lecture);
 }

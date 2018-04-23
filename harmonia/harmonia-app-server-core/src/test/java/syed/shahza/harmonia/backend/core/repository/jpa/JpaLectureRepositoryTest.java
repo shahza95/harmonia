@@ -77,4 +77,21 @@ public class JpaLectureRepositoryTest {
 		
 		verify(this.mockLectureEntityAdapter).toDomain(lectureEntity);
 	}
+	
+	@Test
+	public void updateShouldInvokeLecturerRepositoryFindByTitle() {
+		when(this.mockH2LectureRepository.findByTitle(lecture.getTitle())).thenReturn(lectureEntity);
+		this.repository.update(lecture);
+		
+		verify(this.mockH2LectureRepository).findByTitle(lecture.getTitle());
+	}
+	
+	@Test
+	public void updateShouldInvokeLecturerRepository() {
+		LectureEntity lectureEntity = TestLectureEntity.aLectureEntity();
+		when(this.mockH2LectureRepository.findByTitle(lecture.getTitle())).thenReturn(lectureEntity);
+		this.repository.update(lecture);
+		
+		verify(this.mockH2LectureRepository).save(lectureEntity);
+	}
 }

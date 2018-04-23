@@ -9,17 +9,21 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import syed.shahza.harmonia.backend.core.repository.CommentRepository;
+import syed.shahza.harmonia.backend.core.repository.FeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.LecturerRepository;
 import syed.shahza.harmonia.backend.core.repository.MoodRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.CommentEntityAdapter;
+import syed.shahza.harmonia.backend.core.repository.jpa.FeedbackEntityAdapter;
 import syed.shahza.harmonia.backend.core.repository.jpa.JpaCommentRepository;
+import syed.shahza.harmonia.backend.core.repository.jpa.JpaFeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.JpaLectureRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.JpaLecturerRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.JpaMoodRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.LectureEntityAdapter;
 import syed.shahza.harmonia.backend.core.repository.jpa.MoodEntityAdapter;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2CommentRepository;
+import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2FeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2LecturerRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2MoodRepository;
@@ -43,6 +47,9 @@ public class CoreJpaRepositoryConfiguration {
 	
 	@Resource(name = "h2MoodRepository")
 	private H2MoodRepository h2MoodRepository;
+	
+	@Resource(name = "h2FeedbackRepository")
+	private H2FeedbackRepository h2FeedbackRepository;
 
     @Bean
     public LecturerRepository lecturerRepository() {
@@ -65,6 +72,11 @@ public class CoreJpaRepositoryConfiguration {
     }
     
     @Bean
+    public FeedbackEntityAdapter feedbackEntityAdapter() {
+    	return new FeedbackEntityAdapter(new LectureEntityAdapter());
+    }
+    
+    @Bean
     public CommentRepository commentRepository() {
     	return new JpaCommentRepository(this.h2CommentRepository, commentEntityAdapter(), this.h2LectureRepository);
     }
@@ -72,5 +84,10 @@ public class CoreJpaRepositoryConfiguration {
     @Bean
     public MoodRepository moodRepository() {
     	return new JpaMoodRepository(this.h2MoodRepository, moodEntityAdapter(), this.h2LectureRepository);
+    }
+    
+    @Bean
+    public FeedbackRepository feedbackRepository() {
+    	return new JpaFeedbackRepository(this.h2FeedbackRepository, feedbackEntityAdapter(), this.h2LectureRepository);
     }
 }

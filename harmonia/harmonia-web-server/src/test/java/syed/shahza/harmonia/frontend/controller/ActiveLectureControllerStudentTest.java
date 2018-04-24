@@ -27,7 +27,6 @@ import syed.shahza.harmonia.backend.dto.QuestionDtoList;
 import syed.shahza.harmonia.backend.dto.TestCommentDto;
 import syed.shahza.harmonia.backend.dto.TestCommentDtoList;
 import syed.shahza.harmonia.backend.dto.TestFeedbackDto;
-import syed.shahza.harmonia.backend.dto.TestLectureDto;
 import syed.shahza.harmonia.backend.dto.TestMoodDto;
 import syed.shahza.harmonia.backend.dto.TestQuestionDto;
 import syed.shahza.harmonia.backend.dto.TestQuestionDtoList;

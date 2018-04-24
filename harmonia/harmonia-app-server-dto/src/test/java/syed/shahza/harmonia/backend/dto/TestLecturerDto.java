@@ -5,6 +5,6 @@ import syed.shahza.harmonia.backend.dto.LecturerDto.Builder;
 
 public class TestLecturerDto {
     public static Builder aValidLecturerDto() {
-        return aLecturerDto().username("userword").password("password");
+        return aLecturerDto().username("user").password("pass");
     }
 }

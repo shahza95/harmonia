@@ -93,7 +93,7 @@ public class ActiveLectureControllerStudentTest {
     	this.feedbackDto = TestFeedbackDto.aValidFeedbackDto().build();
     	this.questionDto = TestQuestionDto.aValidQuestionDto().build();
     	this.moodString = moodDto.getEmotionDto().toString() + " " + moodDto.getEmoji();
-    	this.title = "title";
+    	this.title = lectureDto.getTitle();
         this.lectureController = new ActiveLectureControllerStudent(this.mockGetLectureAction, this.mockGetAllCommentsAction, this.mockAddCommentAction, this.mockSendMoodAction, this.mockRemoveMoodAction, this.mockAddFeedbackAction, this.mockAddQuestionAction, this.mockGetAllQuestionsAction, this.mockGetQuestionAction);
         when(this.mockGetLectureAction.get(lectureDto.getTitle())).thenReturn(lectureDto);
     }
@@ -107,7 +107,6 @@ public class ActiveLectureControllerStudentTest {
         
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLecture() {
-    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
     	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getViewName(), is("student/activeLecture"));
     }
     
@@ -273,7 +272,6 @@ public class ActiveLectureControllerStudentTest {
         
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureQuestions() {
-    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
     	assertThat(this.lectureController.getActiveLectureQuestionsPage(lectureDto.getTitle()).getViewName(), is("student/activeLectureQuestions"));
     }
     

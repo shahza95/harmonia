@@ -101,7 +101,6 @@ public class ActiveLectureControllerLecturerTest {
         
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLecture() {
-    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
     	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getViewName(), is("lecturer/activeLecture"));
     }
     
@@ -127,7 +126,6 @@ public class ActiveLectureControllerLecturerTest {
     
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureMood() {
-    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
     	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getViewName(), is("lecturer/activeLectureMood"));
     }
     
@@ -191,13 +189,11 @@ public class ActiveLectureControllerLecturerTest {
         
     @Test
     public void endLectureRedirectsToFeedbackPage() {
-    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
     	assertThat(this.lectureController.endLecture(lectureDto.getTitle()).getViewName(), is("redirect:/lecturer/lecture/active/" + this.lectureDto.getTitle() + "/feedback"));
     }
     
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureFeedback() {
-    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
     	assertThat(this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle()).getViewName(), is("lecturer/activeLectureFeedback"));
     }
     

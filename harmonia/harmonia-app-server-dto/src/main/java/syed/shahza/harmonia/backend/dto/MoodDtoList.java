@@ -3,6 +3,7 @@ package syed.shahza.harmonia.backend.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+//Custom high level object of multiple MoodDtos
 public class MoodDtoList {
     private List<MoodDto> moodDtoList = new ArrayList<>();
     

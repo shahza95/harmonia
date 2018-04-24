@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.backend.dto;
 
+//POJO for transferable (serializable) Feedback object
 public class FeedbackDto {
 	private LectureDto lectureDto;
     private Integer rating;

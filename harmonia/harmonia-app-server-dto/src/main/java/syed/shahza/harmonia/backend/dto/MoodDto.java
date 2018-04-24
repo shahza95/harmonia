@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.backend.dto;
 
+//POJO for transferable (serializable) Mood object
 public class MoodDto {
 	private String emoji;
 	private EmotionDto emotionDto;

@@ -61,6 +61,7 @@ public class ActiveLectureControllerStudent {
 		return modelAndView;
 	}
 	
+	// handle adding comment request, redirect to same page s.th. page automatically fetches and displays all comments, including newly added
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.POST)
 	public ModelAndView addComment(@PathVariable("lectureTitle") String lectureTitle, @ModelAttribute CommentDto commentDto) {
 		commentDto.setLectureDto(this.getLectureAction.get(lectureTitle));
@@ -74,12 +75,15 @@ public class ActiveLectureControllerStudent {
 		return new ModelAndView("student/activeLectureMood", "lectureDto", lectureDto);
 	}
 
+	// handle sending mood request
 	@RequestMapping(value = "/active/{lectureTitle}/mood", method = RequestMethod.POST)
 	public ModelAndView sendMood(@PathVariable("lectureTitle") String lectureTitle, @RequestParam("mood") String mood, @RequestParam(required = false) String currentEmoji, RedirectAttributes redirectAttributes) {
 		MoodDto moodDto = constructMoodDto(mood, lectureTitle);
+		// if already sent an emoji, remove old
 		if(!currentEmoji.isEmpty()) {
 			this.removeMoodAction.removeMoodByEmoji(lectureTitle, currentEmoji);			
 		}
+		// add new emoji & redirect to same page
 		this.sendMoodAction.sendMood(moodDto);
 	    redirectAttributes.addFlashAttribute("currentEmoji", moodDto.getEmoji());
 		return new ModelAndView("redirect:/student/lecture/active/" + lectureTitle +"/mood"); 
@@ -91,6 +95,7 @@ public class ActiveLectureControllerStudent {
 		return new ModelAndView("student/activeLectureFeedback", "lectureDto", lectureDto);
 	}
 	
+	// handle adding feedback request, add & then redirect to home page
 	@RequestMapping(value = "/active/{lectureTitle}/feedback", method = RequestMethod.POST)
 	public ModelAndView addFeedback(@PathVariable("lectureTitle") String lectureTitle, @ModelAttribute FeedbackDto feedbackDto) {
 		feedbackDto.setLectureDto(this.getLectureAction.get(lectureTitle));
@@ -107,6 +112,7 @@ public class ActiveLectureControllerStudent {
 		return modelAndView;
 	}
 	
+	// handle add question request, add & redirect to same page
 	@RequestMapping(value = "/active/{lectureTitle}/questions", method = RequestMethod.POST)
 	public ModelAndView addQuestion(@PathVariable("lectureTitle") String lectureTitle, @ModelAttribute QuestionDto questionDto) {
 		questionDto.setLectureDto(this.getLectureAction.get(lectureTitle));
@@ -122,6 +128,7 @@ public class ActiveLectureControllerStudent {
 		return modelAndView;
 	}
 
+	// get text from select option and create moodDto from it
 	private MoodDto constructMoodDto(String mood, String lectureTitle) {
 		String[] moodParts = mood.split(" ");
 		EmotionDto emotionDto = EmotionDto.valueOf(moodParts[0]);

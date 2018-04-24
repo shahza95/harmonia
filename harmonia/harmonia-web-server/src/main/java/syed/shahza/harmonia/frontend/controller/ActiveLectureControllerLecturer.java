@@ -62,6 +62,7 @@ public class ActiveLectureControllerLecturer {
 		return modelAndView;
 	}
 	
+	// handle comments enable/disable button click
 	@RequestMapping(value = "/active/{lectureTitle}/comments", method = RequestMethod.POST) 
 	public ModelAndView toggleCommenting(@PathVariable("lectureTitle") String lectureTitle, @RequestParam(defaultValue="Disable") String commentsToggle) {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
@@ -82,6 +83,7 @@ public class ActiveLectureControllerLecturer {
 		return modelAndView;
 	}
 	
+	// handle mood enable/disable button click
 	@RequestMapping(value = "/active/{lectureTitle}/mood", method = RequestMethod.POST) 
 	public ModelAndView toggleMood(@PathVariable("lectureTitle") String lectureTitle, @RequestParam(defaultValue="Disable") String moodToggle) {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
@@ -93,6 +95,7 @@ public class ActiveLectureControllerLecturer {
 		return getActiveLectureMoodPage(lectureTitle);
 	}
 	
+	// handle end lecture button click- redirect to end of lecture feedback summary page
 	@RequestMapping(value = "/active/{lectureTitle}/end", method = RequestMethod.GET)
 	public ModelAndView endLecture(@PathVariable("lectureTitle") String lectureTitle) {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
@@ -110,6 +113,7 @@ public class ActiveLectureControllerLecturer {
 		return modelAndView;
 	}
 	
+	// handle end of lecture feedback enable/disable button click
 	@RequestMapping(value = "/active/{lectureTitle}/feedback", method = RequestMethod.POST) 
 	public ModelAndView toggleFeedback(@PathVariable("lectureTitle") String lectureTitle, @RequestParam(defaultValue="Disable") String feedbackToggle) {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
@@ -138,6 +142,7 @@ public class ActiveLectureControllerLecturer {
 		return modelAndView;
 	}
 	
+	// handle answer question button click- update question with received answer
 	@RequestMapping(value = "/active/{lectureTitle}/{questionId}", method = RequestMethod.POST)
 	public ModelAndView answerQuestion(@PathVariable("lectureTitle") String lectureTitle, @PathVariable String questionId, @RequestParam String answer) {
 		QuestionDto questionDto = this.getQuestionAction.get(questionId); 
@@ -146,6 +151,7 @@ public class ActiveLectureControllerLecturer {
 		return getActiveLectureQuestionThreadPage(lectureTitle, questionId);
 	}
 	
+	// handle questions enable/disable button click
 	@RequestMapping(value = "/active/{lectureTitle}/questions", method = RequestMethod.POST) 
 	public ModelAndView toggleQuestions(@PathVariable("lectureTitle") String lectureTitle, @RequestParam(defaultValue="Disable") String questionsToggle) {
 		LectureDto lectureDto = this.getLectureAction.get(lectureTitle);
@@ -157,6 +163,7 @@ public class ActiveLectureControllerLecturer {
 		return getActiveLectureQuestionsPage(lectureTitle);
 	}
 	
+	// construct a map of moods, calculating totals for each emotion, ready to feed to MoodChart javascript
 	protected static Map<String, Integer> getMoodSummaryMap(MoodDtoList moodDtoList) {
 		Map<String, Integer> moodMap = new HashMap<String, Integer>();
 		for(EmotionDto emotionDto: EmotionDto.values()){
@@ -171,6 +178,7 @@ public class ActiveLectureControllerLecturer {
 		return moodMap;
 	}
 	
+	// calculate average rating from end of lecture feedback ratings
 	protected static double getLectureAverageRating(FeedbackDtoList feedbackDtoList) {
 		if(feedbackDtoList.getFeedbackDtoList().isEmpty()) {
 			return 0.0;

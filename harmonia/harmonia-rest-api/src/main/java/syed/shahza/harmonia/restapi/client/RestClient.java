@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
+// class that encapsulates RESTful requests to backend
 public class RestClient {
     private final RestOperations restOperations;
     private final String baseUrl;

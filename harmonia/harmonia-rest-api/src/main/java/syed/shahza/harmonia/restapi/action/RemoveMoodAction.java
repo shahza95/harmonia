@@ -5,6 +5,7 @@ import java.util.Map;
 
 import syed.shahza.harmonia.restapi.client.RestClient;
 
+//class encapsulating methods for removing mood through the backend RESTful endpoint
 public class RemoveMoodAction {
     private final RestClient restClient;
     private final static String URL_ENDPOINT = "/student/lecture/active/{lectureTitle}/mood/{emoji}";

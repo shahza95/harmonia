@@ -6,6 +6,7 @@ import syed.shahza.harmonia.backend.core.repository.QuestionRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2QuestionRepository;
 
+//data access layer, Question related requests, for any database implementation (currently set to the only option: H2)
 public class JpaQuestionRepository implements QuestionRepository {
 	private final H2QuestionRepository questionRepository;
 	private final H2LectureRepository lectureRepository;

@@ -15,6 +15,8 @@ import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.MoodRepository;
 import syed.shahza.harmonia.backend.core.repository.QuestionRepository;
 
+//entry point to core application where business logic occurs
+// methods handle calls done at rest controller (app-server-endpoint)
 public class LectureService {
 	private final LectureRepository lectureRepository;
 	private final CommentRepository commentRepository;

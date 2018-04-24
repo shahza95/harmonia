@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
+//Hibernate compatible (direct mapping to database) Lecture object
 @Entity(name = "LECTURE")
 @Table(name = "LECTURE")
 public class LectureEntity implements Serializable {

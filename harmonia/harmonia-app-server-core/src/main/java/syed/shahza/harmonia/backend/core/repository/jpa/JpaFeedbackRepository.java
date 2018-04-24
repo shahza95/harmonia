@@ -6,6 +6,7 @@ import syed.shahza.harmonia.backend.core.repository.FeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2FeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2LectureRepository;
 
+//data access layer, Feedback related requests, for any database implementation (currently set to the only option: H2)
 public class JpaFeedbackRepository implements FeedbackRepository {
 	private final H2FeedbackRepository feedbackRepository;
 	private final H2LectureRepository lectureRepository;

@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
-
+//Hibernate compatible (direct mapping to database) Feedback object
 @Entity(name = "FEEDBACK")
 @Table(name = "FEEDBACK")
 public class FeedbackEntity implements Serializable {

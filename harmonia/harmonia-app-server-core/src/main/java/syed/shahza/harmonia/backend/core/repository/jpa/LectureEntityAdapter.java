@@ -2,6 +2,7 @@ package syed.shahza.harmonia.backend.core.repository.jpa;
 
 import syed.shahza.harmonia.backend.core.domain.Lecture;
 
+//Lecture object: DAO / ENTITY adapter
 public class LectureEntityAdapter {
 
     public LectureEntity toEntity(Lecture lecture) {

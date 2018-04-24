@@ -16,6 +16,7 @@ import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.Question;
 import syed.shahza.harmonia.backend.core.domain.Questions;
 
+//data access layer, for lecture related requests, using java collections for storage
 public class JavaLectureRepository {
 	private List<Lecture> lectures = new ArrayList<>();
 	private List<Comment> comments = new ArrayList<>();

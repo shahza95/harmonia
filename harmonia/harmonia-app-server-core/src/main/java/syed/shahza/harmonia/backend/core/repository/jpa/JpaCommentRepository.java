@@ -6,6 +6,7 @@ import syed.shahza.harmonia.backend.core.repository.CommentRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2CommentRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2LectureRepository;
 
+//data access layer, Comment related requests, for any database implementation (currently set to the only option: H2)
 public class JpaCommentRepository implements CommentRepository {
 	private final H2CommentRepository commentRepository;
 	private final H2LectureRepository lectureRepository;

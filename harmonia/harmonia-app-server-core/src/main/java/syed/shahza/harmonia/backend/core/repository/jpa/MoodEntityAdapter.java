@@ -6,6 +6,7 @@ import java.util.List;
 import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
 
+//Mood object: DAO / ENTITY adapter
 public class MoodEntityAdapter {
 	private final LectureEntityAdapter lectureAdapter;
 

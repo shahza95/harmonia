@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.backend.core.domain;
 
+//POJO for Comment object to use for business logic
 public class Comment {
     private String message;
     private Lecture lecture;

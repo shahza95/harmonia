@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.backend.core.domain;
 
+//POJO for Lecturer object to use for business logic
 public class Lecturer {
     private final String username;
     private final String password;

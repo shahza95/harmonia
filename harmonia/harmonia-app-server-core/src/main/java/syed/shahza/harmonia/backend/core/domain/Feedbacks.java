@@ -3,6 +3,7 @@ package syed.shahza.harmonia.backend.core.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+//Custom high level object of multiple Feedback DAOs
 public class Feedbacks {
     private List<Feedback> feedbackList;
 

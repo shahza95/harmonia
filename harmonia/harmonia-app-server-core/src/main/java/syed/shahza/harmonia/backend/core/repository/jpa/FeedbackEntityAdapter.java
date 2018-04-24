@@ -6,6 +6,7 @@ import java.util.List;
 import syed.shahza.harmonia.backend.core.domain.Feedback;
 import syed.shahza.harmonia.backend.core.domain.Feedbacks;
 
+//Feedback object: DAO / ENTITY adapter
 public class FeedbackEntityAdapter {
 	private final LectureEntityAdapter lectureAdapter;
 

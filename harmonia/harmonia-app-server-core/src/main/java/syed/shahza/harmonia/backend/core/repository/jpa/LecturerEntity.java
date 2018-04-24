@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//Hibernate compatible (direct mapping to database) Lecturer object
 @Entity(name = "LECTURER")
 @Table(name = "LECTURER")
 public class LecturerEntity implements Serializable {

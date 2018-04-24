@@ -3,6 +3,7 @@ package syed.shahza.harmonia.restapi.action;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.restapi.client.RestClient;
 
+//class encapsulating methods for sending mood through the backend RESTful endpoint
 public class SendMoodAction {
     private final RestClient restClient;
     private final static String URL_ENDPOINT = "/student/lecture/active/mood";

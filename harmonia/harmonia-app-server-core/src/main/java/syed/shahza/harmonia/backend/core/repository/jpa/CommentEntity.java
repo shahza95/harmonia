@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
+//Hibernate compatible (direct mapping to database) Comment object
 @Entity(name = "COMMENT")
 @Table(name = "COMMENT")
 public class CommentEntity implements Serializable {

@@ -12,7 +12,7 @@ import syed.shahza.harmonia.backend.core.domain.Questions;
 import syed.shahza.harmonia.backend.dto.QuestionDto;
 import syed.shahza.harmonia.backend.dto.QuestionDtoList;
 
-
+// Question object: DTO / DAO adapter
 public class QuestionAdapter {
 	private final LectureAdapter lectureAdapter;
 	
@@ -28,6 +28,8 @@ public class QuestionAdapter {
     	return aQuestion().id(questionDto.getId()).question(questionDto.getQuestion()).answer(questionDto.getAnswer()).lecture(this.lectureAdapter.toDomain(questionDto.getLectureDto())).build();
     }
     
+    // convert custom collection of questions
+    
     public QuestionDtoList toDto(Questions questions) {
     	QuestionDtoList questionDtoList = new QuestionDtoList();
     	for(Question question: questions.getQuestionList()) {
@@ -35,7 +37,7 @@ public class QuestionAdapter {
     	}
     	return questionDtoList;
     }
-    
+
     public Questions toDomain(QuestionDtoList questionDtoList) {
     	List<Question> questionList = new ArrayList<Question>();
     	for(QuestionDto questionDto: questionDtoList.getQuestionDtoList()) {

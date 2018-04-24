@@ -6,6 +6,7 @@ import syed.shahza.harmonia.backend.core.repository.MoodRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2MoodRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2LectureRepository;
 
+//data access layer, Mood related requests, for any database implementation (currently set to the only option: H2)
 public class JpaMoodRepository implements MoodRepository {
 	private final H2MoodRepository moodRepository;
 	private final H2LectureRepository lectureRepository;

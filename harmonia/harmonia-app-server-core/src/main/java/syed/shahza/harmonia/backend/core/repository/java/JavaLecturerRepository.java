@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import syed.shahza.harmonia.backend.core.domain.Lecturer;
 import syed.shahza.harmonia.backend.core.repository.LecturerRepository;
 
+// data access layer, for lecturer related requests, using java collections for storage
 public class JavaLecturerRepository implements LecturerRepository {
 	private ArrayList<Lecturer> lecturers = new ArrayList<Lecturer>();
 	

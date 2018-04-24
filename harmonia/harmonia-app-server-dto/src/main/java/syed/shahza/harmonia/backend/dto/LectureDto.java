@@ -3,6 +3,7 @@ package syed.shahza.harmonia.backend.dto;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
+//POJO for transferable (serializable) Lecture object
 public class LectureDto {
     private String title;
     private String password;

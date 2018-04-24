@@ -3,6 +3,7 @@ package syed.shahza.harmonia.restapi.action;
 import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.restapi.client.RestClient;
 
+//class encapsulating methods for adding a comment through the backend RESTful endpoint
 public class AddCommentAction {
     private final RestClient restClient;
     private final static String URL_ENDPOINT = "/student/lecture/active/comments/add";

@@ -6,6 +6,7 @@ import java.util.List;
 import syed.shahza.harmonia.backend.core.domain.Comment;
 import syed.shahza.harmonia.backend.core.domain.Comments;
 
+//Comment object: DAO / ENTITY adapter
 public class CommentEntityAdapter {
 	private final LectureEntityAdapter lectureAdapter;
 

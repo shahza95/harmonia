@@ -11,8 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
-
+//Hibernate compatible (direct mapping to database) Question object
 @Entity(name = "QUESTION")
 @Table(name = "QUESTION")
 public class QuestionEntity implements Serializable {

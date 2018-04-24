@@ -1,3 +1,4 @@
+// as soon as page loads, poll for new questions
 $(document).ready(updateQuestions);
 var urls = {};
 

@@ -6,7 +6,7 @@ import static syed.shahza.harmonia.backend.core.domain.Lecturer.aLecturer;
 import syed.shahza.harmonia.backend.core.domain.Lecturer;
 import syed.shahza.harmonia.backend.dto.LecturerDto;
 
-
+//Lecturer object: DTO / DAO adapter
 public class LecturerAdapter {
 
     public LecturerDto toDto(Lecturer lecturer) {

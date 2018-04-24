@@ -3,6 +3,7 @@ package syed.shahza.harmonia.backend.core.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+//Custom high level object of multiple Comment DAOs
 public class Comments {
     private List<Comment> commentList;
 

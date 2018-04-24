@@ -12,7 +12,7 @@ import syed.shahza.harmonia.backend.core.domain.Feedbacks;
 import syed.shahza.harmonia.backend.dto.FeedbackDto;
 import syed.shahza.harmonia.backend.dto.FeedbackDtoList;
 
-
+//Feedback object: DTO / DAO adapter
 public class FeedbackAdapter {
 	private final LectureAdapter lectureAdapter;
 	
@@ -27,6 +27,8 @@ public class FeedbackAdapter {
     public Feedback toDomain(FeedbackDto feedbackDto) {
     	return aFeedback().lecture(this.lectureAdapter.toDomain(feedbackDto.getLectureDto())).rating(feedbackDto.getRating()).message(feedbackDto.getMessage()).build();
     }
+    
+    // convert custom collection of moods
     
     public FeedbackDtoList toDto(Feedbacks feedbacks) {
     	FeedbackDtoList feedbackDtoList = new FeedbackDtoList();

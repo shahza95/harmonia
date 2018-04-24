@@ -2,6 +2,7 @@ package syed.shahza.harmonia.backend.dto;
 
 import java.util.UUID;
 
+// POJO for transferable (serializable) Question object
 public class QuestionDto {
 	private String id = UUID.randomUUID().toString();
 	private LectureDto lectureDto;

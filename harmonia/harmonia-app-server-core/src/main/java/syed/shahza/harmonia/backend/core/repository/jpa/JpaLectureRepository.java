@@ -4,6 +4,7 @@ import syed.shahza.harmonia.backend.core.domain.Lecture;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
 import syed.shahza.harmonia.backend.core.repository.jpa.h2.H2LectureRepository;
 
+//data access layer, Lecture related requests, for any database implementation (currently set to the only option: H2)
 public class JpaLectureRepository implements LectureRepository {
 	private final H2LectureRepository lectureRepository;
 	private final LectureEntityAdapter lectureEntityAdapter;

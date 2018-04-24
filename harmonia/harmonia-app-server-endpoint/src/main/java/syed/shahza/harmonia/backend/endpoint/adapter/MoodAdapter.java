@@ -14,7 +14,7 @@ import syed.shahza.harmonia.backend.dto.EmotionDto;
 import syed.shahza.harmonia.backend.dto.MoodDto;
 import syed.shahza.harmonia.backend.dto.MoodDtoList;
 
-
+//Mood object: DTO / DAO adapter
 public class MoodAdapter {
 	private final LectureAdapter lectureAdapter;
 	
@@ -30,6 +30,8 @@ public class MoodAdapter {
     	return aMood().emoji(moodDto.getEmoji()).emotion(Emotion.valueOf(moodDto.getEmotionDto().name())).lecture(this.lectureAdapter.toDomain(moodDto.getLectureDto())).build();
     }
     
+    // convert custom collection of moods
+      
     public MoodDtoList toDto(Moods moods) {
     	MoodDtoList moodDtoList = new MoodDtoList();
     	for(Mood mood: moods.getMoodList()) {

@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import syed.shahza.harmonia.backend.core.domain.Emotion;
 
 
-
+//Hibernate compatible (direct mapping to database) Mood object
 @Entity(name = "MOOD")
 @Table(name = "MOOD")
 public class MoodEntity implements Serializable {

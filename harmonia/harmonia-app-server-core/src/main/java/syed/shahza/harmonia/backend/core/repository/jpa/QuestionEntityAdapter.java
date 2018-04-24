@@ -6,6 +6,7 @@ import java.util.List;
 import syed.shahza.harmonia.backend.core.domain.Question;
 import syed.shahza.harmonia.backend.core.domain.Questions;
 
+//Question object: DAO / ENTITY adapter
 public class QuestionEntityAdapter {
 	private final LectureEntityAdapter lectureAdapter;
 
@@ -33,6 +34,7 @@ public class QuestionEntityAdapter {
 		return questionBuilder.build();
 	}
 
+	// convert high level object (multiple questions)
 	public Questions toDomain(List<QuestionEntity> questionEntities) {
 		List<Question> questionList = new ArrayList<Question>();
 		for (QuestionEntity questionEntity : questionEntities) {

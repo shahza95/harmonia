@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
+// main class to run in order to start automated end to end tests
 @RunWith(Cucumber.class)
 @CucumberOptions(glue = "syed.shahza.harmonia.endtoend.test.step", features = "classpath:features")
 public class RunEndToEndTests {

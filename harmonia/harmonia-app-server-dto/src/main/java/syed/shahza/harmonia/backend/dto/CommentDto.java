@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.backend.dto;
 
+//POJO for transferable (serializable) Comment object
 public class CommentDto {
 	private LectureDto lectureDto;
     private String message;

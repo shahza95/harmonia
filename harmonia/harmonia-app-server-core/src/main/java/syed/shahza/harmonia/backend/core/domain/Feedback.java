@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.backend.core.domain;
 
+//POJO for Feedback object to use for business logic
 public class Feedback {
     private Lecture lecture;
     private int rating;

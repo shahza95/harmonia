@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.backend.core.domain;
 
+// Enumerator for possible emotions
 public enum Emotion {
-	HAPPY, SAD, CONFUSED
+	CONFUSED, FRUSTRATED, ANXIOUS, CONTEMPT, EUREKA, CURIOUS
 }

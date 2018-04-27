@@ -1,6 +1,6 @@
 package syed.shahza.harmonia.backend.core.domain;
 
-
+//POJO for Question object to use for business logic
 public class Question {
 	private String id;
 	private String question;

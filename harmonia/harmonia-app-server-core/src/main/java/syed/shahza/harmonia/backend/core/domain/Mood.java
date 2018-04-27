@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.backend.core.domain;
 
+//POJO for Mood object to use for business logic
 public class Mood {
     private String emoji;
     private Emotion emotion;

@@ -9,13 +9,27 @@ import syed.shahza.harmonia.backend.core.domain.Mood;
 import syed.shahza.harmonia.backend.core.domain.Moods;
 import syed.shahza.harmonia.backend.core.domain.Question;
 import syed.shahza.harmonia.backend.core.domain.Questions;
+import syed.shahza.harmonia.backend.core.repository.CommentRepository;
+import syed.shahza.harmonia.backend.core.repository.FeedbackRepository;
 import syed.shahza.harmonia.backend.core.repository.LectureRepository;
+import syed.shahza.harmonia.backend.core.repository.MoodRepository;
+import syed.shahza.harmonia.backend.core.repository.QuestionRepository;
 
+//entry point to core application where business logic occurs
+// methods handle calls done at rest controller (app-server-endpoint)
 public class LectureService {
 	private final LectureRepository lectureRepository;
+	private final CommentRepository commentRepository;
+	private final MoodRepository moodRepository;
+	private final FeedbackRepository feedbackRepository;
+	private final QuestionRepository questionRepository;
 	
-	public LectureService(LectureRepository lectureRepository) {
+	public LectureService(LectureRepository lectureRepository, CommentRepository commentRepository, MoodRepository moodRepository, FeedbackRepository feedbackRepository, QuestionRepository questionRepository) {
 		this.lectureRepository = lectureRepository;
+		this.commentRepository = commentRepository;
+		this.moodRepository = moodRepository;
+		this.feedbackRepository = feedbackRepository;
+		this.questionRepository = questionRepository;
 	}
 
 	public Lecture create(Lecture lecture) {
@@ -31,50 +45,50 @@ public class LectureService {
 	}
 	
 	public Comments getAllComments(String lectureTitle) {
-		return this.lectureRepository.getAllComments(lectureTitle);
+		return this.commentRepository.getAllComments(lectureTitle);
 	}
 	
 	public Comment addComment(Comment comment) {
-		return this.lectureRepository.addComment(comment);
+		return this.commentRepository.addComment(comment);
 	}
 	
 	public Mood addMood(Mood mood) {
-		return this.lectureRepository.addMood(mood);
+		return this.moodRepository.addMood(mood);
 	}
 	
 	public Moods getAllMoods(String lectureTitle) {
-		return this.lectureRepository.getAllMoods(lectureTitle);
+		return this.moodRepository.getAllMoods(lectureTitle);
 	}
 	
 	public void removeMood(String lectureTitle, String emoji) {
-		this.lectureRepository.removeMood(lectureTitle, emoji);
+		this.moodRepository.removeMood(lectureTitle, emoji);
 	}
 	
 	public void update(Lecture lecture) {
-		this.lectureRepository.update(lecture);
+		this.lectureRepository.update(lecture);	
 	}
 	
 	public Feedback addFeedback(Feedback feedback) {
-		return this.lectureRepository.addFeedback(feedback);
+		return this.feedbackRepository.addFeedback(feedback);
 	}
 	
 	public Feedbacks getAllFeedback(String lectureTitle) {
-		return this.lectureRepository.getAllFeedback(lectureTitle);
+		return this.feedbackRepository.getAllFeedback(lectureTitle);
 	}
 	
 	public Question addQuestion(Question question) {
-		return this.lectureRepository.addQuestion(question);
+		return this.questionRepository.addQuestion(question);
 	}
 	
 	public Questions getAllQuestions(String lectureTitle) {
-		return this.lectureRepository.getAllQuestions(lectureTitle);
+		return this.questionRepository.getAllQuestions(lectureTitle);
 	}
 	
 	public Question getQuestion(String id) {
-		return this.lectureRepository.getQuestion(id);
+		return this.questionRepository.getQuestion(id);
 	}
 	
 	public void updateQuestion(Question question) {
-		this.lectureRepository.updateQuestion(question);
+		this.questionRepository.updateQuestion(question);
 	}
 }

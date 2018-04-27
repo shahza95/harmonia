@@ -16,6 +16,7 @@ import syed.shahza.harmonia.backend.endpoint.adapter.LectureAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.MoodAdapter;
 import syed.shahza.harmonia.backend.endpoint.adapter.QuestionAdapter;
 
+//backend server shared/general lecture RESTful endpoints
 @RestController
 @RequestMapping("/lecture")
 public class LectureController {

@@ -3,6 +3,7 @@ package syed.shahza.harmonia.backend.core.domain;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
+//POJO for Lecture object to use for business logic
 public class Lecture {
     private String title;
     private String password;

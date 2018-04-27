@@ -22,6 +22,7 @@ public class LoginController {
 		return new ModelAndView("lecturer/login");
 	}
 
+	// handle lecturer login attempt, if authorised redirect to lecture creation screen
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView login(LecturerDto lecturerDto) {
 		if (loginAction.login(lecturerDto)) {

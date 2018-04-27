@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static syed.shahza.harmonia.backend.dto.TestLectureDto.anActiveLectureDto;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -30,7 +31,7 @@ public class LectureCreationStepDefs {
     
     @When("^I create a lecture starting now")
     public void whenIEnterMyCredentialsAndPressTheLoginButton() {
-        Result result = this.lectureService.create(anActiveLectureDto().build());
+        Result result = this.lectureService.create(anActiveLectureDto().title(RandomStringUtils.randomAlphabetic(10)).password(RandomStringUtils.randomAlphabetic(10)).build());
         this.executionContext.addResult(Action.CREATE, result);
     }
 

@@ -12,7 +12,7 @@ import syed.shahza.harmonia.backend.core.domain.Comments;
 import syed.shahza.harmonia.backend.dto.CommentDto;
 import syed.shahza.harmonia.backend.dto.CommentDtoList;
 
-
+//Comment object: DTO / DAO adapter
 public class CommentAdapter {
 	private final LectureAdapter lectureAdapter;
 	
@@ -27,6 +27,8 @@ public class CommentAdapter {
     public Comment toDomain(CommentDto commentDto) {
     	return aComment().message(commentDto.getMessage()).lecture(this.lectureAdapter.toDomain(commentDto.getLectureDto())).build();
     }
+    
+    // convert custom collection of moods
     
     public CommentDtoList toDto(Comments comments) {
     	CommentDtoList commentDtoList = new CommentDtoList();

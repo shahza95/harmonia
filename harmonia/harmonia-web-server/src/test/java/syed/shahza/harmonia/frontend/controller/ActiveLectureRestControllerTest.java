@@ -78,10 +78,12 @@ public class ActiveLectureRestControllerTest {
     	int numberOfSameMood = 2;
     	when(this.mockGetAllMoodsAction.getAll(lectureTitle)).thenReturn(TestMoodDtoList.aFilledMoodDtoList(numberOfSameMood));
     	Map<String, Integer> moodMap = new HashMap<String, Integer>();
-    	moodMap.put("HAPPY", numberOfSameMood);
-    	moodMap.put("SAD", 0);
     	moodMap.put("CONFUSED", 0);
-    	
+    	moodMap.put("ANXIOUS", numberOfSameMood);
+    	moodMap.put("CURIOUS", 0);
+    	moodMap.put("FRUSTRATED", 0);
+    	moodMap.put("CONTEMPT", 0);
+    	moodMap.put("EUREKA", 0);
     	assertThat(this.lectureController.getMoodSummary(this.lectureTitle), is(moodMap));
     }
     

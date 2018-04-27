@@ -17,6 +17,8 @@ import syed.shahza.harmonia.restapi.action.GetAllMoodsAction;
 import syed.shahza.harmonia.restapi.action.GetAllQuestionsAction;
 import syed.shahza.harmonia.restapi.action.GetLectureAction;
 
+// frontend rest endpoints- exposing json format results from backend
+// main use is for retrieving any data that needs continual upating i.e. comments, mood & questions
 @RestController
 @RequestMapping("**/lecture")
 public class ActiveLectureRestController {

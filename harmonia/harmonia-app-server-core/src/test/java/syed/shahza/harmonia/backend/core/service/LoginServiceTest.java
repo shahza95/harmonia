@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import syed.shahza.harmonia.backend.core.domain.Lecturer;
-import syed.shahza.harmonia.backend.core.repository.LecturerRepository;
+import syed.shahza.harmonia.backend.core.repository.java.JavaLecturerRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoginServiceTest {
@@ -21,7 +21,7 @@ public class LoginServiceTest {
 	private Lecturer lecturer;
 	
 	@Mock
-	private LecturerRepository mockLecturerRepository;
+	private JavaLecturerRepository mockLecturerRepository;
 	
 	@Before
 	public void before() {
@@ -32,19 +32,19 @@ public class LoginServiceTest {
     @Test
     public void loginInvokesLecturerRepository() {
     	loginService.login(lecturer);
-    	verify(this.mockLecturerRepository).authorised(lecturer);
+    	verify(this.mockLecturerRepository).isAuthenticated(lecturer);
     }
 	
     @Test
     public void loginReturnsTrueIfRepositoryReturnsTrue() {
-        when(this.mockLecturerRepository.authorised(lecturer)).thenReturn(true);
+        when(this.mockLecturerRepository.isAuthenticated(lecturer)).thenReturn(true);
 
         assertThat(loginService.login(lecturer), is(true));
     }
     
     @Test
     public void loginReturnsFalseIfRepositoryReturnsFalse() {
-    	when(this.mockLecturerRepository.authorised(lecturer)).thenReturn(false);
+    	when(this.mockLecturerRepository.isAuthenticated(lecturer)).thenReturn(false);
 
         assertThat(loginService.login(lecturer), is(false));
     }

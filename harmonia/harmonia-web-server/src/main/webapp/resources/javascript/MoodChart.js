@@ -1,30 +1,41 @@
+// uses Chart.js
+// render chart as soon as page loads
 $(document).ready(renderChart);
 
 var urls = {};
-var happy = 0;
-var sad = 0;
 var confused = 0;
+var anxious = 0;
+var frustrated = 0;
+var curious = 0;
+var contempt = 0;
+var eureka = 0;
 
 function setGetUrl(getUrl) {
     urls.getUrl = getUrl;
 }
 
 function setMoods(map) {
-	happy = map.HAPPY;
-	sad = map.SAD;
 	confused = map.CONFUSED;
+	anxious = map.ANXIOUS;
+	frustrated = map.FRUSTRATED;
+	curious = map.CURIOUS;
+	contempt = map.CONTEMPT;
+	eureka = map.EUREKA;
 }
 
 function renderChart() {
   	var data = {
     	labels: [
-	        'Happy \uD83D\uDE42',
-	        'Sad \uD83D\uDE41',
-	        'Confused \uD83D\uDE15'
+	        'Confused \uD83D\uDE15',
+	        'Anxious \uD83D\uDE30',
+	        'Frustrated \uD83D\uDE23',
+	        'Curious \uD83E\uDD14',
+	        'Contempt \uD83D\uDE42',
+	        'Eureka \uD83E\uDD29'
 	    ],
 	    datasets: [{
-	        data: [happy, sad, confused],
-          	backgroundColor: ['rgb(200, 120, 50)', 'rgb(0, 80, 150)', 'rgb(140, 100, 200)'],
+	        data: [confused, anxious, frustrated, curious, contempt, eureka],
+          	backgroundColor: ['rgb(153, 102, 255)', 'rgb(0, 102, 255)', 'rgb(255, 51, 0)', 'rgb(255, 153, 0)', 'rgb(51, 204, 51)', 'rgb(255, 255, 0)'],
           	hoverBorderColor: ['rgb(0,0,0)', 'rgb(0,0,0)', 'rgb(0,0,0)']
 	    }]
 	};
@@ -42,14 +53,16 @@ function renderChart() {
 	    options: options
 	});
 	
+	// after initial rendering done, go into update loop
 	updateChart(myPieChart);
 }
 
+// poll every 5s for mood data changes & update chart
 function updateChart(myPieChart) {
 	setInterval(function(){
 			$.getJSON(urls.getUrl, function(data) {
 				setMoods(data);
-				myPieChart.data.datasets[0].data = [happy, sad, confused];
+				myPieChart.data.datasets[0].data = [confused, anxious, frustrated, curious, contempt, eureka];
 				myPieChart.update();
 			});
 	}, 5000);

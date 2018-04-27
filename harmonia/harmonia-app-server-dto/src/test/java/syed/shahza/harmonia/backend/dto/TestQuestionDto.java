@@ -10,4 +10,8 @@ public class TestQuestionDto {
     public static Builder aValidQuestionDto() {
         return aQuestionDto().id(UUID.randomUUID().toString()).question("Some question here?").answer("Some answer here.").lectureDto(TestLectureDto.aValidLectureDto().build());
     }
+    
+    public static Builder aValidQuestionNoAnswerDto() {
+    	return aQuestionDto().id(UUID.randomUUID().toString()).question("Some question here?").lectureDto(TestLectureDto.aValidLectureDto().build());
+    }
 }

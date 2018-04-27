@@ -25,7 +25,7 @@ public class MoodDtoTest {
 	
 	@Test
 	public void canRetrieveCorrectEmotionDtoOnceSet() {
-		EmotionDto emotionDto = EmotionDto.HAPPY;
+		EmotionDto emotionDto = EmotionDto.CONFUSED;
 		moodDto.setEmotionDto(emotionDto);
 		
 		assertThat(moodDto.getEmotionDto(), is(emotionDto));

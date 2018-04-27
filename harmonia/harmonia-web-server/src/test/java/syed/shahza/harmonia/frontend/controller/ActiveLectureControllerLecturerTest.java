@@ -101,7 +101,6 @@ public class ActiveLectureControllerLecturerTest {
         
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLecture() {
-    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
     	assertThat(this.lectureController.getActiveLecturePage(lectureDto.getTitle()).getViewName(), is("lecturer/activeLecture"));
     }
     
@@ -127,7 +126,6 @@ public class ActiveLectureControllerLecturerTest {
     
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureMood() {
-    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
     	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getViewName(), is("lecturer/activeLectureMood"));
     }
     
@@ -139,10 +137,12 @@ public class ActiveLectureControllerLecturerTest {
     @Test
     public void getActiveLectureMoodSendsCorrectMoodMapAsModel() {
     	Map<String, Integer> moodMap = new HashMap<String, Integer>();
-    	moodMap.put("HAPPY", numberOfSameMood);
-    	moodMap.put("SAD", 0);
     	moodMap.put("CONFUSED", 0);
-    	
+    	moodMap.put("ANXIOUS", numberOfSameMood);
+    	moodMap.put("CURIOUS", 0);
+    	moodMap.put("FRUSTRATED", 0);
+    	moodMap.put("CONTEMPT", 0);
+    	moodMap.put("EUREKA", 0);
     	assertThat(this.lectureController.getActiveLectureMoodPage(lectureDto.getTitle()).getModel().get("moodMap"), is(moodMap));
     }
 
@@ -189,13 +189,11 @@ public class ActiveLectureControllerLecturerTest {
         
     @Test
     public void endLectureRedirectsToFeedbackPage() {
-    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
     	assertThat(this.lectureController.endLecture(lectureDto.getTitle()).getViewName(), is("redirect:/lecturer/lecture/active/" + this.lectureDto.getTitle() + "/feedback"));
     }
     
     @Test
     public void controllerServesUpCorrectThymeleafPageOnGetForActiveLectureFeedback() {
-    	LectureDto lectureDto = TestLectureDto.aValidLectureDto().build();
     	assertThat(this.lectureController.getActiveLectureFeedbackPage(lectureDto.getTitle()).getViewName(), is("lecturer/activeLectureFeedback"));
     }
     

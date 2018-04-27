@@ -1,3 +1,4 @@
+// as soon as page loads, poll for new comments
 $(document).ready(updateComments);
 var urls = {};
 

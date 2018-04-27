@@ -1,5 +1,6 @@
 package syed.shahza.harmonia.backend.dto;
 
+//POJO for transferable (serializable) Lecturer object
 public class LecturerDto {
     private String username;
     private String password;

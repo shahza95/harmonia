@@ -9,6 +9,7 @@ import syed.shahza.harmonia.backend.core.service.LoginService;
 import syed.shahza.harmonia.backend.dto.LecturerDto;
 import syed.shahza.harmonia.backend.endpoint.adapter.LecturerAdapter;
 
+// backend server login RESTful endpoint
 @RestController
 @RequestMapping("/lecturer/login")
 public class LoginController {
@@ -20,6 +21,7 @@ public class LoginController {
         this.lecturerAdapter = lecturerAdapter;
     }
 
+    // handle lecturer login attempt, return true for success, false for failure to login i.e. authentication failed
     @RequestMapping(method = RequestMethod.POST)
     public Boolean login(@RequestBody LecturerDto lecturerDto) {
         return this.loginService.login(this.lecturerAdapter.toDomain(lecturerDto));
